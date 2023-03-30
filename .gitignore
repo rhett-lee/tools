@@ -30,3 +30,13 @@
 *.exe
 *.out
 *.app
+
+# Visual Studio temp files
+*.user
+*.aps
+
+
+/RLBase/.vs
+/charset-convert/.vs
+/RLBase/build_temp
+/RLBase/libs
