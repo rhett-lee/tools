@@ -30,12 +30,18 @@
     <ClInclude Include="base\RLUnicodeConvert.h">
       <Filter>Header Files\base</Filter>
     </ClInclude>
+    <ClInclude Include="base\RLStringUtils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base\RLCharsetString.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
     <ClCompile Include="base\RLUnicodeConvert.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\RLStringUtils.cpp">
       <Filter>Source Files\base</Filter>
     </ClCompile>
   </ItemGroup>
