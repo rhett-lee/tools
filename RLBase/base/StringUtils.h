@@ -1,5 +1,5 @@
-#ifndef __RLStringUtils_h_
-#define __RLStringUtils_h_ 1
+#ifndef __RL_StringUtils_h_
+#define __RL_StringUtils_h_ 1
 
 #include <string>
 #include <stdarg.h>
@@ -9,7 +9,7 @@ namespace RL
 
 /** ×Ö·û´®×ª»»¸¨ÖúÀà
 */
-class RLStringUtils
+class StringUtils
 {
 public:
     /** È¥³ý×ó²àÖ¸¶¨×Ö·û
@@ -295,4 +295,4 @@ private:
 
 }//namespace RL
 
-#endif //__RLStringUtils_h_
+#endif //__RL_StringUtils_h_

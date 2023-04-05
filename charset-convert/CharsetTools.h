@@ -1,18 +1,19 @@
 #pragma once
 
-#include "base/RLCharsetString.h"
+#include "base/StringCharset.h"
 #include <string>
 #include <thread>
 
 struct TCharsetToolsParam
 {
+	bool isCheckMode = true; //检测模式，不进行实际转换
 	bool isDirChecked = true;
 	std::wstring fileName;
 	std::wstring filePath;
 	std::wstring fileExt;
 
-	RL::RLCharsetType srcFileCharset = RL::RLCharsetType::UNKNOWN;
-	RL::RLCharsetType destFileCharset = RL::RLCharsetType::UNKNOWN;
+	RL::CharsetType srcFileCharset = RL::CharsetType::UNKNOWN;
+	RL::CharsetType destFileCharset = RL::CharsetType::UNKNOWN;
 	bool destFileWriteBOM = false;
 };
 
@@ -20,23 +21,22 @@ struct TCharsetToolsParam
 struct TProgressData
 {
 	//是否为检测模式：true为检测模式，false为转换模式
-	bool isCheckedMode = true;
+	bool isCheckMode = true;
 	//文件总数
 	uint32_t totalFiles = 0;
 	//当前文件索引值，从0开始
 	uint32_t currentFileIndex = 0;
 	//当前文件路径
-	const std::wstring fileName;
+	std::wstring fileName;
 	//当前文件编码
-	RL::RLCharsetType srcFileCharset = RL::RLCharsetType::UNKNOWN;
+	RL::CharsetType srcFileCharset = RL::CharsetType::UNKNOWN;
 	//目标文件编码
-	RL::RLCharsetType destFileCharset = RL::RLCharsetType::UNKNOWN;
+	RL::CharsetType destFileCharset = RL::CharsetType::UNKNOWN;
 	//操作结果: 0 转换模式：转换成功，
 	//         1 检测模式：成功，无操作
-	//         10 源文件编码检测失败
-	//         11 源文件读取失败
-	//         12 目标文件写入失败
-	uint32_t result = 0;
+	//         10 读取源文件失败
+	//         20 写入目标文件失败
+	uint32_t result = 1;
 };
 
 class CharsetToolsCallback
@@ -68,7 +68,7 @@ public:
 	static std::wstring GetCharsetMsg(const TProgressData& progressData);
 
 	//获取编码显示信息
-	static std::wstring GetCharsetTypeMsg(RL::RLCharsetType charsetType);
+	static std::wstring GetCharsetTypeMsg(RL::CharsetType charsetType);
 
 private:
 	void RunConvertThread();

@@ -19,30 +19,60 @@
     <Filter Include="Header Files\base">
       <UniqueIdentifier>{3e837fe2-b49c-43a7-b2dc-29f7a84c29f0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\filesystem">
+      <UniqueIdentifier>{f80e5923-924e-4da5-b6dd-055ebaba0c1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\filesystem">
+      <UniqueIdentifier>{4a88ce37-9528-4417-8ca7-08e3774dfbbd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base\RLWindowsDefs.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="base\RLCharsetString.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="base\RLUnicodeConvert.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
-    <ClInclude Include="base\RLStringUtils.h">
-      <Filter>Header Files\base</Filter>
-    </ClInclude>
+    <ClCompile Include="base\StringToken.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\StringUtils.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="base\UnicodeConvert.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem\FileTimeUtils.cpp">
+      <Filter>Source Files\filesystem</Filter>
+    </ClCompile>
+    <ClCompile Include="base\StringCharset.cpp">
+      <Filter>Source Files\base</Filter>
+    </ClCompile>
+    <ClCompile Include="filesystem\TextFile.cpp">
+      <Filter>Source Files\filesystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="base\RLCharsetString.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="base\RLUnicodeConvert.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
-    <ClCompile Include="base\RLStringUtils.cpp">
-      <Filter>Source Files\base</Filter>
-    </ClCompile>
+    <ClInclude Include="base\NonCopyable.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\StringToken.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\StringUtils.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\UnicodeConvert.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="base\WindowsDefs.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\FileTime.h">
+      <Filter>Header Files\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\FileTimeUtils.h">
+      <Filter>Header Files\filesystem</Filter>
+    </ClInclude>
+    <ClInclude Include="base\StringCharset.h">
+      <Filter>Header Files\base</Filter>
+    </ClInclude>
+    <ClInclude Include="filesystem\TextFile.h">
+      <Filter>Header Files\filesystem</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

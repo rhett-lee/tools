@@ -40,3 +40,9 @@
 /charset-convert/.vs
 /RLBase/build_temp
 /RLBase/libs
+/Test/packages
+/Test/build_temp
+/Test/Win32
+/charset-convert/build_temp
+/charset-convert/Win32
+/Test/.vs

@@ -6,7 +6,7 @@
 #include "framework.h"
 #include "charset-convert.h"
 #include "charset-convertDlg.h"
-#include "base/RLStringUtils.h"
+#include "base/StringUtils.h"
 
 #include "afxdialogex.h"
 #include <string>
@@ -335,36 +335,37 @@ void CcharsetconvertDlg::OnBnClickedButton(bool isCheckMode)
 
 	destFileWriteBOM = ((CButton*)GetDlgItem(IDC_CHECK_BOM))->GetCheck() != FALSE;
 
-	RL::RLCharsetType srcCharset = RL::RLCharsetType::UNKNOWN;
-	RL::RLCharsetType destCharset = RL::RLCharsetType::UNKNOWN;
+	RL::CharsetType srcCharset = RL::CharsetType::UNKNOWN;
+	RL::CharsetType destCharset = RL::CharsetType::UNKNOWN;
 	if (srcFileCharset == CHARSET_ANSI)
 	{
-		srcCharset = RL::RLCharsetType::ANSI;
+		srcCharset = RL::CharsetType::ANSI;
 	}
 	else if(srcFileCharset == CHARSET_UTF8)
 	{
-		srcCharset = RL::RLCharsetType::UNICODE_UTF8;
+		srcCharset = RL::CharsetType::UTF8;
 	}
 	else if (srcFileCharset == CHARSET_UNICODE)
 	{
-		srcCharset = RL::RLCharsetType::UNICODE_UTF16;
+		srcCharset = RL::CharsetType::UTF16_LE;
 	}
 
 	if (destFileCharset == CHARSET_ANSI)
 	{
-		destCharset = RL::RLCharsetType::ANSI;
+		destCharset = RL::CharsetType::ANSI;
 	}
 	else if (destFileCharset == CHARSET_UTF8)
 	{
-		destCharset = RL::RLCharsetType::UNICODE_UTF8;
+		destCharset = RL::CharsetType::UTF8;
 	}
 	else if (destFileCharset == CHARSET_UNICODE)
 	{
-		destCharset = RL::RLCharsetType::UNICODE_UTF16;
+		destCharset = RL::CharsetType::UTF16_LE;
 	}
 
 	//开始转换
 	TCharsetToolsParam convertParam;
+	convertParam.isCheckMode = isCheckMode;
 	convertParam.isDirChecked = isDirChecked;
 	convertParam.fileName = fileName;
 	convertParam.filePath = filePath;
@@ -395,9 +396,9 @@ bool CcharsetconvertDlg::CheckInput(bool& isDirChecked, std::wstring& fileName, 
 	((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->GetWindowText(buffer, MAX_PATH - 1);
 	fileExt = buffer;
 
-	RL::RLStringUtils::Trim(fileName);
-	RL::RLStringUtils::Trim(filePath);
-	RL::RLStringUtils::Trim(fileExt);
+	RL::StringUtils::Trim(fileName);
+	RL::StringUtils::Trim(filePath);
+	RL::StringUtils::Trim(fileExt);
 
 	if (isDirChecked)
 	{
@@ -430,6 +431,7 @@ bool CcharsetconvertDlg::OnConvertBegin()
 		return false;
 	}
 	std::lock_guard<std::mutex> lock(m_mutex);
+	m_progressData.clear();
 
 	PostMessage(WM_CONVERT_MSG, MSG_CONVERT_Begin, 0);
 	return true;
@@ -490,7 +492,7 @@ std::wstring CcharsetconvertDlg::GetDisplayMsg(WPARAM wParam)
 		if (!m_progressData.empty() && (m_progressData.back().totalFiles > 0))
 		{
 			const TProgressData& data = m_progressData.back();
-			if (data.isCheckedMode)
+			if (data.isCheckMode)
 			{
 				dispalyMsg = L"正在检测 ... ，";
 			}
@@ -499,21 +501,21 @@ std::wstring CcharsetconvertDlg::GetDisplayMsg(WPARAM wParam)
 				dispalyMsg = L"正在转换 ... ，";
 			}
 			std::wstring msg;
-			RL::RLStringUtils::Format(msg, L"总体进度：%u%%（%u/%u）", (data.currentFileIndex + 1)*100/data.totalFiles, data.currentFileIndex + 1, data.totalFiles);
+			RL::StringUtils::Format(msg, L"总体进度：%u%%（%u/%u）", (data.currentFileIndex + 1)*100/data.totalFiles, data.currentFileIndex + 1, data.totalFiles);
 			dispalyMsg += msg;
 
-			RL::RLStringUtils::Format(msg, L"当前文件：%s", data.fileName.c_str());
+			RL::StringUtils::Format(msg, L"当前文件：%s", data.fileName.c_str());
 			dispalyMsg += L"\n";
 			dispalyMsg += msg;
 
-			RL::RLStringUtils::Format(msg, L"编码信息：%s", CharsetTools::GetCharsetMsg(data).c_str());
+			RL::StringUtils::Format(msg, L"编码信息：%s", CharsetTools::GetCharsetMsg(data).c_str());
 			dispalyMsg += L"\n";
 			dispalyMsg += msg;
 
 			std::wstring errMsg = CharsetTools::GetErrMsg(data);
 			if (!errMsg.empty())
 			{
-				RL::RLStringUtils::Format(msg, L"错误信息：%s", errMsg.c_str());
+				RL::StringUtils::Format(msg, L"错误信息：%s", errMsg.c_str());
 				dispalyMsg += L"\n";
 				dispalyMsg += msg;
 			}
@@ -526,7 +528,7 @@ std::wstring CcharsetconvertDlg::GetDisplayMsg(WPARAM wParam)
 		if (!m_progressData.empty() && (m_progressData.back().totalFiles > 0))
 		{
 			const TProgressData& data = m_progressData.back();
-			if (data.isCheckedMode)
+			if (data.isCheckMode)
 			{
 				dispalyMsg = L"检测结果：";
 			}
@@ -545,7 +547,7 @@ std::wstring CcharsetconvertDlg::GetDisplayMsg(WPARAM wParam)
 			}
 
 			std::wstring msg;
-			RL::RLStringUtils::Format(msg, L"总文件数：%u，成功文件数：%u，成功率：%u%%", data.totalFiles, successCount, successCount*100 / data.totalFiles);
+			RL::StringUtils::Format(msg, L"总文件数：%u，成功文件数：%u，成功率：%u%%", data.totalFiles, successCount, successCount*100 / data.totalFiles);
 			dispalyMsg += msg;
 
 			std::map<std::wstring, int> charsetMap;
@@ -569,7 +571,7 @@ std::wstring CcharsetconvertDlg::GetDisplayMsg(WPARAM wParam)
 			}			
 			for (const auto& charsetIter : charsetMap)
 			{
-				RL::RLStringUtils::Format(msg, L"%s(%d) ", charsetIter.first.c_str(), charsetIter.second);
+				RL::StringUtils::Format(msg, L"%s(%d) ", charsetIter.first.c_str(), charsetIter.second);
 				dispalyMsg += msg;				
 			}
 		}

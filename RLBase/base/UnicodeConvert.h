@@ -1,5 +1,5 @@
-#ifndef __RLUnicodeConvert_h_
-#define __RLUnicodeConvert_h_ 1
+#ifndef __RL_UnicodeConvert_h_
+#define __RL_UnicodeConvert_h_ 1
 
 #include <string>
 
@@ -12,14 +12,14 @@ typedef enum
     RL_CP_ACP   = 0 ,   //CP_ACP：ANSI代码页
     RL_CP_OEMCP = 1 ,   //CP_OEMCP：OEM代码页
     RL_CP_UTF8  = 65001 //CP_UTF8：使用UTF-8转换
-}RCCodePage;
+}RLCodePage;
 
 /** 字符串字符集转换类：目标定位于ANSI/UTF8/Unicode三个字符集之间相互转换
 */
-class RLUnicodeConvert
+class UnicodeConvert
 {   
 public:
-    /** 多字节转换成宽字节
+    /** 多字节转换成宽字节，按默认代码页转换
     @param [in] src 源字符串编码
     */
     static std::wstring MultiByteToUnicode(const std::string& src);
@@ -29,24 +29,37 @@ public:
     @return 转换后的宽字节编码字符串
     */
     static std::wstring MultiByteToUnicode(const char* src);
+
+    /** 多字节转换成宽字节，按默认代码页转换
+    @param [in] src 源字符串编码
+    @param [in] len 字符串的长度
+    */
+    static std::wstring MultiByteToUnicode(const char* src, int32_t len);
     
     /** 多字节转换成宽字节
     @param [in] src 源字符串编码
     @param [in] len 字符串的长度，如果为-1则认为src是以0结尾的字符串
-    @param [in] codePage 字符串编码的代码页，可参照：https://learn.microsoft.com/zh-cn/windows/win32/intl/code-page-identifiers
+    @param [in] codePage 字符串编码的代码页，用RL_CP_ACP代表本地默认编码
+                可参照：https://learn.microsoft.com/zh-cn/windows/win32/intl/code-page-identifiers
     */
     static std::wstring MultiByteToUnicode(const char* src, int32_t len, uint32_t codePage);
                                                  
 public:    
-    /** 宽字节转换成多字节
+    /** 宽字节转换成多字节, 按本地默认编码转换
     @param [in] src 源字符串编码
     */                                 
     static std::string UnicodeToMultiByte(const std::wstring& src);
 
-    /** 宽字节转换成多字节, 按本地默认CodePage转换
+    /** 宽字节转换成多字节, 按本地默认编码转换
     @param [in] src 源字符串编码
     */
     static std::string UnicodeToMultiByte(const wchar_t* src);
+
+    /** 宽字节转换成多字节, 按本地默认编码转换
+    @param [in] src 源字符串编码
+    @param [in] srcLen 源字符串的长度
+    */
+    static std::string UnicodeToMultiByte(const wchar_t* src, int32_t srcLen);
 
     /** 宽字节转换成多字节
     @param [in] src 源字符串编码
@@ -71,21 +84,31 @@ public:
     @param [in] inBuf 输入字符串
     @param [in] inBufLen 输入数据长度， 如果为-1则自动计算长度
     */
-    static std::wstring ConvertUTF8ToUnicode(const char* inBuf, int32_t inBufLen);
+    static std::wstring UTF8ToUnicode(const char* inBuf, int32_t inBufLen);
+
+    /** UTF8编码转成Unicode编码
+    @param [in] inBuf 输入字符串, 自动计算长度
+    */
+    static std::wstring UTF8ToUnicode(const char* inBuf);
 
     /** UTF8编码转成Unicode编码
     */
-    static std::wstring ConvertUTF8ToUnicode(const std::string& inBuf);
+    static std::wstring UTF8ToUnicode(const std::string& inBuf);
 
     /** UTF8编码转成Unicode编码
     @param [in] inBuf 输入字符串
     @param [in] inBufLen 输入数据长度， 如果为-1则自动计算长度
     */
-    static std::string ConvertUnicodeToUTF8(const wchar_t* inBuf, int32_t inBufLen);
+    static std::string UnicodeToUTF8(const wchar_t* inBuf, int32_t inBufLen);
+
+    /** UTF8编码转成Unicode编码
+    @param [in] inBuf 输入字符串, 自动计算长度
+    */
+    static std::string UnicodeToUTF8(const wchar_t* inBuf);
 
     /** UTF8编码转成Unicode编码
     */
-    static std::string ConvertUnicodeToUTF8(const std::wstring& inBuf);
+    static std::string UnicodeToUTF8(const std::wstring& inBuf);
 
 public:
     
@@ -131,4 +154,4 @@ private:
 
 }//namespace RL
 
-#endif //__RLUnicodeConvert_h_
+#endif //__RL_UnicodeConvert_h_

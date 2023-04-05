@@ -1,10 +1,15 @@
 #include "pch.h"
 #include "CharsetTools.h"
+#include "base/StringToken.h"
+#include "base/StringUtils.h"
+#include "base/StringCharset.h"
+#include "filesystem/TextFile.h"
+#include <filesystem>
+#include <vector>
 
 CharsetTools::CharsetTools():
     m_callback(NULL)
 {
-
 }
 
 bool CharsetTools::StartConvert(const TCharsetToolsParam& convertParam, CharsetToolsCallback* callback)
@@ -21,6 +26,10 @@ bool CharsetTools::StartConvert(const TCharsetToolsParam& convertParam, CharsetT
         return false;
     }
     if (callback == nullptr)
+    {
+        return false;
+    }
+    if (convertParam.destFileCharset == RL::CharsetType::UNKNOWN)
     {
         return false;
     }
@@ -45,18 +54,88 @@ void CharsetTools::RunConvertThread()
         return;
     }
 
+    std::vector<std::wstring> allFiles;
+    if (!m_convertParam.isDirChecked)
+    {
+        if (!m_convertParam.fileName.empty())
+        {
+            allFiles.push_back(m_convertParam.fileName);
+        }
+    }
+    else
+    {
+        std::vector<std::wstring> extValues;
+        RL::StringToken::StringToArray(m_convertParam.fileExt, L';', extValues);
+        if (!extValues.empty())
+        {
+            //递归扫描目录，查找匹配的文件
+            for (const auto& entry : std::filesystem::recursive_directory_iterator(m_convertParam.filePath))
+            {
+                if (entry.is_regular_file())
+                {
+                    for (const auto& ext : extValues)
+                    {
+                        if (RL::StringUtils::WildcardCompare(ext.c_str(), entry.path().filename().wstring().c_str(), true))
+                        {
+                            allFiles.push_back(entry.path().wstring());
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    std::wstring fileText;
     TProgressData data;
-    data.totalFiles = 20;
+    data.totalFiles = allFiles.size();
     data.result = 1;
     for (size_t index = 0; index < data.totalFiles; ++index)
-    {        
-        Sleep(1000);
+    {
+        data.currentFileIndex = index;
+        data.fileName = allFiles[index];
+        data.isCheckMode = m_convertParam.isCheckMode;
+        data.destFileCharset = m_convertParam.destFileCharset;
+
+        RL::CharsetType srcFileCharset = m_convertParam.srcFileCharset;
+
+        fileText.clear();
+        RL::CharsetType outCharsetType = RL::CharsetType::UNKNOWN;
+        uint32_t bomSize = 0;        
+        bool isOk = RL::TextFile::ReadData(data.fileName, srcFileCharset, fileText, outCharsetType, bomSize);
+        if (!isOk || fileText.empty())
+        {
+            data.result = 10;
+            data.srcFileCharset = RL::CharsetType::UNKNOWN;
+        }
+        else
+        {
+            data.result = data.isCheckMode ? 1 : 0;
+            data.srcFileCharset = outCharsetType;
+        }
+
+        if (!m_convertParam.isCheckMode)
+        {
+            //进行转换
+            RL::CharsetType destFileCharset = m_convertParam.destFileCharset;
+            bool destFileWriteBOM = m_convertParam.destFileWriteBOM;
+            assert(destFileCharset != RL::CharsetType::UNKNOWN);
+
+            data.result = 20;
+            if (destFileCharset != RL::CharsetType::UNKNOWN)
+            {
+                //按目标编码，写入文件
+                bool isOk = RL::TextFile::WriteData(data.fileName, fileText, destFileCharset, destFileWriteBOM);
+                if (isOk)
+                {
+                    data.result = 0;
+                }
+            }
+        }
+
         if (!callback->OnConvertProgress(data))
         {
             return;
-        }
-
-        data.currentFileIndex += 1;
+        }        
     }    
 
     if (!callback->OnConvertEnd())
@@ -80,13 +159,10 @@ std::wstring CharsetTools::GetErrMsg(const TProgressData& progressData)
     switch (progressData.result)
     {
     case 10:
-        errMsg = L"源文件编码检测失败";
-        break;
-    case 11:
-        errMsg = L"源文件读取失败";
+        errMsg = L"读取源文件失败";
         break;
     case 20:
-        errMsg = L"目标文件写入失败";
+        errMsg = L"写入目标文件失败";
         break;
     default:
         break;
@@ -107,33 +183,22 @@ std::wstring CharsetTools::GetCharsetMsg(const TProgressData& progressData)
     return msg;
 }
 
-std::wstring CharsetTools::GetCharsetTypeMsg(RL::RLCharsetType charsetType)
+std::wstring CharsetTools::GetCharsetTypeMsg(RL::CharsetType charsetType)
 {
     std::wstring msg;
     switch (charsetType)
     {
-    case RL::RLCharsetType::ANSI:
+    case RL::CharsetType::ANSI:
         msg = L"ANSI";
         break;
-    case RL::RLCharsetType::UNICODE_UTF7:
-        msg = L"UTF7";
-        break;
-    case RL::RLCharsetType::UNICODE_UTF8:
+    case RL::CharsetType::UTF8:
         msg = L"UTF8";
         break;
-    case RL::RLCharsetType::UNICODE_UTF16:
-    case RL::RLCharsetType::UNICODE_UTF16_LE:
-        msg = L"UTF16";
+    case RL::CharsetType::UTF16_LE:
+        msg = L"UTF16_LE";
         break;
-    case RL::RLCharsetType::UNICODE_UTF16_BE:    
-        msg = L"UTF16-BE";
-        break;
-    case RL::RLCharsetType::UNICODE_UTF32:    
-    case RL::RLCharsetType::UNICODE_UTF32_LE:
-        msg = L"UTF32";
-        break;
-    case RL::RLCharsetType::UNICODE_UTF32_BE:
-        msg = L"UTF32-BE";
+    case RL::CharsetType::UTF16_BE:    
+        msg = L"UTF16_BE";
         break;
     default:
         msg = L"UNKNOWN";

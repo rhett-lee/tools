@@ -1,4 +1,4 @@
-#include "RLStringUtils.h"
+#include "StringUtils.h"
 #include <algorithm>
 #include <ctype.h>
 #include <errno.h>
@@ -14,7 +14,7 @@ enum
     RET_RETRY   = 1
 };
 
-void RLStringUtils::TrimLeft(std::wstring& str, const wchar_t* value)
+void StringUtils::TrimLeft(std::wstring& str, const wchar_t* value)
 {
     if (str.empty() || (value == nullptr) || (value[0] == L'\0'))
     {
@@ -31,7 +31,7 @@ void RLStringUtils::TrimLeft(std::wstring& str, const wchar_t* value)
     }
 }
 
-void RLStringUtils::TrimRight(std::wstring& str, const wchar_t* value)
+void StringUtils::TrimRight(std::wstring& str, const wchar_t* value)
 {
     if (str.empty() || (value == nullptr) || (value[0] == L'\0'))
     {
@@ -48,7 +48,7 @@ void RLStringUtils::TrimRight(std::wstring& str, const wchar_t* value)
     }
 }
 
-void RLStringUtils::Trim(std::wstring& str, const wchar_t* value)
+void StringUtils::Trim(std::wstring& str, const wchar_t* value)
 {
     if (str.empty() || (value == nullptr) || (value[0] == L'\0'))
     {
@@ -74,7 +74,7 @@ void RLStringUtils::Trim(std::wstring& str, const wchar_t* value)
     }
 }
 
-void RLStringUtils::Format(std::wstring& str, const wchar_t* fmt , ...)
+void StringUtils::Format(std::wstring& str, const wchar_t* fmt , ...)
 {
     std::wstring& result = str;
     int32_t retValue = 0;
@@ -139,7 +139,7 @@ void RLStringUtils::Format(std::wstring& str, const wchar_t* fmt , ...)
     }
 }
 
-int32_t RLStringUtils::FormatToBuffer(wchar_t* buf, int32_t size ,const wchar_t* format, va_list args)
+int32_t StringUtils::FormatToBuffer(wchar_t* buf, int32_t size ,const wchar_t* format, va_list args)
 {
 #ifdef _WIN32
     HRESULT hResult = ::StringCchVPrintf(buf, size, format, args);
@@ -178,13 +178,13 @@ int32_t RLStringUtils::FormatToBuffer(wchar_t* buf, int32_t size ,const wchar_t*
 }
 
 
-void RLStringUtils::Replace(std::wstring& str ,const wchar_t* from, const wchar_t* to)
+void StringUtils::Replace(std::wstring& str ,const wchar_t* from, const wchar_t* to)
 {
     if( (from == nullptr) || (to == nullptr) ){
         return;
     }
-    std::wstring::size_type fromLen = RLStringUtils::StringLen(from);
-    std::wstring::size_type toLen = RLStringUtils::StringLen(to);
+    std::wstring::size_type fromLen = StringUtils::StringLen(from);
+    std::wstring::size_type toLen = StringUtils::StringLen(to);
     std::wstring::size_type beginPos = 0;
     std::wstring::size_type pos = str.find(from,beginPos);
     while(std::wstring::npos != pos)
@@ -195,7 +195,7 @@ void RLStringUtils::Replace(std::wstring& str ,const wchar_t* from, const wchar_
     }
 }
 
-void RLStringUtils::Replace(std::wstring& str ,const wchar_t from, const wchar_t to)
+void StringUtils::Replace(std::wstring& str ,const wchar_t from, const wchar_t to)
 {
     std::wstring::size_type count = str.size();
     for(std::wstring::size_type pos = 0; pos < count; ++pos )
@@ -207,7 +207,7 @@ void RLStringUtils::Replace(std::wstring& str ,const wchar_t from, const wchar_t
     }
 }
 
-void RLStringUtils::UInt64ToString(uint64_t value, wchar_t *s)
+void StringUtils::UInt64ToString(uint64_t value, wchar_t *s)
 {
     wchar_t temp[32] = {0};
     int pos = 0;
@@ -224,7 +224,7 @@ void RLStringUtils::UInt64ToString(uint64_t value, wchar_t *s)
     *s = L'\0';
 }
 
-void RLStringUtils::Int64ToString(int64_t value, wchar_t *s)
+void StringUtils::Int64ToString(int64_t value, wchar_t *s)
 {
     if (value < 0)
     {
@@ -234,7 +234,7 @@ void RLStringUtils::Int64ToString(int64_t value, wchar_t *s)
     UInt64ToString(value, s);
 }
 
-uint64_t RLStringUtils::StringToUInt64(const wchar_t *s, const wchar_t **end)
+uint64_t StringUtils::StringToUInt64(const wchar_t *s, const wchar_t **end)
 {
     uint64_t result = 0;
     for (;;)
@@ -254,36 +254,36 @@ uint64_t RLStringUtils::StringToUInt64(const wchar_t *s, const wchar_t **end)
     }
 }
 
-uint32_t RLStringUtils::StringToUInt32(const wchar_t* s, const wchar_t** end)
+uint32_t StringUtils::StringToUInt32(const wchar_t* s, const wchar_t** end)
 {
     return (uint32_t)StringToUInt64(s, end);
 }
 
-std::wstring RLStringUtils::Int64ToString(int64_t value)
+std::wstring StringUtils::Int64ToString(int64_t value)
 {
     wchar_t str[64] = {0};
     Int64ToString(value,str);
     return std::wstring(str);
 }
 
-std::wstring RLStringUtils::UInt64ToString(uint64_t value )
+std::wstring StringUtils::UInt64ToString(uint64_t value )
 {
     wchar_t str[64] = {0};
     UInt64ToString(value,str);
     return std::wstring(str);
 }
 
-std::wstring RLStringUtils::Int32ToString(int32_t value )
+std::wstring StringUtils::Int32ToString(int32_t value )
 {
-    return RLStringUtils::Int64ToString(int64_t(value));
+    return StringUtils::Int64ToString(int64_t(value));
 }
 
-std::wstring RLStringUtils::UInt32ToString(uint32_t value )
+std::wstring StringUtils::UInt32ToString(uint32_t value )
 {
-    return RLStringUtils::UInt64ToString( uint64_t(value) );
+    return StringUtils::UInt64ToString( uint64_t(value) );
 }
 
-std::wstring RLStringUtils::UInt32ToHex(uint32_t value )
+std::wstring StringUtils::UInt32ToHex(uint32_t value )
 {
     wchar_t s[9] = {0};
     for (int32_t i = 0; i < 8; ++i)
@@ -296,25 +296,25 @@ std::wstring RLStringUtils::UInt32ToHex(uint32_t value )
     return std::wstring(s);
 }
 
-std::wstring RLStringUtils::BooleanToString(bool value) 
+std::wstring StringUtils::BooleanToString(bool value)
 {
     uint32_t integer = value ? 1 : 0;
     return UInt32ToString(integer);
 }
 
-bool RLStringUtils::StringToBoolean(const wchar_t* s)
+bool StringUtils::StringToBoolean(const wchar_t* s)
 {
     uint32_t integer = StringToUInt32(s, nullptr);
     return integer != 0 ? true : false;
 }
 
 
-int32_t RLStringUtils::CompareNoCase(const std::wstring& lhs, const std::wstring& rhs)
+int32_t StringUtils::CompareNoCase(const std::wstring& lhs, const std::wstring& rhs)
 {
-    return RLStringUtils::CompareNoCase(lhs.c_str(),rhs.c_str(),std::max(lhs.size(),rhs.size()));
+    return StringUtils::CompareNoCase(lhs.c_str(),rhs.c_str(),std::max(lhs.size(),rhs.size()));
 }
 
-int32_t RLStringUtils::CompareNoCase(const wchar_t* cs, const wchar_t* ct, size_t count)
+int32_t StringUtils::CompareNoCase(const wchar_t* cs, const wchar_t* ct, size_t count)
 {
     if (count == 0)
     {
@@ -338,7 +338,7 @@ int32_t RLStringUtils::CompareNoCase(const wchar_t* cs, const wchar_t* ct, size_
     return 0;
 }
 
-bool RLStringUtils::IsEqualNoCase(const std::wstring& lhs, const std::wstring& rhs)
+bool StringUtils::IsEqualNoCase(const std::wstring& lhs, const std::wstring& rhs)
 {
     if (lhs.size() != rhs.size())
     {
@@ -347,7 +347,7 @@ bool RLStringUtils::IsEqualNoCase(const std::wstring& lhs, const std::wstring& r
     return IsEqualNoCasePrivate(lhs.c_str(), rhs.c_str());
 }
 
-bool RLStringUtils::IsEqualNoCase(const wchar_t* lhs, const std::wstring& rhs)
+bool StringUtils::IsEqualNoCase(const wchar_t* lhs, const std::wstring& rhs)
 {
     if (lhs == nullptr)
     {
@@ -356,7 +356,7 @@ bool RLStringUtils::IsEqualNoCase(const wchar_t* lhs, const std::wstring& rhs)
     return IsEqualNoCasePrivate(lhs, rhs.c_str());
 }
 
-bool RLStringUtils::IsEqualNoCase(const std::wstring& lhs, const wchar_t* rhs)
+bool StringUtils::IsEqualNoCase(const std::wstring& lhs, const wchar_t* rhs)
 {
     if (rhs == nullptr)
     {
@@ -365,7 +365,7 @@ bool RLStringUtils::IsEqualNoCase(const std::wstring& lhs, const wchar_t* rhs)
     return IsEqualNoCasePrivate(lhs.c_str(), rhs);
 }
 
-bool RLStringUtils::IsEqualNoCase(const wchar_t* lhs, const wchar_t* rhs)
+bool StringUtils::IsEqualNoCase(const wchar_t* lhs, const wchar_t* rhs)
 {
     if(lhs == nullptr)
     {
@@ -378,7 +378,7 @@ bool RLStringUtils::IsEqualNoCase(const wchar_t* lhs, const wchar_t* rhs)
     return IsEqualNoCasePrivate(lhs, rhs);
 }
 
-bool RLStringUtils::IsEqualNoCasePrivate(const wchar_t* lhs, const wchar_t* rhs)
+bool StringUtils::IsEqualNoCasePrivate(const wchar_t* lhs, const wchar_t* rhs)
 {
     if (lhs == rhs)
     {
@@ -403,12 +403,12 @@ bool RLStringUtils::IsEqualNoCasePrivate(const wchar_t* lhs, const wchar_t* rhs)
     }
 }
 
-int32_t RLStringUtils::Compare(const std::wstring& lhs, const std::wstring& rhs)
+int32_t StringUtils::Compare(const std::wstring& lhs, const std::wstring& rhs)
 {
     return lhs.compare(rhs);
 }
 
-bool RLStringUtils::WildcardCompare(const wchar_t* sPattern,
+bool StringUtils::WildcardCompare(const wchar_t* sPattern,
                                     const wchar_t* sFileName,
                                     bool bNoCase)
 {
@@ -438,7 +438,7 @@ bool RLStringUtils::WildcardCompare(const wchar_t* sPattern,
         default:
             if(bNoCase) 
             {
-                if (RLStringUtils::CharToLower(*sFileName) == RLStringUtils::CharToLower(*sPattern))     // if equal
+                if (CharToLower(*sFileName) == CharToLower(*sPattern))     // if equal
                 {
                     ++sFileName; 
                     ++sPattern; 
@@ -470,7 +470,7 @@ bool RLStringUtils::WildcardCompare(const wchar_t* sPattern,
     return (!*sPattern);
 }
 
-size_t RLStringUtils::StringLen(const wchar_t* s)
+size_t StringUtils::StringLen(const wchar_t* s)
 {
     if(s == nullptr)
     {
@@ -484,7 +484,7 @@ size_t RLStringUtils::StringLen(const wchar_t* s)
     return 0;
 }
 
-size_t RLStringUtils::StringLen(const char* s)
+size_t StringUtils::StringLen(const char* s)
 {
     if(s == nullptr)
     {
@@ -498,7 +498,7 @@ size_t RLStringUtils::StringLen(const char* s)
     return 0;
 }
 
-wchar_t* RLStringUtils::StringCopy(wchar_t* dest, const wchar_t* src)
+wchar_t* StringUtils::StringCopy(wchar_t* dest, const wchar_t* src)
 {
     if( (dest == nullptr) || (src == nullptr) )
     {
@@ -509,37 +509,37 @@ wchar_t* RLStringUtils::StringCopy(wchar_t* dest, const wchar_t* src)
     return destStart;
 }
 
-wchar_t RLStringUtils::CharToUpper(wchar_t ch)
+wchar_t StringUtils::CharToUpper(wchar_t ch)
 {
     return ::towupper(ch);
 }
 
-wchar_t RLStringUtils::CharToLower(wchar_t ch)
+wchar_t StringUtils::CharToLower(wchar_t ch)
 {
     return ::towlower(ch);
 }
 
-void RLStringUtils::MakeUpper(std::wstring& str)
+void StringUtils::MakeUpper(std::wstring& str)
 {
     std::wstring::size_type size = str.size();
     std::wstring::size_type index = 0;
     for(; index < size; ++index)
     {
-        str[index] = RLStringUtils::CharToUpper(str[index]);
+        str[index] = CharToUpper(str[index]);
     }
 }
 
-void RLStringUtils::MakeLower(std::wstring& str)
+void StringUtils::MakeLower(std::wstring& str)
 {
     std::wstring::size_type size = str.size();
     std::wstring::size_type index = 0;
     for(; index < size; ++index)
     {
-        str[index] = RLStringUtils::CharToLower(str[index]);
+        str[index] = CharToLower(str[index]);
     }
 }
 
-std::wstring RLStringUtils::Left(const std::wstring& str, int32_t count)
+std::wstring StringUtils::Left(const std::wstring& str, int32_t count)
 {
     if(count < 0)
     {
@@ -548,7 +548,7 @@ std::wstring RLStringUtils::Left(const std::wstring& str, int32_t count)
     return str.substr(0,count);
 }
 
-std::wstring RLStringUtils::Right(const std::wstring& str, int32_t count)
+std::wstring StringUtils::Right(const std::wstring& str, int32_t count)
 {
     if(count < 0)
     {
@@ -562,7 +562,7 @@ std::wstring RLStringUtils::Right(const std::wstring& str, int32_t count)
     return str.substr(str.size() - count,count);
 }
     
-std::wstring RLStringUtils::Mid(const std::wstring& str, int32_t startIndex, std::wstring::size_type count)
+std::wstring StringUtils::Mid(const std::wstring& str, int32_t startIndex, std::wstring::size_type count)
 {
     if(startIndex < 0)
     {
@@ -587,7 +587,7 @@ std::wstring RLStringUtils::Mid(const std::wstring& str, int32_t startIndex, std
     }
 }
 
-const wchar_t* RLStringUtils::FindStr(const wchar_t* str, const wchar_t* searchStr)
+const wchar_t* StringUtils::FindStr(const wchar_t* str, const wchar_t* searchStr)
 {
     const wchar_t* ret = nullptr;
     if (str == nullptr || searchStr == nullptr)
@@ -598,12 +598,12 @@ const wchar_t* RLStringUtils::FindStr(const wchar_t* str, const wchar_t* searchS
     return ret;
 }
 
-const wchar_t* RLStringUtils::FindChr(const wchar_t* data, wchar_t ch)
+const wchar_t* StringUtils::FindChr(const wchar_t* data, wchar_t ch)
 {
     return ::wcschr(data,ch);
 }
 
-std::wstring RLStringUtils::CoverSbcToDbc(const std::wstring& sbcStr)
+std::wstring StringUtils::CoverSbcToDbc(const std::wstring& sbcStr)
 {
     std::wstring dbcStr;
     int32_t nLength = (int32_t)sbcStr.size();

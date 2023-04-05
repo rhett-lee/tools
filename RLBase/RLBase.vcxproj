@@ -18,6 +18,25 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="base\StringCharset.cpp" />
+    <ClCompile Include="base\StringToken.cpp" />
+    <ClCompile Include="base\StringUtils.cpp" />
+    <ClCompile Include="base\UnicodeConvert.cpp" />
+    <ClCompile Include="filesystem\FileTimeUtils.cpp" />
+    <ClCompile Include="filesystem\TextFile.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base\NonCopyable.h" />
+    <ClInclude Include="base\StringCharset.h" />
+    <ClInclude Include="base\StringToken.h" />
+    <ClInclude Include="base\StringUtils.h" />
+    <ClInclude Include="base\UnicodeConvert.h" />
+    <ClInclude Include="base\WindowsDefs.h" />
+    <ClInclude Include="filesystem\FileTime.h" />
+    <ClInclude Include="filesystem\FileTimeUtils.h" />
+    <ClInclude Include="filesystem\TextFile.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -98,6 +117,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -119,6 +139,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -140,6 +161,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -161,6 +183,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <AdditionalIncludeDirectories>$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -170,17 +193,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="base\RLCharsetString.h" />
-    <ClInclude Include="base\RLStringUtils.h" />
-    <ClInclude Include="base\RLUnicodeConvert.h" />
-    <ClInclude Include="base\RLWindowsDefs.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="base\RLCharsetString.cpp" />
-    <ClCompile Include="base\RLStringUtils.cpp" />
-    <ClCompile Include="base\RLUnicodeConvert.cpp" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

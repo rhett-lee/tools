@@ -1,5 +1,5 @@
-#ifndef __RLWindowsDefs_h_
-#define __RLWindowsDefs_h_ 1
+#ifndef __RL_WindowsDefs_h_
+#define __RL_WindowsDefs_h_ 1
 
 //支持最低版本：Windows XP
 #ifndef WINVER
@@ -34,4 +34,4 @@
 
 #include <windows.h>
 
-#endif //__RLWindowsDefs_h_
+#endif //__RL_WindowsDefs_h_
