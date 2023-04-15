@@ -72,9 +72,20 @@ CharsetType StringCharset::GetDataCharset(const char* data, uint32_t length)
     {
         return charsetType;
     }
-    if (IsValidateGBKStream(data, length))
+    if (IsValidateASCIIStream(data, length))
     {
         charsetType = CharsetType::ANSI;
+    }
+    else if (IsValidateGBKStream(data, length))
+    {
+        if (IsValidateUTF8Stream(data, length))
+        {
+            charsetType = CharsetType::UTF8;
+        }
+        else
+        {
+            charsetType = CharsetType::ANSI;
+        }
     }
     else if (IsValidateUTF8Stream(data, length))
     {
@@ -184,6 +195,33 @@ bool StringCharset::GetDataAsString(const char* data, uint32_t length, CharsetTy
     {
         return false;
     }
+    return true;
+}
+
+bool StringCharset::IsValidateASCIIStream(const char* stream, uint32_t length)
+{
+    if ((length < 1) || (stream == nullptr))
+    {
+        return false;
+    }
+
+    // 遍历流
+    for (uint32_t i = 0; i < length; i++) 
+    {
+        // 检查当前字节是否为ASCII字符
+        if (stream[i] >= 0 && stream[i] <= 127) 
+        {
+            // 如果是，继续遍历
+            continue;
+        }
+        else 
+        {
+            // 如果不是，返回false
+            return false;
+        }
+    }
+
+    // 如果我们在整个流中没有找到非ASCII字符，则返回true
     return true;
 }
 

@@ -78,6 +78,12 @@ public:
                                 std::wstring& result, CharsetType& outCharsetType, uint32_t& bomSize);
 
 public:
+    /** 用于验证给定的 char 流是否为 ASCII 编码
+    @param [in] stream：指向 char 流的指针
+    #param [in] length：流的长度，以字节为单位
+    */
+    static bool IsValidateASCIIStream(const char* stream, uint32_t length);
+
     /** 用于验证给定的 char 流是否为 GBK 编码
     @param [in] stream：指向 char 流的指针
     #param [in] length：流的长度，以字节为单位
