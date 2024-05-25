@@ -7,287 +7,287 @@
 namespace RL
 {
 
-/** ×Ö·û´®×ª»»¸¨ÖúÀà
+/** å­—ç¬¦ä¸²è½¬æ¢è¾…åŠ©ç±»
 */
 class StringUtils
 {
 public:
-    /** È¥³ı×ó²àÖ¸¶¨×Ö·û
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] value ĞèÒªTrimµÄ×Ö·ûÁĞ±í
+    /** å»é™¤å·¦ä¾§æŒ‡å®šå­—ç¬¦
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] value éœ€è¦Trimçš„å­—ç¬¦åˆ—è¡¨
     */
     static void TrimLeft(std::wstring& str, const wchar_t* value = L" \r\t\n");
         
-    /** È¥³ıÓÒ²àÖ¸¶¨×Ö·û
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] value ĞèÒªTrimµÄ×Ö·ûÁĞ±í
+    /** å»é™¤å³ä¾§æŒ‡å®šå­—ç¬¦
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] value éœ€è¦Trimçš„å­—ç¬¦åˆ—è¡¨
     */
     static void TrimRight(std::wstring& str, const wchar_t* value = L" \r\t\n");
         
-    /** È¥³ı×óÓÒÁ½²àÖ¸¶¨×Ö·û
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] value ĞèÒªTrimµÄ×Ö·ûÁĞ±í
+    /** å»é™¤å·¦å³ä¸¤ä¾§æŒ‡å®šå­—ç¬¦
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] value éœ€è¦Trimçš„å­—ç¬¦åˆ—è¡¨
     */
     static void Trim(std::wstring& str, const wchar_t* value = L" \r\t\n");
         
-        /** ¸ñÊ½»¯×Ö·û´®
-    @param [in,out] str ½á¹û×Ö·û´®
-    @param [in] fmt ¸ñÊ½»¯×Ö·û
-    @param [in] ... ¿É±ä²ÎÊıÁĞ±í
+        /** æ ¼å¼åŒ–å­—ç¬¦ä¸²
+    @param [in,out] str ç»“æœå­—ç¬¦ä¸²
+    @param [in] fmt æ ¼å¼åŒ–å­—ç¬¦
+    @param [in] ... å¯å˜å‚æ•°åˆ—è¡¨
     */
     static void Format(std::wstring& str, const wchar_t* fmt , ...);
         
-    /** ¸ñÊ½»¯×Ö·û´®
-    @param [out] buf ½á¹û»º³åÇø
-    @param [in] size »º³åÇø´óĞ¡
-    @param [in] format ¸ñÊ½»¯×Ö·û
-    @param [in] args ¿É±ä²ÎÊıÁĞ±í
-    @return ×ª»»½á¹û£º 0 ±íÊ¾³É¹¦, -1 ±íÊ¾Ê§°Ü£¬1 ±íÊ¾»º³åÇø²»¹»
+    /** æ ¼å¼åŒ–å­—ç¬¦ä¸²
+    @param [out] buf ç»“æœç¼“å†²åŒº
+    @param [in] size ç¼“å†²åŒºå¤§å°
+    @param [in] format æ ¼å¼åŒ–å­—ç¬¦
+    @param [in] args å¯å˜å‚æ•°åˆ—è¡¨
+    @return è½¬æ¢ç»“æœï¼š 0 è¡¨ç¤ºæˆåŠŸ, -1 è¡¨ç¤ºå¤±è´¥ï¼Œ1 è¡¨ç¤ºç¼“å†²åŒºä¸å¤Ÿ
     */
     static int32_t FormatToBuffer(wchar_t* buf, int32_t size ,const wchar_t* format, va_list args);
     
-    /** ÔÚ×Ö·û´®ÖĞÌæ»»×Ó×Ö·û´®
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] from ±»Ìæ»»µÄ×Ö·û´®
-    @param [in] to   Ìæ»»³ÉµÄ×Ö·û´®
+    /** åœ¨å­—ç¬¦ä¸²ä¸­æ›¿æ¢å­å­—ç¬¦ä¸²
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] from è¢«æ›¿æ¢çš„å­—ç¬¦ä¸²
+    @param [in] to   æ›¿æ¢æˆçš„å­—ç¬¦ä¸²
     */
     static void Replace(std::wstring& str ,const wchar_t* from, const wchar_t* to);
         
-    /** ÔÚ×Ö·û´®ÖĞÌæ»»×Ó×Ö·û
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] from ±»Ìæ»»µÄ×Ö·û´®
-    @param [in] to   Ìæ»»³ÉµÄ×Ö·û´®
+    /** åœ¨å­—ç¬¦ä¸²ä¸­æ›¿æ¢å­å­—ç¬¦
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] from è¢«æ›¿æ¢çš„å­—ç¬¦ä¸²
+    @param [in] to   æ›¿æ¢æˆçš„å­—ç¬¦ä¸²
     */
     static void Replace(std::wstring& str ,const wchar_t from, const wchar_t to);
         
 public:    
-    /** 32Î»ÓĞ·ûºÅÕûĞÍ×ª³É×Ö·û´®
-    @param [in] value ÕûĞÍÖµ
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** 32ä½æœ‰ç¬¦å·æ•´å‹è½¬æˆå­—ç¬¦ä¸²
+    @param [in] value æ•´å‹å€¼
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static std::wstring Int32ToString(int32_t value );
     
-    /** 32Î»ÎŞ·ûºÅÕûĞÍ×ª³É×Ö·û´®
-    @param [in] value ÕûĞÍÖµ
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** 32ä½æ— ç¬¦å·æ•´å‹è½¬æˆå­—ç¬¦ä¸²
+    @param [in] value æ•´å‹å€¼
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static std::wstring UInt32ToString(uint32_t value );
     
-    /** 32Î»ÎŞ·ûºÅÕûĞÍ×ª³ÉÊ®Áù½øÖÆ×Ö·û´®
-    @param [in] value ÕûĞÍ?
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** 32ä½æ— ç¬¦å·æ•´å‹è½¬æˆåå…­è¿›åˆ¶å­—ç¬¦ä¸²
+    @param [in] value æ•´å‹?
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static std::wstring UInt32ToHex(uint32_t value );
     
-    /** 64Î»ÎŞ·ûºÅÕûĞÍ×ª³É¿í×Ö½Ú×Ö·û´®
-    @param [in] value ÕûĞÍÖµ
-    @param [out] s ·µ»Ø×ª»»ºóµÄ×Ö·û´®£¬»º³åÇø´óĞ¡ÄÚ²¿²»¼ì²é
+    /** 64ä½æ— ç¬¦å·æ•´å‹è½¬æˆå®½å­—èŠ‚å­—ç¬¦ä¸²
+    @param [in] value æ•´å‹å€¼
+    @param [out] s è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²ï¼Œç¼“å†²åŒºå¤§å°å†…éƒ¨ä¸æ£€æŸ¥
     */
     static void UInt64ToString(uint64_t value, wchar_t* s);
     
-    /** 64Î»ÓĞ·ûºÅÕûĞÍ×ª³É¿í×Ö½Ú×Ö·û´®
-    @param [in] value ÕûĞÍÖµ
-    @param [out] s ·µ»Ø×ª»»ºóµÄ×Ö·û´®£¬»º³åÇø´óĞ¡ÄÚ²¿²»¼ì²é
+    /** 64ä½æœ‰ç¬¦å·æ•´å‹è½¬æˆå®½å­—èŠ‚å­—ç¬¦ä¸²
+    @param [in] value æ•´å‹å€¼
+    @param [out] s è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²ï¼Œç¼“å†²åŒºå¤§å°å†…éƒ¨ä¸æ£€æŸ¥
     */
     static void Int64ToString(int64_t value, wchar_t *s);
     
-    /** 64Î»ÓĞ·ûºÅÕûĞÍ×ª³É×Ö·û´®
-    @param [in] value ÕûĞÍÖµ
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** 64ä½æœ‰ç¬¦å·æ•´å‹è½¬æˆå­—ç¬¦ä¸²
+    @param [in] value æ•´å‹å€¼
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static std::wstring Int64ToString(int64_t value );
     
-    /** 64Î»ÎŞ·ûºÅÕûĞÍ×ª³É×Ö·û´®
-    @param [in] value ÕûĞÍÖµ
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** 64ä½æ— ç¬¦å·æ•´å‹è½¬æˆå­—ç¬¦ä¸²
+    @param [in] value æ•´å‹å€¼
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static std::wstring UInt64ToString(uint64_t value );
     
-    /** ²¼¶ûÖµ×ªÎª×Ö·û´®
-    @param [in] value ²¼¶ûÖµ
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** å¸ƒå°”å€¼è½¬ä¸ºå­—ç¬¦ä¸²
+    @param [in] value å¸ƒå°”å€¼
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static std::wstring BooleanToString(bool value);
     
-    /** ¿í×Ö½Ú×Ö·û´®×ª³É64Î»ÎŞ·ûºÅÕûĞÍ
-    @param [in] s ×Ö·û´®ÆğÊ¼µØÖ·
-    @param [out] end ×ª»»½ØÖ¹µÄ×Ö·û´®µØÖ·£¬¿ÉÑ¡²ÎÊı
-    @return ·µ»Ø×ª»»ºóÕûĞÍÖµ
+    /** å®½å­—èŠ‚å­—ç¬¦ä¸²è½¬æˆ64ä½æ— ç¬¦å·æ•´å‹
+    @param [in] s å­—ç¬¦ä¸²èµ·å§‹åœ°å€
+    @param [out] end è½¬æ¢æˆªæ­¢çš„å­—ç¬¦ä¸²åœ°å€ï¼Œå¯é€‰å‚æ•°
+    @return è¿”å›è½¬æ¢åæ•´å‹å€¼
     */
     static uint64_t StringToUInt64(const wchar_t* s, const wchar_t** end);
     
-    /** ¿í×Ö½Ú×Ö·û´®×ª³É32Î»ÎŞ·ûºÅÕûĞÍ
-    @param [in] s ×Ö·û´®ÆğÊ¼µØÖ·
-    @param [out] end ×ª»»½ØÖ¹µÄ×Ö·û´®µØÖ·£¬¿ÉÑ¡²ÎÊı
-    @return ·µ»Ø×ª»»ºóÕûĞÍÖµ
+    /** å®½å­—èŠ‚å­—ç¬¦ä¸²è½¬æˆ32ä½æ— ç¬¦å·æ•´å‹
+    @param [in] s å­—ç¬¦ä¸²èµ·å§‹åœ°å€
+    @param [out] end è½¬æ¢æˆªæ­¢çš„å­—ç¬¦ä¸²åœ°å€ï¼Œå¯é€‰å‚æ•°
+    @return è¿”å›è½¬æ¢åæ•´å‹å€¼
     */
     static uint32_t StringToUInt32(const wchar_t* s, const wchar_t** end);
     
-    /** ×Ö·û´®×ªÎª²¼¶ûÖµ
-    @param [in] s ×Ö·û´®ÆğÊ¼µØÖ·
-    @return ·µ»Ø×ª»»ºóµÄ×Ö·û´®Öµ
+    /** å­—ç¬¦ä¸²è½¬ä¸ºå¸ƒå°”å€¼
+    @param [in] s å­—ç¬¦ä¸²èµ·å§‹åœ°å€
+    @return è¿”å›è½¬æ¢åçš„å­—ç¬¦ä¸²å€¼
     */
     static bool StringToBoolean(const wchar_t* s);
     
 public:
-        /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®
-    @param [in] rhs ÓÒÖµ×Ö·û´®
-    @return ·µ»ØÖµ¶¨ÒåÈçÏÂ£º
-            0  - ÏàµÈ
+        /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²
+    @return è¿”å›å€¼å®šä¹‰å¦‚ä¸‹ï¼š
+            0  - ç›¸ç­‰
          >= 1  - lhs > rhs
          <=-1  - lhs < rhs
     */
     static int32_t CompareNoCase(const std::wstring& lhs, const std::wstring& rhs);
 
-    /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®
-    @param [in] rhs ÓÒÖµ×Ö·û´®
-    @return true ÏàµÈ false ²»ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²
+    @return true ç›¸ç­‰ false ä¸ç›¸ç­‰
     */
     static bool IsEqualNoCase(const std::wstring& lhs, const std::wstring& rhs);
     
-    /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®
-    @param [in] rhs ÓÒÖµ×Ö·û´®
-    @return true ÏàµÈ false ²»ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²
+    @return true ç›¸ç­‰ false ä¸ç›¸ç­‰
     */
     static bool IsEqualNoCase(const wchar_t* lhs, const std::wstring& rhs);
 
-    /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®
-    @param [in] rhs ÓÒÖµ×Ö·û´®
-    @return true ÏàµÈ false ²»ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²
+    @return true ç›¸ç­‰ false ä¸ç›¸ç­‰
     */
     static bool IsEqualNoCase(const std::wstring& lhs, const wchar_t* rhs);
 
-    /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®£¬ÄÚ²¿²»ÅĞ¶ÏlhsÊÇ·ñÎª¿Õ
-    @param [in] rhs ÓÒÖµ×Ö·û´®£¬ÄÚ²¿²»ÅĞ¶ÏrhsÊÇ·ñÎª¿Õ
-    @return true ÏàµÈ false ²»ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²ï¼Œå†…éƒ¨ä¸åˆ¤æ–­lhsæ˜¯å¦ä¸ºç©º
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²ï¼Œå†…éƒ¨ä¸åˆ¤æ–­rhsæ˜¯å¦ä¸ºç©º
+    @return true ç›¸ç­‰ false ä¸ç›¸ç­‰
     */
     static bool IsEqualNoCase(const wchar_t* lhs, const wchar_t* rhs);
 
-    /** ±È½Ï×Ö·û´®£¬Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®
-    @param [in] rhs ÓÒÖµ×Ö·û´®
-    @return ·µ»ØÖµ¶¨ÒåÈçÏÂ£º
-            0  - ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼ŒåŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²
+    @return è¿”å›å€¼å®šä¹‰å¦‚ä¸‹ï¼š
+            0  - ç›¸ç­‰
             1  - lhs > rhs
             -1 - lhs < rhs
     */
     static int32_t Compare(const std::wstring& lhs, const std::wstring& rhs);
         
-        /** ×Ö·û´®µÄÍ¨Åä·û±È½Ï, Í¨Åä·ûÎª * Óë ?
-    @param [in] sPattern º¬ÓĞÍ¨Åä·ûµÄ×Ö·û´®
-    @param [in] sFileName ĞèÒª½øĞĞÆ¥Åä±È½ÏµÄ×Ö·û´®
-    @param [in] bNoCase ÊÇ·ñÇø·Ö´óĞ¡Ğ´£¬true ±íÊ¾²»Çø·Ö´óĞ¡Ğ´, false±íÊ¾Çø·Ö´óĞ¡Ğ´
-    @return ·µ»Øtrue±íÊ¾Æ¥Åä³É¹¦£¬·ñÔòÆ¥ÅäÊ§°Ü
+        /** å­—ç¬¦ä¸²çš„é€šé…ç¬¦æ¯”è¾ƒ, é€šé…ç¬¦ä¸º * ä¸ ?
+    @param [in] sPattern å«æœ‰é€šé…ç¬¦çš„å­—ç¬¦ä¸²
+    @param [in] sFileName éœ€è¦è¿›è¡ŒåŒ¹é…æ¯”è¾ƒçš„å­—ç¬¦ä¸²
+    @param [in] bNoCase æ˜¯å¦åŒºåˆ†å¤§å°å†™ï¼Œtrue è¡¨ç¤ºä¸åŒºåˆ†å¤§å°å†™, falseè¡¨ç¤ºåŒºåˆ†å¤§å°å†™
+    @return è¿”å›trueè¡¨ç¤ºåŒ¹é…æˆåŠŸï¼Œå¦åˆ™åŒ¹é…å¤±è´¥
     */
     static bool WildcardCompare(const wchar_t* sPattern,
                                 const wchar_t* sFileName,
                                 bool bNoCase);    
        
-    /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] cs ×óÖµ×Ö·û´®
-    @param [in] ct ÓÒÖµ×Ö·û´®
-    @param [in] count ×î¶à±È½ÏµÄ×Ö·ûÊı
-    @return ·µ»ØÖµ¶¨ÒåÈçÏÂ£º
-            0  - ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] cs å·¦å€¼å­—ç¬¦ä¸²
+    @param [in] ct å³å€¼å­—ç¬¦ä¸²
+    @param [in] count æœ€å¤šæ¯”è¾ƒçš„å­—ç¬¦æ•°
+    @return è¿”å›å€¼å®šä¹‰å¦‚ä¸‹ï¼š
+            0  - ç›¸ç­‰
           >= 1  - lhs > rhs
           <= -1 - lhs < rhs
     */
     static int32_t CompareNoCase(const wchar_t* cs, const wchar_t* ct, size_t count);
 
 public:  
-    /** »ñÈ¡×Ö·û´®³¤¶È
-    @param [in] s ×Ö·û´®ÆğÊ¼µØÖ·
-    @return ·µ»Ø×Ö·û´®³¤¶È
+    /** è·å–å­—ç¬¦ä¸²é•¿åº¦
+    @param [in] s å­—ç¬¦ä¸²èµ·å§‹åœ°å€
+    @return è¿”å›å­—ç¬¦ä¸²é•¿åº¦
     */
     static size_t StringLen(const wchar_t* s);
     
-    /** »ñÈ¡×Ö·û´®³¤¶È
-    @param [in] s ×Ö·û´®ÆğÊ¼µØÖ·
-    @return ·µ»Ø×Ö·û´®³¤¶È
+    /** è·å–å­—ç¬¦ä¸²é•¿åº¦
+    @param [in] s å­—ç¬¦ä¸²èµ·å§‹åœ°å€
+    @return è¿”å›å­—ç¬¦ä¸²é•¿åº¦
     */
     static size_t StringLen(const char* s);
     
-    /** ×Ö·û´®¸´ÖÆ, ²»×ö»º³åÇø³¤¶È¼ì²é
-    @param [in] src Ô´×Ö·û´®µØÖ·
-    @param [out] dest Ä¿±ê»º³åÇøµØÖ·
-    @return ·µ»Ødest
+    /** å­—ç¬¦ä¸²å¤åˆ¶, ä¸åšç¼“å†²åŒºé•¿åº¦æ£€æŸ¥
+    @param [in] src æºå­—ç¬¦ä¸²åœ°å€
+    @param [out] dest ç›®æ ‡ç¼“å†²åŒºåœ°å€
+    @return è¿”å›dest
     */
     static wchar_t* StringCopy(wchar_t* dest, const wchar_t* src);
     
-    /** ×Ö·û×ª»»³É´óĞ´
-    @param [in] ch ĞèÒª×ª»»µÄ×Ö·û´®
-    @return ×ª»»½á¹û×Ö·û
+    /** å­—ç¬¦è½¬æ¢æˆå¤§å†™
+    @param [in] ch éœ€è¦è½¬æ¢çš„å­—ç¬¦ä¸²
+    @return è½¬æ¢ç»“æœå­—ç¬¦
     */
     static wchar_t CharToUpper(wchar_t ch);
     
-    /** ×Ö·û×ª»»³ÉĞ¡Ğ´
-    @param [in] ch ĞèÒª×ª»»µÄ×Ö·û´®
-    @return ×ª»»½á¹û×Ö·û
+    /** å­—ç¬¦è½¬æ¢æˆå°å†™
+    @param [in] ch éœ€è¦è½¬æ¢çš„å­—ç¬¦ä¸²
+    @return è½¬æ¢ç»“æœå­—ç¬¦
     */
     static wchar_t CharToLower(wchar_t ch);
                  
-    /** ×ª»»Îª´óĞ´
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
+    /** è½¬æ¢ä¸ºå¤§å†™
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
     */
     static void MakeUpper(std::wstring& str);
     
-    /** ×ª»»ÎªĞ¡Ğ´
-    @param [in,out] str ĞèÒª²Ù×÷µÄ×Ö·û´®
+    /** è½¬æ¢ä¸ºå°å†™
+    @param [in,out] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
     */
     static void MakeLower(std::wstring& str);
     
-    /** È¡×ó²à×Ó´®
-    @param [in] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] count ĞèÒªÈ¡µÄ×Ö·û¸öÊı
-    @return ·µ»Ø×Ó´®
+    /** å–å·¦ä¾§å­ä¸²
+    @param [in] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] count éœ€è¦å–çš„å­—ç¬¦ä¸ªæ•°
+    @return è¿”å›å­ä¸²
     */
     static std::wstring Left(const std::wstring& str, int32_t count);
     
-    /** È¡ÓÒ²à×Ó´®
-    @param [in] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] count ĞèÒªÈ¡µÄ×Ö·û¸öÊı
-    @return ·µ»Ø×Ó´®
+    /** å–å³ä¾§å­ä¸²
+    @param [in] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] count éœ€è¦å–çš„å­—ç¬¦ä¸ªæ•°
+    @return è¿”å›å­ä¸²
     */
     static std::wstring Right(const std::wstring& str, int32_t count);
     
-    /** È¡×Ó´®
-    @param [in] str ĞèÒª²Ù×÷µÄ×Ö·û´®
-    @param [in] startIndex ÆğÊ¼ÏÂ±êÖµ
-    @param [in] count ×Ö·û¸öÊı£¬Èç¹ûÎªstd::wstring::npos£¬Ôò±íÊ¾´ÓstartIndexµ½×Ö·û´®½áÊø
-    @return ·µ»Ø×Ó´®
+    /** å–å­ä¸²
+    @param [in] str éœ€è¦æ“ä½œçš„å­—ç¬¦ä¸²
+    @param [in] startIndex èµ·å§‹ä¸‹æ ‡å€¼
+    @param [in] count å­—ç¬¦ä¸ªæ•°ï¼Œå¦‚æœä¸ºstd::wstring::nposï¼Œåˆ™è¡¨ç¤ºä»startIndexåˆ°å­—ç¬¦ä¸²ç»“æŸ
+    @return è¿”å›å­ä¸²
     */
     static std::wstring Mid(const std::wstring& str, int32_t startIndex, std::wstring::size_type count = std::wstring::npos);
 
-    /** ÔÚ×Ö·û´®ÖĞ²éÕÒ×Ó´® ´óĞ¡Ğ´Ãô¸Ğ
-    @param [in] str         ´ú²éÕÒ´®
-    @param [in] searchStr   Òª²éÕÒµÄ×Ó´®
-    @return ·µ»ØÕÒµ½µÄ×Ó´®Î´Öª,Èç¹ûÎ´ÕÒµ½,·µ»ØNULL
+    /** åœ¨å­—ç¬¦ä¸²ä¸­æŸ¥æ‰¾å­ä¸² å¤§å°å†™æ•æ„Ÿ
+    @param [in] str         ä»£æŸ¥æ‰¾ä¸²
+    @param [in] searchStr   è¦æŸ¥æ‰¾çš„å­ä¸²
+    @return è¿”å›æ‰¾åˆ°çš„å­ä¸²æœªçŸ¥,å¦‚æœæœªæ‰¾åˆ°,è¿”å›NULL
     */
     static const wchar_t* FindStr(const wchar_t* str, const wchar_t* searchStr);
     
-    /** ÔÚ×Ö·û´®ÖĞ²éÕÒ×Ö·û
-    @param [in] data ×Ö·û´®ÆğÊ¼µØÖ·
-    @param [in] ch ĞèÒª²éÕÒµÄ×Ö·û
-    @return ²éÕÒµ½µÄ×Ö·û´®µØÖ·£¬ÕÒ²»µ½Ôò·µ»ØNULL
+    /** åœ¨å­—ç¬¦ä¸²ä¸­æŸ¥æ‰¾å­—ç¬¦
+    @param [in] data å­—ç¬¦ä¸²èµ·å§‹åœ°å€
+    @param [in] ch éœ€è¦æŸ¥æ‰¾çš„å­—ç¬¦
+    @return æŸ¥æ‰¾åˆ°çš„å­—ç¬¦ä¸²åœ°å€ï¼Œæ‰¾ä¸åˆ°åˆ™è¿”å›NULL
     */
     static const wchar_t* FindChr(const wchar_t* data, wchar_t ch);
 
-    /** ½«×Ö·û´®È«½Ç×ª»»Îª°ë½Ç
-    @param [in] sbc È«½Ç×Ö·û´®
+    /** å°†å­—ç¬¦ä¸²å…¨è§’è½¬æ¢ä¸ºåŠè§’
+    @param [in] sbc å…¨è§’å­—ç¬¦ä¸²
     */
     static std::wstring CoverSbcToDbc(const std::wstring &sbc);
 
 private:
 
-    /** ±È½Ï×Ö·û´®£¬²»Çø·Ö´óĞ¡Ğ´
-    @param [in] lhs ×óÖµ×Ö·û´®£¬ÄÚ²¿²»ÅĞ¶ÏlhsÊÇ·ñÎª¿Õ
-    @param [in] rhs ÓÒÖµ×Ö·û´®£¬ÄÚ²¿²»ÅĞ¶ÏrhsÊÇ·ñÎª¿Õ
-    @return true ÏàµÈ false ²»ÏàµÈ
+    /** æ¯”è¾ƒå­—ç¬¦ä¸²ï¼Œä¸åŒºåˆ†å¤§å°å†™
+    @param [in] lhs å·¦å€¼å­—ç¬¦ä¸²ï¼Œå†…éƒ¨ä¸åˆ¤æ–­lhsæ˜¯å¦ä¸ºç©º
+    @param [in] rhs å³å€¼å­—ç¬¦ä¸²ï¼Œå†…éƒ¨ä¸åˆ¤æ–­rhsæ˜¯å¦ä¸ºç©º
+    @return true ç›¸ç­‰ false ä¸ç›¸ç­‰
     */
     static bool IsEqualNoCasePrivate(const wchar_t* lhs, const wchar_t* rhs);
 

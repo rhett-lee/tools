@@ -6,6 +6,7 @@
 #include "filesystem/TextFile.h"
 #include <filesystem>
 #include <vector>
+#include <cassert>
 
 CharsetTools::CharsetTools():
     m_callback(NULL)
@@ -47,7 +48,7 @@ bool CharsetTools::StartConvert(const TCharsetToolsParam& convertParam, CharsetT
 
 void CharsetTools::RunConvertThread()
 {
-    //É¨Ãè´ÅÅÌÎÄ¼ş
+    //æ‰«æç£ç›˜æ–‡ä»¶
     CharsetToolsCallback* callback = m_callback;
     if (!callback->OnConvertBegin())
     {
@@ -68,7 +69,7 @@ void CharsetTools::RunConvertThread()
         RL::StringToken::StringToArray(m_convertParam.fileExt, L';', extValues);
         if (!extValues.empty())
         {
-            //µİ¹éÉ¨ÃèÄ¿Â¼£¬²éÕÒÆ¥ÅäµÄÎÄ¼ş
+            //é€’å½’æ‰«æç›®å½•ï¼ŒæŸ¥æ‰¾åŒ¹é…çš„æ–‡ä»¶
             for (const auto& entry : std::filesystem::recursive_directory_iterator(m_convertParam.filePath))
             {
                 if (entry.is_regular_file())
@@ -87,9 +88,9 @@ void CharsetTools::RunConvertThread()
 
     std::wstring fileText;
     TProgressData data;
-    data.totalFiles = allFiles.size();
+    data.totalFiles = (uint32_t)allFiles.size();
     data.result = 1;
-    for (size_t index = 0; index < data.totalFiles; ++index)
+    for (uint32_t index = 0; index < data.totalFiles; ++index)
     {
         data.currentFileIndex = index;
         data.fileName = allFiles[index];
@@ -115,7 +116,7 @@ void CharsetTools::RunConvertThread()
 
         if (!m_convertParam.isCheckMode)
         {
-            //½øĞĞ×ª»»
+            //è¿›è¡Œè½¬æ¢
             RL::CharsetType destFileCharset = m_convertParam.destFileCharset;
             bool destFileWriteBOM = m_convertParam.destFileWriteBOM;
             assert(destFileCharset != RL::CharsetType::UNKNOWN);
@@ -123,7 +124,7 @@ void CharsetTools::RunConvertThread()
             data.result = 20;
             if (destFileCharset != RL::CharsetType::UNKNOWN)
             {
-                //°´Ä¿±ê±àÂë£¬Ğ´ÈëÎÄ¼ş
+                //æŒ‰ç›®æ ‡ç¼–ç ï¼Œå†™å…¥æ–‡ä»¶
                 bool isOk = RL::TextFile::WriteData(data.fileName, fileText, destFileCharset, destFileWriteBOM);
                 if (isOk)
                 {
@@ -159,10 +160,10 @@ std::wstring CharsetTools::GetErrMsg(const TProgressData& progressData)
     switch (progressData.result)
     {
     case 10:
-        errMsg = L"¶ÁÈ¡Ô´ÎÄ¼şÊ§°Ü";
+        errMsg = L"è¯»å–æºæ–‡ä»¶å¤±è´¥";
         break;
     case 20:
-        errMsg = L"Ğ´ÈëÄ¿±êÎÄ¼şÊ§°Ü";
+        errMsg = L"å†™å…¥ç›®æ ‡æ–‡ä»¶å¤±è´¥";
         break;
     default:
         break;
@@ -175,11 +176,11 @@ std::wstring CharsetTools::GetCharsetMsg(const TProgressData& progressData)
     std::wstring charsetSrc = GetCharsetTypeMsg(progressData.srcFileCharset);
     std::wstring charsetDest = GetCharsetTypeMsg(progressData.destFileCharset);
 
-    std::wstring msg = L"£¨";
+    std::wstring msg = L"ï¼ˆ";
     msg += charsetSrc;
     msg += L" -> ";
     msg += charsetDest;
-    msg += L"£©";
+    msg += L"ï¼‰";
     return msg;
 }
 

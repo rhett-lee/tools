@@ -6,16 +6,16 @@
 namespace RL
 {
 
-/** �ļ�ʱ��
+/** 文件时间
 */
 class FileTime
 {
 public:    
-    /** ��λֵ
+    /** 低位值
     */
     uint32_t lowDateTime = 0;
     
-    /** ��λֵ
+    /** 高位值
     */
     uint32_t highDateTime = 0;
 };

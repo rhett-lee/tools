@@ -5,74 +5,74 @@
 
 namespace RL
 {
-/** ´úÂëÒ³£¬ÓëWindows APIµÄ¶¨ÒåÏàÍ¬
+/** ä»£ç é¡µï¼Œä¸Windows APIçš„å®šä¹‰ç›¸åŒ
 */
 typedef enum
 {
-    RL_CP_ACP   = 0 ,   //CP_ACP£ºANSI´úÂëÒ³
-    RL_CP_OEMCP = 1 ,   //CP_OEMCP£ºOEM´úÂëÒ³
-    RL_CP_UTF8  = 65001 //CP_UTF8£ºÊ¹ÓÃUTF-8×ª»»
+    RL_CP_ACP   = 0 ,   //CP_ACPï¼šANSIä»£ç é¡µ
+    RL_CP_OEMCP = 1 ,   //CP_OEMCPï¼šOEMä»£ç é¡µ
+    RL_CP_UTF8  = 65001 //CP_UTF8ï¼šä½¿ç”¨UTF-8è½¬æ¢
 }RLCodePage;
 
-/** ×Ö·û´®×Ö·û¼¯×ª»»Àà£ºÄ¿±ê¶¨Î»ÓÚANSI/UTF8/UnicodeÈı¸ö×Ö·û¼¯Ö®¼äÏà»¥×ª»»
+/** å­—ç¬¦ä¸²å­—ç¬¦é›†è½¬æ¢ç±»ï¼šç›®æ ‡å®šä½äºANSI/UTF8/Unicodeä¸‰ä¸ªå­—ç¬¦é›†ä¹‹é—´ç›¸äº’è½¬æ¢
 */
 class UnicodeConvert
 {   
 public:
-    /** ¶à×Ö½Ú×ª»»³É¿í×Ö½Ú£¬°´Ä¬ÈÏ´úÂëÒ³×ª»»
-    @param [in] src Ô´×Ö·û´®±àÂë
+    /** å¤šå­—èŠ‚è½¬æ¢æˆå®½å­—èŠ‚ï¼ŒæŒ‰é»˜è®¤ä»£ç é¡µè½¬æ¢
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
     */
     static std::wstring MultiByteToUnicode(const std::string& src);
 
-    /** ¶à×Ö½Ú×ª»»³É¿í×Ö½Ú£¬°´Ä¬ÈÏ´úÂëÒ³×ª»»
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @return ×ª»»ºóµÄ¿í×Ö½Ú±àÂë×Ö·û´®
+    /** å¤šå­—èŠ‚è½¬æ¢æˆå®½å­—èŠ‚ï¼ŒæŒ‰é»˜è®¤ä»£ç é¡µè½¬æ¢
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @return è½¬æ¢åçš„å®½å­—èŠ‚ç¼–ç å­—ç¬¦ä¸²
     */
     static std::wstring MultiByteToUnicode(const char* src);
 
-    /** ¶à×Ö½Ú×ª»»³É¿í×Ö½Ú£¬°´Ä¬ÈÏ´úÂëÒ³×ª»»
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] len ×Ö·û´®µÄ³¤¶È
+    /** å¤šå­—èŠ‚è½¬æ¢æˆå®½å­—èŠ‚ï¼ŒæŒ‰é»˜è®¤ä»£ç é¡µè½¬æ¢
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] len å­—ç¬¦ä¸²çš„é•¿åº¦
     */
     static std::wstring MultiByteToUnicode(const char* src, int32_t len);
     
-    /** ¶à×Ö½Ú×ª»»³É¿í×Ö½Ú
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] len ×Ö·û´®µÄ³¤¶È£¬Èç¹ûÎª-1ÔòÈÏÎªsrcÊÇÒÔ0½áÎ²µÄ×Ö·û´®
-    @param [in] codePage ×Ö·û´®±àÂëµÄ´úÂëÒ³£¬ÓÃRL_CP_ACP´ú±í±¾µØÄ¬ÈÏ±àÂë
-                ¿É²ÎÕÕ£ºhttps://learn.microsoft.com/zh-cn/windows/win32/intl/code-page-identifiers
+    /** å¤šå­—èŠ‚è½¬æ¢æˆå®½å­—èŠ‚
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] len å­—ç¬¦ä¸²çš„é•¿åº¦ï¼Œå¦‚æœä¸º-1åˆ™è®¤ä¸ºsrcæ˜¯ä»¥0ç»“å°¾çš„å­—ç¬¦ä¸²
+    @param [in] codePage å­—ç¬¦ä¸²ç¼–ç çš„ä»£ç é¡µï¼Œç”¨RL_CP_ACPä»£è¡¨æœ¬åœ°é»˜è®¤ç¼–ç 
+                å¯å‚ç…§ï¼šhttps://learn.microsoft.com/zh-cn/windows/win32/intl/code-page-identifiers
     */
     static std::wstring MultiByteToUnicode(const char* src, int32_t len, uint32_t codePage);
                                                  
 public:    
-    /** ¿í×Ö½Ú×ª»»³É¶à×Ö½Ú, °´±¾µØÄ¬ÈÏ±àÂë×ª»»
-    @param [in] src Ô´×Ö·û´®±àÂë
+    /** å®½å­—èŠ‚è½¬æ¢æˆå¤šå­—èŠ‚, æŒ‰æœ¬åœ°é»˜è®¤ç¼–ç è½¬æ¢
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
     */                                 
     static std::string UnicodeToMultiByte(const std::wstring& src);
 
-    /** ¿í×Ö½Ú×ª»»³É¶à×Ö½Ú, °´±¾µØÄ¬ÈÏ±àÂë×ª»»
-    @param [in] src Ô´×Ö·û´®±àÂë
+    /** å®½å­—èŠ‚è½¬æ¢æˆå¤šå­—èŠ‚, æŒ‰æœ¬åœ°é»˜è®¤ç¼–ç è½¬æ¢
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
     */
     static std::string UnicodeToMultiByte(const wchar_t* src);
 
-    /** ¿í×Ö½Ú×ª»»³É¶à×Ö½Ú, °´±¾µØÄ¬ÈÏ±àÂë×ª»»
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] srcLen Ô´×Ö·û´®µÄ³¤¶È
+    /** å®½å­—èŠ‚è½¬æ¢æˆå¤šå­—èŠ‚, æŒ‰æœ¬åœ°é»˜è®¤ç¼–ç è½¬æ¢
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] srcLen æºå­—ç¬¦ä¸²çš„é•¿åº¦
     */
     static std::string UnicodeToMultiByte(const wchar_t* src, int32_t srcLen);
 
-    /** ¿í×Ö½Ú×ª»»³É¶à×Ö½Ú
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] srcLen Ô´×Ö·û´®µÄ³¤¶È£¬ÈôÎª-1Ôò×Ô¶¯¼ÆËã
-    @param [in] codePage ×Ö·û´®±àÂëµÄ´úÂëÒ³£¬¿É²ÎÕÕ£ºhttps://learn.microsoft.com/zh-cn/windows/win32/intl/code-page-identifiers
+    /** å®½å­—èŠ‚è½¬æ¢æˆå¤šå­—èŠ‚
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] srcLen æºå­—ç¬¦ä¸²çš„é•¿åº¦ï¼Œè‹¥ä¸º-1åˆ™è‡ªåŠ¨è®¡ç®—
+    @param [in] codePage å­—ç¬¦ä¸²ç¼–ç çš„ä»£ç é¡µï¼Œå¯å‚ç…§ï¼šhttps://learn.microsoft.com/zh-cn/windows/win32/intl/code-page-identifiers
     */
     static std::string UnicodeToMultiByte(const wchar_t* src, int32_t srcLen,  uint32_t codePage);
                                                 
-    /** ¿í×Ö½Ú×ª»»³É¶à×Ö½Ú
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] codePage ×Ö·û´®±àÂëµÄ´úÂëÒ³
-    @param [in] defaultChar µ±ÎŞ·¨×ªÂëÊ±£¬Ìæ»»µÄÄ¬ÈÏ×Ö·û
-    @param [out] defaultCharWasUsed Ä¬ÈÏ×Ö·ûÊÇ·ñÊ¹ÓÃ
+    /** å®½å­—èŠ‚è½¬æ¢æˆå¤šå­—èŠ‚
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] codePage å­—ç¬¦ä¸²ç¼–ç çš„ä»£ç é¡µ
+    @param [in] defaultChar å½“æ— æ³•è½¬ç æ—¶ï¼Œæ›¿æ¢çš„é»˜è®¤å­—ç¬¦
+    @param [out] defaultCharWasUsed é»˜è®¤å­—ç¬¦æ˜¯å¦ä½¿ç”¨
     */
     static std::string UnicodeToMultiByte(const std::wstring& src,
                                           uint32_t codePage, 
@@ -80,51 +80,51 @@ public:
                                           bool& defaultCharWasUsed);   
 
 public:
-    /** UTF8±àÂë×ª³ÉUnicode±àÂë
-    @param [in] inBuf ÊäÈë×Ö·û´®
-    @param [in] inBufLen ÊäÈëÊı¾İ³¤¶È£¬ Èç¹ûÎª-1Ôò×Ô¶¯¼ÆËã³¤¶È
+    /** UTF8ç¼–ç è½¬æˆUnicodeç¼–ç 
+    @param [in] inBuf è¾“å…¥å­—ç¬¦ä¸²
+    @param [in] inBufLen è¾“å…¥æ•°æ®é•¿åº¦ï¼Œ å¦‚æœä¸º-1åˆ™è‡ªåŠ¨è®¡ç®—é•¿åº¦
     */
     static std::wstring UTF8ToUnicode(const char* inBuf, int32_t inBufLen);
 
-    /** UTF8±àÂë×ª³ÉUnicode±àÂë
-    @param [in] inBuf ÊäÈë×Ö·û´®, ×Ô¶¯¼ÆËã³¤¶È
+    /** UTF8ç¼–ç è½¬æˆUnicodeç¼–ç 
+    @param [in] inBuf è¾“å…¥å­—ç¬¦ä¸², è‡ªåŠ¨è®¡ç®—é•¿åº¦
     */
     static std::wstring UTF8ToUnicode(const char* inBuf);
 
-    /** UTF8±àÂë×ª³ÉUnicode±àÂë
+    /** UTF8ç¼–ç è½¬æˆUnicodeç¼–ç 
     */
     static std::wstring UTF8ToUnicode(const std::string& inBuf);
 
-    /** UTF8±àÂë×ª³ÉUnicode±àÂë
-    @param [in] inBuf ÊäÈë×Ö·û´®
-    @param [in] inBufLen ÊäÈëÊı¾İ³¤¶È£¬ Èç¹ûÎª-1Ôò×Ô¶¯¼ÆËã³¤¶È
+    /** UTF8ç¼–ç è½¬æˆUnicodeç¼–ç 
+    @param [in] inBuf è¾“å…¥å­—ç¬¦ä¸²
+    @param [in] inBufLen è¾“å…¥æ•°æ®é•¿åº¦ï¼Œ å¦‚æœä¸º-1åˆ™è‡ªåŠ¨è®¡ç®—é•¿åº¦
     */
     static std::string UnicodeToUTF8(const wchar_t* inBuf, int32_t inBufLen);
 
-    /** UTF8±àÂë×ª³ÉUnicode±àÂë
-    @param [in] inBuf ÊäÈë×Ö·û´®, ×Ô¶¯¼ÆËã³¤¶È
+    /** UTF8ç¼–ç è½¬æˆUnicodeç¼–ç 
+    @param [in] inBuf è¾“å…¥å­—ç¬¦ä¸², è‡ªåŠ¨è®¡ç®—é•¿åº¦
     */
     static std::string UnicodeToUTF8(const wchar_t* inBuf);
 
-    /** UTF8±àÂë×ª³ÉUnicode±àÂë
+    /** UTF8ç¼–ç è½¬æˆUnicodeç¼–ç 
     */
     static std::string UnicodeToUTF8(const std::wstring& inBuf);
 
 public:
     
-    /** ÉèÖÃÄ¬ÈÏµÄ´úÂëÒ³
+    /** è®¾ç½®é»˜è®¤çš„ä»£ç é¡µ
     */
     static void SetDefaultCodePage(uint32_t codePage);
 
 private:    
-    /** ¿í×Ö½Ú×ª»»³É¶à×Ö½Ú
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] srcLen Ô´×Ö·û´®µÄ³¤¶È£¬Èç¹ûÎª-1±íÊ¾×Ô¶¯¼ÆËã
-    @param [in] codePage ×Ö·û´®±àÂëµÄ´úÂëÒ³
-    @param [in] defaultChar µ±ÎŞ·¨×ªÂëÊ±£¬Ìæ»»µÄÄ¬ÈÏ×Ö·û
-    @param [out] defaultCharWasUsed Ä¬ÈÏ×Ö·ûÊÇ·ñÊ¹ÓÃ
-    @param [out] result ·µ»ØÊÇ·ñ³É¹¦
-    @return ×ª»»ºóµÄ¶à×Ö½Ú±àÂë×Ö·û´®
+    /** å®½å­—èŠ‚è½¬æ¢æˆå¤šå­—èŠ‚
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] srcLen æºå­—ç¬¦ä¸²çš„é•¿åº¦ï¼Œå¦‚æœä¸º-1è¡¨ç¤ºè‡ªåŠ¨è®¡ç®—
+    @param [in] codePage å­—ç¬¦ä¸²ç¼–ç çš„ä»£ç é¡µ
+    @param [in] defaultChar å½“æ— æ³•è½¬ç æ—¶ï¼Œæ›¿æ¢çš„é»˜è®¤å­—ç¬¦
+    @param [out] defaultCharWasUsed é»˜è®¤å­—ç¬¦æ˜¯å¦ä½¿ç”¨
+    @param [out] result è¿”å›æ˜¯å¦æˆåŠŸ
+    @return è½¬æ¢åçš„å¤šå­—èŠ‚ç¼–ç å­—ç¬¦ä¸²
     */
     static std::string DoUnicodeToMultiByte(const wchar_t* src,
                                             int32_t srcLen,
@@ -133,12 +133,12 @@ private:
                                             bool& defaultCharWasUsed,
                                             bool& result);
     
-    /** ¶à×Ö½Ú×ª»»³É¿í×Ö½Ú
-    @param [in] src Ô´×Ö·û´®±àÂë
-    @param [in] len ×Ö·û´®µÄ³¤¶È£¬Èç¹ûÎª-1ÔòÈÏÎªsrcÊÇÒÔ0½áÎ²µÄ×Ö·û´®
-    @param [in] codePage ×Ö·û´®±àÂëµÄ´úÂëÒ³
-    @param [out] result ·µ»ØÊÇ·ñ³É¹¦
-    @return ×ª»»ºóµÄ¿í×Ö½Ú±àÂë×Ö·û´®
+    /** å¤šå­—èŠ‚è½¬æ¢æˆå®½å­—èŠ‚
+    @param [in] src æºå­—ç¬¦ä¸²ç¼–ç 
+    @param [in] len å­—ç¬¦ä¸²çš„é•¿åº¦ï¼Œå¦‚æœä¸º-1åˆ™è®¤ä¸ºsrcæ˜¯ä»¥0ç»“å°¾çš„å­—ç¬¦ä¸²
+    @param [in] codePage å­—ç¬¦ä¸²ç¼–ç çš„ä»£ç é¡µ
+    @param [out] result è¿”å›æ˜¯å¦æˆåŠŸ
+    @return è½¬æ¢åçš„å®½å­—èŠ‚ç¼–ç å­—ç¬¦ä¸²
     */
     static std::wstring DoMultiByteToUnicode(const char* src, 
                                              int32_t len, 
@@ -147,7 +147,7 @@ private:
     
 private:
     
-    /** Ä¬ÈÏµÄ´úÂëÒ³
+    /** é»˜è®¤çš„ä»£ç é¡µ
     */
     static uint32_t s_defaultCodePage;
 };

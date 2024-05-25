@@ -72,13 +72,13 @@ bool TextFile::WriteData(const std::wstring& fileName, const std::wstring& fileT
             fileData.push_back('\xFE');
             fileData.push_back('\xFF');            
         }
-        //½»»»×Ö½ÚĞò
-        uint32_t dataSize = fileText.size();
+        //äº¤æ¢å­—èŠ‚åº
+        uint32_t dataSize = (uint32_t)fileText.size();
         std::wstring resultBE;
         resultBE.reserve(dataSize + 1);
         for (size_t i = 0; i < fileText.size(); i++)
         {
-            // ½«µ±Ç°×Ö·ûµÄ×Ö½ÚĞò·´×ª£¬²¢½«Æä´æ´¢µ½Êä³ö×Ö·û´®ÖĞ
+            // å°†å½“å‰å­—ç¬¦çš„å­—èŠ‚åºåè½¬ï¼Œå¹¶å°†å…¶å­˜å‚¨åˆ°è¾“å‡ºå­—ç¬¦ä¸²ä¸­
             resultBE.push_back((fileText[i] >> 8) | (fileText[i] << 8));
         }
         const char* newData = (const char*)resultBE.c_str();
@@ -97,24 +97,24 @@ bool TextFile::WriteData(const std::wstring& fileName, const std::wstring& fileT
 bool TextFile::ReadBinaryFile(const std::wstring& fileName, std::vector<char>& container)
 {
     container.clear();
-    // ´ò¿ªÎÄ¼ş
+    // æ‰“å¼€æ–‡ä»¶
     std::ifstream file(fileName, std::ios::binary);
     if (!file.is_open()) 
     {
         return false;
     }
 
-    // »ñÈ¡ÎÄ¼ş´óĞ¡
+    // è·å–æ–‡ä»¶å¤§å°
     file.seekg(0, std::ios::end);
     std::streampos fileSize = file.tellg();
     file.seekg(0, std::ios::beg);
 
     bool isOk = false;
-    //ÎÄ¼ş´óĞ¡ÏŞ¶¨ÔÚ10MBÄÚ
+    //æ–‡ä»¶å¤§å°é™å®šåœ¨10MBå†…
     assert(fileSize < 1024 * 1024 * 10);
     if ((fileSize > 0) && (fileSize < 1024*1024*10))
     {
-        // ¶ÁÈ¡ÎÄ¼şÄÚÈİ²¢´æ´¢µ½ÈİÆ÷ÖĞ
+        // è¯»å–æ–‡ä»¶å†…å®¹å¹¶å­˜å‚¨åˆ°å®¹å™¨ä¸­
         container.resize((size_t)fileSize);
         file.read(container.data(), fileSize);
         if (!file.fail())
@@ -122,26 +122,26 @@ bool TextFile::ReadBinaryFile(const std::wstring& fileName, std::vector<char>& c
             isOk = true;
         }
     }
-    // ¹Ø±ÕÎÄ¼ş
+    // å…³é—­æ–‡ä»¶
     file.close();
     return isOk;
 }
 
 bool TextFile::WriteBinaryFile(const std::wstring& fileName, const std::vector<char>& container)
 {
-    // ´ò¿ªÎÄ¼ş
+    // æ‰“å¼€æ–‡ä»¶
     std::ofstream file(fileName, std::ios::binary);
     if (!file.is_open()) 
     {
         return false;
     }
 
-    // ½«ÈİÆ÷ÖĞµÄÊı¾İĞ´ÈëÎÄ¼ş
+    // å°†å®¹å™¨ä¸­çš„æ•°æ®å†™å…¥æ–‡ä»¶
     file.write(container.data(), container.size());
 
-    // ¼ì²éĞ´ÈëÊÇ·ñ³É¹¦
+    // æ£€æŸ¥å†™å…¥æ˜¯å¦æˆåŠŸ
     bool isOk = file.good();
-    // ¹Ø±ÕÎÄ¼ş
+    // å…³é—­æ–‡ä»¶
     file.close();
     return isOk;
 }

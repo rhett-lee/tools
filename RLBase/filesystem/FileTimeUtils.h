@@ -6,79 +6,79 @@
 
 namespace RL
 {
-/** ÎÄ¼þÊ±¼ä²Ù×÷¸¨ÖúÀà
+/** æ–‡ä»¶æ—¶é—´æ“ä½œè¾…åŠ©ç±»
 */
 class FileTimeUtils
 {
 public:    
-    /** ÅÐ¶ÏÎÄ¼þÊ±¼äÊÇ·ñÎªÓÐÐ§Öµ
-    @param [in] fileTime ÎÄ¼þÊ±¼äÖµ
+    /** åˆ¤æ–­æ–‡ä»¶æ—¶é—´æ˜¯å¦ä¸ºæœ‰æ•ˆå€¼
+    @param [in] fileTime æ–‡ä»¶æ—¶é—´å€¼
     */
     static bool IsValidFileTime(const FileTime& fileTime);
     
-    /**  ±¾µØÊ±¼ä×ª»»³ÉUTCÊ±¼ä
-    @param [in] fileTime ±¾µØÎÄ¼þÊ±¼ä
-    @param [out] utcFileTime ·µ»ØUTC ÎÄ¼þÊ±¼ä
+    /**  æœ¬åœ°æ—¶é—´è½¬æ¢æˆUTCæ—¶é—´
+    @param [in] fileTime æœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [out] utcFileTime è¿”å›žUTC æ–‡ä»¶æ—¶é—´
     */
     static bool LocalFileTimeToFileTime(const FileTime& fileTime, FileTime& utcFileTime);
     
-    /**  UTCÊ±¼ä×ª»»³É±¾µØÊ±¼ä
-    @param [in] utcFileTime UTC ÎÄ¼þÊ±¼ä
-    @param [out] fileTime ·µ»Ø±¾µØÎÄ¼þÊ±¼ä
+    /**  UTCæ—¶é—´è½¬æ¢æˆæœ¬åœ°æ—¶é—´
+    @param [in] utcFileTime UTC æ–‡ä»¶æ—¶é—´
+    @param [out] fileTime è¿”å›žæœ¬åœ°æ–‡ä»¶æ—¶é—´
     */
     static bool FileTimeToLocalFileTime(const FileTime& utcFileTime, FileTime& fileTime);
     
-    /** ±È½ÏÎÄ¼þÊ±¼ä
-    @param [in] time1 µÚÒ»¸öÎÄ¼þÊ±¼ä
-    @param [in] time2 µÚ¶þ¸öÎÄ¼þÊ±¼ä
-    @return Èç¹ûÏàµÈ·µ»Ø0, Èç¹û time1 > time2 ·µ»Ø1£¬Èç¹ûtime1 < time2 ·µ»Ø -1
+    /** æ¯”è¾ƒæ–‡ä»¶æ—¶é—´
+    @param [in] time1 ç¬¬ä¸€ä¸ªæ–‡ä»¶æ—¶é—´
+    @param [in] time2 ç¬¬äºŒä¸ªæ–‡ä»¶æ—¶é—´
+    @return å¦‚æžœç›¸ç­‰è¿”å›ž0, å¦‚æžœ time1 > time2 è¿”å›ž1ï¼Œå¦‚æžœtime1 < time2 è¿”å›ž -1
     */
     static int32_t CompareFileTime(const FileTime* time1, const FileTime* time2);
 
-    /** ½«DosÎÄ¼þÊ±¼ä×ª»»Îª±¾µØÎÄ¼þÊ±¼ä
-    @param [in] dosTime UnixÎÄ¼þÊ±¼ä
-    @param [out] fileTime ·µ»Ø±¾µØÎÄ¼þÊ±¼ä
+    /** å°†Dosæ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºæœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [in] dosTime Unixæ–‡ä»¶æ—¶é—´
+    @param [out] fileTime è¿”å›žæœ¬åœ°æ–‡ä»¶æ—¶é—´
     */
     static bool DosTimeToFileTime(uint32_t dosTime, FileTime& fileTime);
     
-    /** ½«±¾µØÎÄ¼þÊ±¼ä×ª»»ÎªDosÎÄ¼þÊ±¼ä
-    @param [in] fileTime ±¾µØÎÄ¼þÊ±¼ä
-    @param [out] dosTime DosÎÄ¼þÊ±¼ä
+    /** å°†æœ¬åœ°æ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºDosæ–‡ä»¶æ—¶é—´
+    @param [in] fileTime æœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [out] dosTime Dosæ–‡ä»¶æ—¶é—´
     */
     static bool FileTimeToDosTime(const FileTime& fileTime, uint32_t& dosTime);
     
-    /** ½«UnixÎÄ¼þÊ±¼ä×ª»»Îª±¾µØÎÄ¼þÊ±¼ä
-    @param [in] unixTime UnixÎÄ¼þÊ±¼ä
-    @param [out] fileTime ·µ»Ø±¾µØÎÄ¼þÊ±¼ä
+    /** å°†Unixæ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºæœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [in] unixTime Unixæ–‡ä»¶æ—¶é—´
+    @param [out] fileTime è¿”å›žæœ¬åœ°æ–‡ä»¶æ—¶é—´
     */
     static void UnixTimeToFileTime(uint32_t unixTime, FileTime& fileTime);
     
-    /** ½«±¾µØÎÄ¼þÊ±¼ä×ª»»ÎªUnixÎÄ¼þÊ±¼ä
-    @param [in] fileTime ±¾µØÎÄ¼þÊ±¼ä
-    @param [out] unixTime UnixÎÄ¼þÊ±¼ä
+    /** å°†æœ¬åœ°æ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºUnixæ–‡ä»¶æ—¶é—´
+    @param [in] fileTime æœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [out] unixTime Unixæ–‡ä»¶æ—¶é—´
     */
     static bool FileTimeToUnixTime(const FileTime& fileTime, uint32_t& unixTime);
 
-    /** ½«UnixÎÄ¼þÊ±¼ä×ª»»Îª±¾µØÎÄ¼þÊ±¼ä
-    @param [in] unixTime UnixÎÄ¼þÊ±¼ä
-    @param [out] fileTime ·µ»Ø±¾µØÎÄ¼þÊ±¼ä
+    /** å°†Unixæ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºæœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [in] unixTime Unixæ–‡ä»¶æ—¶é—´
+    @param [out] fileTime è¿”å›žæœ¬åœ°æ–‡ä»¶æ—¶é—´
     */
     static bool UnixTime64ToFileTime(int64_t unixTime, FileTime& fileTime);
 
-    /** ½«±¾µØÎÄ¼þÊ±¼ä×ª»»ÎªUnixÎÄ¼þÊ±¼ä
-    @param [in] fileTime ±¾µØÎÄ¼þÊ±¼ä
-    @param [out] unixTime UnixÎÄ¼þÊ±¼ä
+    /** å°†æœ¬åœ°æ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºUnixæ–‡ä»¶æ—¶é—´
+    @param [in] fileTime æœ¬åœ°æ–‡ä»¶æ—¶é—´
+    @param [out] unixTime Unixæ–‡ä»¶æ—¶é—´
     */
     static bool FileTimeToUnixTime64(const FileTime& fileTime, int64_t& unixTime);
     
-    /** »ñÈ¡´Ó1601ÄêÆðµÄÃëÊý
-    @param [in] year Äê
-    @param [in] month ÔÂ
-    @param [in] day ÈÕ
-    @param [in] hour Ê±
-    @param [in] min ·Ö
-    @param [in] sec Ãë
-    @param [out] resSeconds ·µ»ØUTCÎÄ¼þÊ±¼ä
+    /** èŽ·å–ä»Ž1601å¹´èµ·çš„ç§’æ•°
+    @param [in] year å¹´
+    @param [in] month æœˆ
+    @param [in] day æ—¥
+    @param [in] hour æ—¶
+    @param [in] min åˆ†
+    @param [in] sec ç§’
+    @param [out] resSeconds è¿”å›žUTCæ–‡ä»¶æ—¶é—´
     */
     static bool GetSecondsSince1601(uint32_t year, 
                                     uint32_t month, 
@@ -88,39 +88,39 @@ public:
                                     uint32_t sec, 
                                     uint64_t& resSeconds);
     
-    /** »ñÈ¡±¾µØUTCÎÄ¼þÊ±¼ä
-    @param [out] fileTime ·µ»ØUTCÎÄ¼þÊ±¼ä
+    /** èŽ·å–æœ¬åœ°UTCæ–‡ä»¶æ—¶é—´
+    @param [out] fileTime è¿”å›žUTCæ–‡ä»¶æ—¶é—´
     */
     static void GetCurrentUtcFileTime(FileTime& fileTime);
     
-    /** ½«ÎÄ¼þÊ±¼ä×ª»»³É64Î»ÎÞ·ûºÅÕûÐÍ±íÊ¾
-    @param [in] fileTime ÎÄ¼þÊ±¼ä
-    @return ·µ»Ø×ª»»½á¹û
+    /** å°†æ–‡ä»¶æ—¶é—´è½¬æ¢æˆ64ä½æ— ç¬¦å·æ•´åž‹è¡¨ç¤º
+    @param [in] fileTime æ–‡ä»¶æ—¶é—´
+    @return è¿”å›žè½¬æ¢ç»“æžœ
     */
     static uint64_t ConvertFromFileTime(const FileTime& fileTime);
     
-    /** ½«64Î»ÎÞ·ûºÅÕûÐÍ±íÊ¾×ª»»³ÉÎÄ¼þÊ±¼ä
-    @param [in] time 64Î»ÎÞ·ûºÅÕûÐÍ±íÊ¾µÄÎÄ¼þÊ±¼ä
-    @param [out] fileTime ·µ»ØÎÄ¼þÊ±¼ä
+    /** å°†64ä½æ— ç¬¦å·æ•´åž‹è¡¨ç¤ºè½¬æ¢æˆæ–‡ä»¶æ—¶é—´
+    @param [in] time 64ä½æ— ç¬¦å·æ•´åž‹è¡¨ç¤ºçš„æ–‡ä»¶æ—¶é—´
+    @param [out] fileTime è¿”å›žæ–‡ä»¶æ—¶é—´
     */
     static void ConvertToFileTime(uint64_t time, FileTime& fileTime);
     
-    /** ½«ÎÄ¼þÊ±¼ä×ª»»Îª×Ö·û´®ÐÎÊ½: ²»×öÊ±Çø×ª»»
-    @param [in] fileTime ÎÄ¼þÊ±¼ä£¬ Ä¬ÈÏÊÇUTCÊ±¼ä
-    @param [in] includeTime ÊÇ·ñ°üº¬Ê±¼ä£¨Ö¸Ê±·Ö£©
-    @param [in] includeSeconds ÊÇ·ñ°üº¬Ãë
-    @return ·µ»ØÏÔÊ¾µÄ×Ö·û´®£¬Èç¹ûÊ§°Ü·µ»Ø¿Õ´®
+    /** å°†æ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºå­—ç¬¦ä¸²å½¢å¼: ä¸åšæ—¶åŒºè½¬æ¢
+    @param [in] fileTime æ–‡ä»¶æ—¶é—´ï¼Œ é»˜è®¤æ˜¯UTCæ—¶é—´
+    @param [in] includeTime æ˜¯å¦åŒ…å«æ—¶é—´ï¼ˆæŒ‡æ—¶åˆ†ï¼‰
+    @param [in] includeSeconds æ˜¯å¦åŒ…å«ç§’
+    @return è¿”å›žæ˜¾ç¤ºçš„å­—ç¬¦ä¸²ï¼Œå¦‚æžœå¤±è´¥è¿”å›žç©ºä¸²
     */
     static std::wstring FileTimeToString(const FileTime& fileTime, 
                                          bool includeTime, 
                                          bool includeSeconds);
 
 
-    /** ½«ÎÄ¼þÊ±¼ä×ª»»Îª×Ö·û´®ÐÎÊ½£¬ ²¢½«Çø×ª»»Îª±¾µØÊ±¼ä
-    @param [in] fileTime ÎÄ¼þÊ±¼ä£¬ UTCÊ±¼ä
-    @param [in] includeTime ÊÇ·ñ°üº¬Ê±¼ä£¨Ö¸Ê±·Ö£©
-    @param [in] includeSeconds ÊÇ·ñ°üº¬Ãë
-    @return ·µ»ØÏÔÊ¾µÄ×Ö·û´®£¬Èç¹ûÊ§°Ü·µ»Ø¿Õ´®
+    /** å°†æ–‡ä»¶æ—¶é—´è½¬æ¢ä¸ºå­—ç¬¦ä¸²å½¢å¼ï¼Œ å¹¶å°†åŒºè½¬æ¢ä¸ºæœ¬åœ°æ—¶é—´
+    @param [in] fileTime æ–‡ä»¶æ—¶é—´ï¼Œ UTCæ—¶é—´
+    @param [in] includeTime æ˜¯å¦åŒ…å«æ—¶é—´ï¼ˆæŒ‡æ—¶åˆ†ï¼‰
+    @param [in] includeSeconds æ˜¯å¦åŒ…å«ç§’
+    @return è¿”å›žæ˜¾ç¤ºçš„å­—ç¬¦ä¸²ï¼Œå¦‚æžœå¤±è´¥è¿”å›žç©ºä¸²
     */
     static std::wstring FileTimeToLocalTimeString(const FileTime& fileTime, 
                                                   bool includeTime, 

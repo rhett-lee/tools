@@ -292,7 +292,7 @@ std::wstring FileTimeUtils::FileTimeToLocalTimeString(const FileTime& fileTime,
     ddwUniversalTime = ddwUniversalTime << 32;
     ddwUniversalTime += fileTime.lowDateTime;
 
-    //“ÚŒ™FILETIMEµƒ ±º‰µ•Œª «100∏ˆ“⁄∑÷÷Æ“ª√Î£¨»ª∫ÛTIME_ZONE_INFORMATIONµƒ ±º‰µ•Œª «∑÷£¨À˘“‘’‚¿Ô–Ë“™≥À“‘600000000
+    //Âõ†‰∏∫FILETIMEÁöÑÊó∂Èó¥Âçï‰ΩçÊòØ100‰∏™‰∫øÂàÜ‰πã‰∏ÄÁßíÔºåÁÑ∂ÂêéTIME_ZONE_INFORMATIONÁöÑÊó∂Èó¥Âçï‰ΩçÊòØÂàÜÔºåÊâÄ‰ª•ËøôÈáåÈúÄË¶Å‰πò‰ª•600000000
     TIME_ZONE_INFORMATION defaultTimeZone = { 0 };
     DWORD dwResult = ::GetTimeZoneInformation(&defaultTimeZone);
     if (dwResult == TIME_ZONE_ID_INVALID)
@@ -303,7 +303,7 @@ std::wstring FileTimeUtils::FileTimeToLocalTimeString(const FileTime& fileTime,
     DWORD64 ddwBias = std::abs(defaultTimeZone.Bias);
     ddwBias *= 600000000;
 
-    //◊™ªªπ´ ΩŒ™£∫LOCAL_TIME = UTC - BIAS  
+    //ËΩ¨Êç¢ÂÖ¨Âºè‰∏∫ÔºöLOCAL_TIME = UTC - BIAS  
     DWORD64 ddwLocalTime = 0;
     if (defaultTimeZone.Bias > 0)
     {
@@ -314,7 +314,7 @@ std::wstring FileTimeUtils::FileTimeToLocalTimeString(const FileTime& fileTime,
         ddwLocalTime = ddwUniversalTime + ddwBias;
     }
 
-    //Ω´DWORD64 ˝÷µ◊™ªªŒ™FILETIME∏Ò Ω  
+    //Â∞ÜDWORD64Êï∞ÂÄºËΩ¨Êç¢‰∏∫FILETIMEÊ†ºÂºè  
     FILETIME ftLocalTime = { 0 };
     ftLocalTime.dwLowDateTime = static_cast<DWORD>(ddwLocalTime);
     ftLocalTime.dwHighDateTime = static_cast<DWORD>(ddwLocalTime >> 32);

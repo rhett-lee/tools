@@ -5,10 +5,10 @@
 #pragma once
 
 #ifndef __AFXWIN_H__
-	#error "include 'pch.h' before including this file for PCH"
+    #error "include 'pch.h' before including this file for PCH"
 #endif
 
-#include "resource.h"		// main symbols
+#include "resource.h"        // main symbols
 
 
 // CcharsetconvertApp:
@@ -18,15 +18,15 @@
 class CcharsetconvertApp : public CWinApp
 {
 public:
-	CcharsetconvertApp();
+    CcharsetconvertApp();
 
 // Overrides
 public:
-	virtual BOOL InitInstance();
+    virtual BOOL InitInstance();
 
 // Implementation
 
-	DECLARE_MESSAGE_MAP()
+    DECLARE_MESSAGE_MAP()
 };
 
 extern CcharsetconvertApp theApp;

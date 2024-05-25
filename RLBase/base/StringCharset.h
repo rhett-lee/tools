@@ -6,7 +6,7 @@
 namespace RL
 {
 
-/** Ö§³ÖµÄ×Ö·û¼¯¶¨Òå
+/** æ”¯æŒçš„å­—ç¬¦é›†å®šä¹‰
 */
 enum class CharsetType
 {
@@ -17,94 +17,94 @@ enum class CharsetType
     UTF16_BE
 };
 
-/** ×Ö·û´®×Ö·û¼¯¸¨ÖúÀà
+/** å­—ç¬¦ä¸²å­—ç¬¦é›†è¾…åŠ©ç±»
 */
 class StringCharset
 {   
 public:
-    /** »ñÈ¡Ö¸¶¨±àÂëµÄBOMÍ·³¤¶È
-    @param [in] charsetType ±àÂëÀàĞÍ
+    /** è·å–æŒ‡å®šç¼–ç çš„BOMå¤´é•¿åº¦
+    @param [in] charsetType ç¼–ç ç±»å‹
     */
     static uint32_t GetBOMSize(CharsetType charsetType);
     
-    /** ¼ì²âÊı¾İµÄ×Ö·û¼¯ÀàĞÍ, ½ö¸ù¾İÊı¾İµÄBOMÍ·½øĞĞ¼ì²â
-    @param [in] data Êı¾İÆğÊ¼µØÖ·
-    @param [in] length Êı¾İ³¤¶È
-    @return ·µ»Ø×Ö·û¼¯ÀàĞÍ£¬Èç¹û¼ì²âÊ§°ÜÔò·µ»ØÎ´ÖªÀàĞÍ
+    /** æ£€æµ‹æ•°æ®çš„å­—ç¬¦é›†ç±»å‹, ä»…æ ¹æ®æ•°æ®çš„BOMå¤´è¿›è¡Œæ£€æµ‹
+    @param [in] data æ•°æ®èµ·å§‹åœ°å€
+    @param [in] length æ•°æ®é•¿åº¦
+    @return è¿”å›å­—ç¬¦é›†ç±»å‹ï¼Œå¦‚æœæ£€æµ‹å¤±è´¥åˆ™è¿”å›æœªçŸ¥ç±»å‹
     */
     static CharsetType GetDataCharsetByBOM(const char* data, uint32_t length);
 
-    /** ¼ì²âÊı¾İµÄ×Ö·û¼¯ÀàĞÍ, ½ö¸ù¾İÊı¾İµÄÀàĞÍ½øĞĞ¼ì²â£¬²»¼ì²âBOMÍ·Êı¾İ
-    @param [in] data Êı¾İÆğÊ¼µØÖ·
-    @param [in] length Êı¾İ³¤¶È
-    @return ·µ»Ø×Ö·û¼¯ÀàĞÍ£¬Èç¹û¼ì²âÊ§°ÜÔò·µ»ØÎ´ÖªÀàĞÍ
+    /** æ£€æµ‹æ•°æ®çš„å­—ç¬¦é›†ç±»å‹, ä»…æ ¹æ®æ•°æ®çš„ç±»å‹è¿›è¡Œæ£€æµ‹ï¼Œä¸æ£€æµ‹BOMå¤´æ•°æ®
+    @param [in] data æ•°æ®èµ·å§‹åœ°å€
+    @param [in] length æ•°æ®é•¿åº¦
+    @return è¿”å›å­—ç¬¦é›†ç±»å‹ï¼Œå¦‚æœæ£€æµ‹å¤±è´¥åˆ™è¿”å›æœªçŸ¥ç±»å‹
     */
     static CharsetType GetDataCharset(const char* data, uint32_t length);
 
-    /** ½«Á÷Êı¾İ×ª»»Îª×Ö·û´®, ÓÅÏÈ¸ù¾İBOMÍ·½øĞĞ¼ì²âÀàĞÍ£¬Èç¹û¼ì²âÊ§°ÜÔò°´Êı¾İÁ÷¼ì²â±àÂëÀàĞÍ
-    @param [in] data Êı¾İÆğÊ¼µØÖ·, Êı¾İÎªÎ´Öª±àÂëÊı¾İ
-    @param [in] length Êı¾İ³¤¶È
-    @param [out] result ·µ»ØUnicode×Ö·û´®Öµ
+    /** å°†æµæ•°æ®è½¬æ¢ä¸ºå­—ç¬¦ä¸², ä¼˜å…ˆæ ¹æ®BOMå¤´è¿›è¡Œæ£€æµ‹ç±»å‹ï¼Œå¦‚æœæ£€æµ‹å¤±è´¥åˆ™æŒ‰æ•°æ®æµæ£€æµ‹ç¼–ç ç±»å‹
+    @param [in] data æ•°æ®èµ·å§‹åœ°å€, æ•°æ®ä¸ºæœªçŸ¥ç¼–ç æ•°æ®
+    @param [in] length æ•°æ®é•¿åº¦
+    @param [out] result è¿”å›Unicodeå­—ç¬¦ä¸²å€¼
     */
     static bool GetDataAsString(const char* data, uint32_t length, std::wstring& result);
 
-    /** ½«Á÷Êı¾İ×ª»»Îª×Ö·û´®, ÓÅÏÈ¸ù¾İBOMÍ·½øĞĞ¼ì²âÀàĞÍ£¬Èç¹û¼ì²âÊ§°ÜÔò°´Êı¾İÁ÷¼ì²â±àÂëÀàĞÍ
-    @param [in] data Êı¾İÆğÊ¼µØÖ·, Êı¾İÎªÎ´Öª±àÂëÊı¾İ
-    @param [in] length Êı¾İ³¤¶È
-    @param [in] inCharsetType ¶ÁÈ¡ÎÄ¼şËù²ÉÓÃµÄ±àÂë£¬Èç¹ûÎªUNKNOWNÔò×Ô¶¯¼ì²âÎÄ±¾±àÂëÀàĞÍ
-    @param [out] result ·µ»ØUnicode×Ö·û´®Öµ
+    /** å°†æµæ•°æ®è½¬æ¢ä¸ºå­—ç¬¦ä¸², ä¼˜å…ˆæ ¹æ®BOMå¤´è¿›è¡Œæ£€æµ‹ç±»å‹ï¼Œå¦‚æœæ£€æµ‹å¤±è´¥åˆ™æŒ‰æ•°æ®æµæ£€æµ‹ç¼–ç ç±»å‹
+    @param [in] data æ•°æ®èµ·å§‹åœ°å€, æ•°æ®ä¸ºæœªçŸ¥ç¼–ç æ•°æ®
+    @param [in] length æ•°æ®é•¿åº¦
+    @param [in] inCharsetType è¯»å–æ–‡ä»¶æ‰€é‡‡ç”¨çš„ç¼–ç ï¼Œå¦‚æœä¸ºUNKNOWNåˆ™è‡ªåŠ¨æ£€æµ‹æ–‡æœ¬ç¼–ç ç±»å‹
+    @param [out] result è¿”å›Unicodeå­—ç¬¦ä¸²å€¼
     */
     static bool GetDataAsString(const char* data, uint32_t length, CharsetType inCharsetType, std::wstring& result);
 
-    /** ½«Á÷Êı¾İ×ª»»Îª×Ö·û´®, ÓÅÏÈ¸ù¾İBOMÍ·½øĞĞ¼ì²âÀàĞÍ£¬Èç¹û¼ì²âÊ§°ÜÔò°´Êı¾İÁ÷¼ì²â±àÂëÀàĞÍ
-    @param [in] data Êı¾İÆğÊ¼µØÖ·, Êı¾İÎªÎ´Öª±àÂëÊı¾İ
-    @param [in] length Êı¾İ³¤¶È
-    @param [out] result ·µ»ØUnicode×Ö·û´®Öµ
-    @param [out] outCharsetType ¶ÁÈ¡ÎÄ¼şËù²ÉÓÃµÄ±àÂëÀàĞÍ
-    @param [out] bomSize ¶ÁÈ¡ÎÄ¼şÊ±£¬¼ì²âµ½µÄUnicode BOMÍ·´óĞ¡
+    /** å°†æµæ•°æ®è½¬æ¢ä¸ºå­—ç¬¦ä¸², ä¼˜å…ˆæ ¹æ®BOMå¤´è¿›è¡Œæ£€æµ‹ç±»å‹ï¼Œå¦‚æœæ£€æµ‹å¤±è´¥åˆ™æŒ‰æ•°æ®æµæ£€æµ‹ç¼–ç ç±»å‹
+    @param [in] data æ•°æ®èµ·å§‹åœ°å€, æ•°æ®ä¸ºæœªçŸ¥ç¼–ç æ•°æ®
+    @param [in] length æ•°æ®é•¿åº¦
+    @param [out] result è¿”å›Unicodeå­—ç¬¦ä¸²å€¼
+    @param [out] outCharsetType è¯»å–æ–‡ä»¶æ‰€é‡‡ç”¨çš„ç¼–ç ç±»å‹
+    @param [out] bomSize è¯»å–æ–‡ä»¶æ—¶ï¼Œæ£€æµ‹åˆ°çš„Unicode BOMå¤´å¤§å°
     */
     static bool GetDataAsString(const char* data, uint32_t length, 
                                 std::wstring& result, CharsetType& outCharsetType, uint32_t& bomSize);
 
-     /** ½«Á÷Êı¾İ×ª»»Îª×Ö·û´®, ÓÅÏÈ¸ù¾İBOMÍ·½øĞĞ¼ì²âÀàĞÍ£¬Èç¹û¼ì²âÊ§°ÜÔò°´Êı¾İÁ÷¼ì²â±àÂëÀàĞÍ
-    @param [in] data Êı¾İÆğÊ¼µØÖ·, Êı¾İÎªÎ´Öª±àÂëÊı¾İ
-    @param [in] length Êı¾İ³¤¶È
-    @param [in] inCharsetType ¶ÁÈ¡ÎÄ¼şËù²ÉÓÃµÄ±àÂë£¬Èç¹ûÎªUNKNOWNÔò×Ô¶¯¼ì²âÎÄ±¾±àÂëÀàĞÍ
-    @param [out] result ·µ»ØUnicode×Ö·û´®Öµ
-    @param [out] outCharsetType ¶ÁÈ¡ÎÄ¼şËù²ÉÓÃµÄ±àÂëÀàĞÍ
-    @param [out] bomSize ¶ÁÈ¡ÎÄ¼şÊ±£¬¼ì²âµ½µÄUnicode BOMÍ·´óĞ¡
+     /** å°†æµæ•°æ®è½¬æ¢ä¸ºå­—ç¬¦ä¸², ä¼˜å…ˆæ ¹æ®BOMå¤´è¿›è¡Œæ£€æµ‹ç±»å‹ï¼Œå¦‚æœæ£€æµ‹å¤±è´¥åˆ™æŒ‰æ•°æ®æµæ£€æµ‹ç¼–ç ç±»å‹
+    @param [in] data æ•°æ®èµ·å§‹åœ°å€, æ•°æ®ä¸ºæœªçŸ¥ç¼–ç æ•°æ®
+    @param [in] length æ•°æ®é•¿åº¦
+    @param [in] inCharsetType è¯»å–æ–‡ä»¶æ‰€é‡‡ç”¨çš„ç¼–ç ï¼Œå¦‚æœä¸ºUNKNOWNåˆ™è‡ªåŠ¨æ£€æµ‹æ–‡æœ¬ç¼–ç ç±»å‹
+    @param [out] result è¿”å›Unicodeå­—ç¬¦ä¸²å€¼
+    @param [out] outCharsetType è¯»å–æ–‡ä»¶æ‰€é‡‡ç”¨çš„ç¼–ç ç±»å‹
+    @param [out] bomSize è¯»å–æ–‡ä»¶æ—¶ï¼Œæ£€æµ‹åˆ°çš„Unicode BOMå¤´å¤§å°
     */
     static bool GetDataAsString(const char* data, uint32_t length, CharsetType inCharsetType,
                                 std::wstring& result, CharsetType& outCharsetType, uint32_t& bomSize);
 
 public:
-    /** ÓÃÓÚÑéÖ¤¸ø¶¨µÄ char Á÷ÊÇ·ñÎª ASCII ±àÂë
-    @param [in] stream£ºÖ¸Ïò char Á÷µÄÖ¸Õë
-    #param [in] length£ºÁ÷µÄ³¤¶È£¬ÒÔ×Ö½ÚÎªµ¥Î»
+    /** ç”¨äºéªŒè¯ç»™å®šçš„ char æµæ˜¯å¦ä¸º ASCII ç¼–ç 
+    @param [in] streamï¼šæŒ‡å‘ char æµçš„æŒ‡é’ˆ
+    #param [in] lengthï¼šæµçš„é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºå•ä½
     */
     static bool IsValidateASCIIStream(const char* stream, uint32_t length);
 
-    /** ÓÃÓÚÑéÖ¤¸ø¶¨µÄ char Á÷ÊÇ·ñÎª GBK ±àÂë
-    @param [in] stream£ºÖ¸Ïò char Á÷µÄÖ¸Õë
-    #param [in] length£ºÁ÷µÄ³¤¶È£¬ÒÔ×Ö½ÚÎªµ¥Î»
+    /** ç”¨äºéªŒè¯ç»™å®šçš„ char æµæ˜¯å¦ä¸º GBK ç¼–ç 
+    @param [in] streamï¼šæŒ‡å‘ char æµçš„æŒ‡é’ˆ
+    #param [in] lengthï¼šæµçš„é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºå•ä½
     */
     static bool IsValidateGBKStream(const char* stream, uint32_t length);
 
-    /** ÓÃÓÚÑéÖ¤¸ø¶¨µÄ char Á÷ÊÇ·ñÎª UTF-8 ±àÂë
-    @param [in] stream£ºÖ¸Ïò char Á÷µÄÖ¸Õë
-    #param [in] length£ºÁ÷µÄ³¤¶È£¬ÒÔ×Ö½ÚÎªµ¥Î»
+    /** ç”¨äºéªŒè¯ç»™å®šçš„ char æµæ˜¯å¦ä¸º UTF-8 ç¼–ç 
+    @param [in] streamï¼šæŒ‡å‘ char æµçš„æŒ‡é’ˆ
+    #param [in] lengthï¼šæµçš„é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºå•ä½
     */
     static bool IsValidateUTF8Stream(const char* stream, uint32_t length);
 
-    /** ÓÃÓÚÑéÖ¤¸ø¶¨µÄ char Á÷ÊÇ·ñÎª UTF16-LE ±àÂë
-    @param [in] stream£ºÖ¸Ïò char Á÷µÄÖ¸Õë
-    #param [in] length£ºÁ÷µÄ³¤¶È£¬ÒÔ×Ö½ÚÎªµ¥Î»
+    /** ç”¨äºéªŒè¯ç»™å®šçš„ char æµæ˜¯å¦ä¸º UTF16-LE ç¼–ç 
+    @param [in] streamï¼šæŒ‡å‘ char æµçš„æŒ‡é’ˆ
+    #param [in] lengthï¼šæµçš„é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºå•ä½
     */
     static bool IsValidateUTF16LEStream(const char* stream, uint32_t length);
 
-    /** ÓÃÓÚÑéÖ¤¸ø¶¨µÄ char Á÷ÊÇ·ñÎª UTF16-BE ±àÂë
-    @param [in] stream£ºÖ¸Ïò char Á÷µÄÖ¸Õë
-    #param [in] length£ºÁ÷µÄ³¤¶È£¬ÒÔ×Ö½ÚÎªµ¥Î»
+    /** ç”¨äºéªŒè¯ç»™å®šçš„ char æµæ˜¯å¦ä¸º UTF16-BE ç¼–ç 
+    @param [in] streamï¼šæŒ‡å‘ char æµçš„æŒ‡é’ˆ
+    #param [in] lengthï¼šæµçš„é•¿åº¦ï¼Œä»¥å­—èŠ‚ä¸ºå•ä½
     */
     static bool IsValidateUTF16BEStream(const char* stream, uint32_t length);
 };

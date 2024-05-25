@@ -6,76 +6,76 @@
 
 struct TCharsetToolsParam
 {
-	bool isCheckMode = true; //¼ì²âÄ£Ê½£¬²»½øĞĞÊµ¼Ê×ª»»
-	bool isDirChecked = true;
-	std::wstring fileName;
-	std::wstring filePath;
-	std::wstring fileExt;
+    bool isCheckMode = true; //æ£€æµ‹æ¨¡å¼ï¼Œä¸è¿›è¡Œå®é™…è½¬æ¢
+    bool isDirChecked = true;
+    std::wstring fileName;
+    std::wstring filePath;
+    std::wstring fileExt;
 
-	RL::CharsetType srcFileCharset = RL::CharsetType::UNKNOWN;
-	RL::CharsetType destFileCharset = RL::CharsetType::UNKNOWN;
-	bool destFileWriteBOM = false;
+    RL::CharsetType srcFileCharset = RL::CharsetType::UNKNOWN;
+    RL::CharsetType destFileCharset = RL::CharsetType::UNKNOWN;
+    bool destFileWriteBOM = false;
 };
 
-//½ø¶ÈÏà¹ØÊı¾İ
+//è¿›åº¦ç›¸å…³æ•°æ®
 struct TProgressData
 {
-	//ÊÇ·ñÎª¼ì²âÄ£Ê½£ºtrueÎª¼ì²âÄ£Ê½£¬falseÎª×ª»»Ä£Ê½
-	bool isCheckMode = true;
-	//ÎÄ¼ş×ÜÊı
-	uint32_t totalFiles = 0;
-	//µ±Ç°ÎÄ¼şË÷ÒıÖµ£¬´Ó0¿ªÊ¼
-	uint32_t currentFileIndex = 0;
-	//µ±Ç°ÎÄ¼şÂ·¾¶
-	std::wstring fileName;
-	//µ±Ç°ÎÄ¼ş±àÂë
-	RL::CharsetType srcFileCharset = RL::CharsetType::UNKNOWN;
-	//Ä¿±êÎÄ¼ş±àÂë
-	RL::CharsetType destFileCharset = RL::CharsetType::UNKNOWN;
-	//²Ù×÷½á¹û: 0 ×ª»»Ä£Ê½£º×ª»»³É¹¦£¬
-	//         1 ¼ì²âÄ£Ê½£º³É¹¦£¬ÎŞ²Ù×÷
-	//         10 ¶ÁÈ¡Ô´ÎÄ¼şÊ§°Ü
-	//         20 Ğ´ÈëÄ¿±êÎÄ¼şÊ§°Ü
-	uint32_t result = 1;
+    //æ˜¯å¦ä¸ºæ£€æµ‹æ¨¡å¼ï¼štrueä¸ºæ£€æµ‹æ¨¡å¼ï¼Œfalseä¸ºè½¬æ¢æ¨¡å¼
+    bool isCheckMode = true;
+    //æ–‡ä»¶æ€»æ•°
+    uint32_t totalFiles = 0;
+    //å½“å‰æ–‡ä»¶ç´¢å¼•å€¼ï¼Œä»0å¼€å§‹
+    uint32_t currentFileIndex = 0;
+    //å½“å‰æ–‡ä»¶è·¯å¾„
+    std::wstring fileName;
+    //å½“å‰æ–‡ä»¶ç¼–ç 
+    RL::CharsetType srcFileCharset = RL::CharsetType::UNKNOWN;
+    //ç›®æ ‡æ–‡ä»¶ç¼–ç 
+    RL::CharsetType destFileCharset = RL::CharsetType::UNKNOWN;
+    //æ“ä½œç»“æœ: 0 è½¬æ¢æ¨¡å¼ï¼šè½¬æ¢æˆåŠŸï¼Œ
+    //         1 æ£€æµ‹æ¨¡å¼ï¼šæˆåŠŸï¼Œæ— æ“ä½œ
+    //         10 è¯»å–æºæ–‡ä»¶å¤±è´¥
+    //         20 å†™å…¥ç›®æ ‡æ–‡ä»¶å¤±è´¥
+    uint32_t result = 1;
 };
 
 class CharsetToolsCallback
 {
 public:
-	//Èç¹û»Øµ÷º¯Êı·µ»Øfalse£¬ÔòÖÕÖ¹Ö´ĞĞ
-	virtual bool OnConvertBegin() = 0;
-	virtual bool OnConvertProgress(const TProgressData& progressData) = 0;
-	virtual bool OnConvertEnd() = 0;
+    //å¦‚æœå›è°ƒå‡½æ•°è¿”å›falseï¼Œåˆ™ç»ˆæ­¢æ‰§è¡Œ
+    virtual bool OnConvertBegin() = 0;
+    virtual bool OnConvertProgress(const TProgressData& progressData) = 0;
+    virtual bool OnConvertEnd() = 0;
 };
 
 class CharsetTools
 {
 public:
-	CharsetTools();
+    CharsetTools();
 
 public:
-	//¿ªÊ¼×ª»»
-	bool StartConvert(const TCharsetToolsParam& convertParam, CharsetToolsCallback* callback);
+    //å¼€å§‹è½¬æ¢
+    bool StartConvert(const TCharsetToolsParam& convertParam, CharsetToolsCallback* callback);
 
-	//½áÊø²¢ÇåÀí×ÊÔ´
-	void Terminate();
+    //ç»“æŸå¹¶æ¸…ç†èµ„æº
+    void Terminate();
 
 public:
-	//»ñÈ¡´íÎóĞÅÏ¢
-	static std::wstring GetErrMsg(const TProgressData& progressData);
+    //è·å–é”™è¯¯ä¿¡æ¯
+    static std::wstring GetErrMsg(const TProgressData& progressData);
 
-	//»ñÈ¡ÎÄ¼ş±àÂëĞÅÏ¢
-	static std::wstring GetCharsetMsg(const TProgressData& progressData);
+    //è·å–æ–‡ä»¶ç¼–ç ä¿¡æ¯
+    static std::wstring GetCharsetMsg(const TProgressData& progressData);
 
-	//»ñÈ¡±àÂëÏÔÊ¾ĞÅÏ¢
-	static std::wstring GetCharsetTypeMsg(RL::CharsetType charsetType);
-
-private:
-	void RunConvertThread();
+    //è·å–ç¼–ç æ˜¾ç¤ºä¿¡æ¯
+    static std::wstring GetCharsetTypeMsg(RL::CharsetType charsetType);
 
 private:
-	TCharsetToolsParam m_convertParam;
-	CharsetToolsCallback* m_callback;
-	std::thread m_convertThread;
+    void RunConvertThread();
+
+private:
+    TCharsetToolsParam m_convertParam;
+    CharsetToolsCallback* m_callback;
+    std::thread m_convertThread;
 };
 

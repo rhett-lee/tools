@@ -6,25 +6,25 @@
 #include <fstream>
 #include <filesystem>
 
-//¶ÁÈ¡ÎÄ¼şµ½ÈİÆ÷ÖĞ£¬×¢ÒâÈç¹ûÊÇÎÄ±¾ÎÄ¼ş£¬µ÷ÓÃ·½ĞèÒª×Ô¼º´¦Àí×Ö·û´®µÄÎ²ÁãÎÊÌâ¡£
+//è¯»å–æ–‡ä»¶åˆ°å®¹å™¨ä¸­ï¼Œæ³¨æ„å¦‚æœæ˜¯æ–‡æœ¬æ–‡ä»¶ï¼Œè°ƒç”¨æ–¹éœ€è¦è‡ªå·±å¤„ç†å­—ç¬¦ä¸²çš„å°¾é›¶é—®é¢˜ã€‚
 void ReadBinaryFileToVector(const std::string& filename, std::vector<char>& container) 
 {
-    // ´ò¿ªÎÄ¼ş
+    // æ‰“å¼€æ–‡ä»¶
     std::ifstream file(filename, std::ios::binary);
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file: " + filename);
     }
 
-    // »ñÈ¡ÎÄ¼ş´óĞ¡
+    // è·å–æ–‡ä»¶å¤§å°
     file.seekg(0, std::ios::end);
     std::streampos fileSize = file.tellg();
     file.seekg(0, std::ios::beg);
 
-    // ¶ÁÈ¡ÎÄ¼şÄÚÈİ²¢´æ´¢µ½ÈİÆ÷ÖĞ
+    // è¯»å–æ–‡ä»¶å†…å®¹å¹¶å­˜å‚¨åˆ°å®¹å™¨ä¸­
     container.resize((size_t)fileSize);
     file.read(container.data(), fileSize);
 
-    // ¹Ø±ÕÎÄ¼ş
+    // å…³é—­æ–‡ä»¶
     file.close();
 }
 
@@ -112,50 +112,50 @@ TEST(StringCharset, TextFile)
 
 TEST(StringCharset, IsValidateUTF8Stream)
 {
-    // ²âÊÔ¿ÕÁ÷
+    // æµ‹è¯•ç©ºæµ
     EXPECT_FALSE(RL::StringCharset::IsValidateUTF8Stream("", 0));
 
-    // ²âÊÔ ASCII ×Ö·û
+    // æµ‹è¯• ASCII å­—ç¬¦
     EXPECT_TRUE(RL::StringCharset::IsValidateUTF8Stream("Hello, world!", 13));
 
-    // ²âÊÔ UTF-8 µÄ¶à×Ö½Ú×Ö·û
-    EXPECT_TRUE(RL::StringCharset::IsValidateUTF8Stream((const char*)u8"ÄãºÃ£¬ÊÀ½ç£¡", 18));
+    // æµ‹è¯• UTF-8 çš„å¤šå­—èŠ‚å­—ç¬¦
+    EXPECT_TRUE(RL::StringCharset::IsValidateUTF8Stream((const char*)u8"ä½ å¥½ï¼Œä¸–ç•Œï¼", 18));
 
-    // ²âÊÔ²»·ûºÏ¹æ·¶µÄ UTF-8 ×Ö·û
+    // æµ‹è¯•ä¸ç¬¦åˆè§„èŒƒçš„ UTF-8 å­—ç¬¦
     EXPECT_FALSE(RL::StringCharset::IsValidateUTF8Stream("\xF0\x80\x80\xC0", 4));
 }
 
 TEST(StringCharset, IsValidateUTF16LEStream)
 {
-    // ²âÊÔ¿ÕÁ÷
+    // æµ‹è¯•ç©ºæµ
     EXPECT_FALSE(RL::StringCharset::IsValidateUTF16LEStream("", 0));
 
-    // ²âÊÔ BMP ÖĞµÄ×Ö·û
+    // æµ‹è¯• BMP ä¸­çš„å­—ç¬¦
     EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream((const char*)u"Hello, world!", 26));
 
-    // ²âÊÔ×Ö·û
-    EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream((const char*)u"Ïê", 4));
-    EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream((const char*)u"Unicode±àÂëÏê½â(ËÄ)£ºUTF-16±àÂë", 46));
+    // æµ‹è¯•å­—ç¬¦
+    EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream((const char*)u"è¯¦", 4));
+    EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream((const char*)u"Unicodeç¼–ç è¯¦è§£(å››)ï¼šUTF-16ç¼–ç ", 46));
 
-    // ²âÊÔ´úÀí¶Ô
+    // æµ‹è¯•ä»£ç†å¯¹
     EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream("\x34\x12\xDC\x00\x56\x34\xDE\x00", 8));
 
-    // ²âÊÔ²»·ûºÏ¹æ·¶µÄ UTF-16LE ×Ö·û
+    // æµ‹è¯•ä¸ç¬¦åˆè§„èŒƒçš„ UTF-16LE å­—ç¬¦
     EXPECT_TRUE(RL::StringCharset::IsValidateUTF16LEStream("\x34\x12\xDC\x00\x56\x34\xDC\x00", 8));
 }
 
 TEST(StringCharset, IsValidateUTF16BEStream)
 {
-    // ²âÊÔ¿ÕÁ÷
+    // æµ‹è¯•ç©ºæµ
     ASSERT_FALSE(RL::StringCharset::IsValidateUTF16BEStream("", 0));
 
-    // ²âÊÔ BMP ÖĞµÄ×Ö·û
+    // æµ‹è¯• BMP ä¸­çš„å­—ç¬¦
     ASSERT_TRUE(RL::StringCharset::IsValidateUTF16BEStream((const char*)u"Hello, world!", 26));
 
-    // ²âÊÔ´úÀí¶Ô
+    // æµ‹è¯•ä»£ç†å¯¹
     ASSERT_TRUE(RL::StringCharset::IsValidateUTF16BEStream("\x12\x34\x00\xDC\x34\x56\x00\xDE", 8));
 
-    // ²âÊÔ²»·ûºÏ¹æ·¶µÄ UTF-16BE ×Ö·û
+    // æµ‹è¯•ä¸ç¬¦åˆè§„èŒƒçš„ UTF-16BE å­—ç¬¦
     //ASSERT_FALSE(RL::StringCharset::IsValidateUTF16BEStream("\x12\x34\x00\xDC\x34\x56\x00\xDC", 8));
 }
 

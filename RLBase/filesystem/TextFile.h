@@ -7,16 +7,16 @@
 namespace RL
 {
 
-//ÎÄ±¾ÎÄ¼ş¹ÜÀíÀà£¬Ö§³ÖANSIºÍUnicode±àÂë
+//æ–‡æœ¬æ–‡ä»¶ç®¡ç†ç±»ï¼Œæ”¯æŒANSIå’ŒUnicodeç¼–ç 
 class TextFile
 {
 public:
-    /** ¶ÁÈ¡ÎÄ¼şÄÚÈİ
-    @param [in] fileName ÎÄ¼şÂ·¾¶
-    @param [in] inCharsetType ¶ÁÈ¡ÎÄ¼şËù²ÉÓÃµÄ±àÂë£¬Èç¹ûÎªUNKNOWNÔò×Ô¶¯¼ì²âÎÄ±¾±àÂëÀàĞÍ
-    @parma [out] fileText ·µ»Ø¶ÁÈ¡µ½µÄÎÄ¼şÄÚÈİ×Ö·û´®
-    @param [out] outCharsetType ¶ÁÈ¡ÎÄ¼şËù²ÉÓÃµÄ±àÂëÀàĞÍ
-    @param [out] bomSize ¶ÁÈ¡ÎÄ¼şÊ±£¬¼ì²âµ½µÄUnicode BOMÍ·´óĞ¡
+    /** è¯»å–æ–‡ä»¶å†…å®¹
+    @param [in] fileName æ–‡ä»¶è·¯å¾„
+    @param [in] inCharsetType è¯»å–æ–‡ä»¶æ‰€é‡‡ç”¨çš„ç¼–ç ï¼Œå¦‚æœä¸ºUNKNOWNåˆ™è‡ªåŠ¨æ£€æµ‹æ–‡æœ¬ç¼–ç ç±»å‹
+    @parma [out] fileText è¿”å›è¯»å–åˆ°çš„æ–‡ä»¶å†…å®¹å­—ç¬¦ä¸²
+    @param [out] outCharsetType è¯»å–æ–‡ä»¶æ‰€é‡‡ç”¨çš„ç¼–ç ç±»å‹
+    @param [out] bomSize è¯»å–æ–‡ä»¶æ—¶ï¼Œæ£€æµ‹åˆ°çš„Unicode BOMå¤´å¤§å°
     */
     static bool ReadData(const std::wstring& fileName, 
                          CharsetType inCharsetType, 
@@ -25,19 +25,19 @@ public:
                          uint32_t& bomSize);
                   
                   
-    /** Ğ´ÈëÎÄ¼ş
-    @param [in] fileName ÎÄ¼şÂ·¾¶
-    @parma [in] fileText ÎÄ¼şÄÚÈİ×Ö·û´®
-    @param [in] charsetType ±£´æÎÄ¼ş²ÉÓÃµÄ±àÂëÀàĞÍ
-    @param [in] writeBOM ¶ÔÓÚUnicode±àÂë£¬ÊÇ·ñĞ´ÈëBOMÇ©ÃûÍ·Êı¾İ
+    /** å†™å…¥æ–‡ä»¶
+    @param [in] fileName æ–‡ä»¶è·¯å¾„
+    @parma [in] fileText æ–‡ä»¶å†…å®¹å­—ç¬¦ä¸²
+    @param [in] charsetType ä¿å­˜æ–‡ä»¶é‡‡ç”¨çš„ç¼–ç ç±»å‹
+    @param [in] writeBOM å¯¹äºUnicodeç¼–ç ï¼Œæ˜¯å¦å†™å…¥BOMç­¾åå¤´æ•°æ®
     */
     static bool WriteData(const std::wstring& fileName, const std::wstring& fileText, CharsetType charsetType, bool writeBOM);
 
 private:
-    //¶ÁÈ¡ÎÄ¼şµ½ÈİÆ÷ÖĞ£¬ÎÄ¼ş´óĞ¡ÏŞ¶¨ÔÚ10MBÄÚ£¬µ÷ÓÃ·½ĞèÒª×Ô¼º´¦Àí×Ö·û´®µÄÎ²ÁãÎÊÌâ¡£
+    //è¯»å–æ–‡ä»¶åˆ°å®¹å™¨ä¸­ï¼Œæ–‡ä»¶å¤§å°é™å®šåœ¨10MBå†…ï¼Œè°ƒç”¨æ–¹éœ€è¦è‡ªå·±å¤„ç†å­—ç¬¦ä¸²çš„å°¾é›¶é—®é¢˜ã€‚
     static bool ReadBinaryFile(const std::wstring& fileName, std::vector<char>& container);
 
-    //½«ÈİÆ÷ÖĞµÄ¶ş½øÖÆÊı¾İĞ´ÈëÎÄ¼ş
+    //å°†å®¹å™¨ä¸­çš„äºŒè¿›åˆ¶æ•°æ®å†™å…¥æ–‡ä»¶
     static bool WriteBinaryFile(const std::wstring& fileName, const std::vector<char>& container);
 };
 

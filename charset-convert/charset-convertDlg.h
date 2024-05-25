@@ -11,69 +11,69 @@
 
 // CcharsetconvertDlg dialog
 class CcharsetconvertDlg : 
-	public CDialogEx,
-	public CharsetToolsCallback
+    public CDialogEx,
+    public CharsetToolsCallback
 {
 // Construction
 public:
-	CcharsetconvertDlg(CWnd* pParent = nullptr);	// standard constructor
+    CcharsetconvertDlg(CWnd* pParent = nullptr);    // standard constructor
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_CHARSETCONVERT_DIALOG };
+    enum { IDD = IDD_CHARSETCONVERT_DIALOG };
 #endif
 
 protected:
-	virtual void DoDataExchange(CDataExchange* pDX);	// DDX/DDV support
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
-	//¸üĞÂ±à¼­¿òµÄ×´Ì¬
-	void UpdateEditConstrolStatus();
+    //æ›´æ–°ç¼–è¾‘æ¡†çš„çŠ¶æ€
+    void UpdateEditConstrolStatus();
 
-	//¼ì²é½çÃæÑ¡Ïî
-	bool CheckInput(bool& isDirChecked, std::wstring& fileName, std::wstring& filePath, std::wstring& fileExt);
+    //æ£€æŸ¥ç•Œé¢é€‰é¡¹
+    bool CheckInput(bool& isDirChecked, std::wstring& fileName, std::wstring& filePath, std::wstring& fileExt);
 
-	//½øĞĞ×ª»»²Ù×÷
-	void OnBnClickedButton(bool isCheckMode);
+    //è¿›è¡Œè½¬æ¢æ“ä½œ
+    void OnBnClickedButton(bool isCheckMode);
 
-	//×Ô¶¨ÒåÏûÏ¢ÏìÓ¦
-	LRESULT OnConvertMessage(WPARAM wParam, LPARAM lParam);
+    //è‡ªå®šä¹‰æ¶ˆæ¯å“åº”
+    LRESULT OnConvertMessage(WPARAM wParam, LPARAM lParam);
 
-	//»ñÈ¡ÏÔÊ¾ÏûÏ¢
-	std::wstring GetDisplayMsg(WPARAM wParam);
+    //è·å–æ˜¾ç¤ºæ¶ˆæ¯
+    std::wstring GetDisplayMsg(WPARAM wParam);
 
 protected:
-	//Èç¹û»Øµ÷º¯Êı·µ»Øfalse£¬ÔòÖÕÖ¹Ö´ĞĞ
-	virtual bool OnConvertBegin();
-	virtual bool OnConvertProgress(const TProgressData& progressData);
-	virtual bool OnConvertEnd();
+    //å¦‚æœå›è°ƒå‡½æ•°è¿”å›falseï¼Œåˆ™ç»ˆæ­¢æ‰§è¡Œ
+    virtual bool OnConvertBegin();
+    virtual bool OnConvertProgress(const TProgressData& progressData);
+    virtual bool OnConvertEnd();
 
 // Implementation
 protected:
-	HICON m_hIcon;
+    HICON m_hIcon;
 
-	// Generated message map functions
-	virtual BOOL OnInitDialog();
-	afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
-	afx_msg void OnPaint();
-	afx_msg HCURSOR OnQueryDragIcon();
-	DECLARE_MESSAGE_MAP()
+    // Generated message map functions
+    virtual BOOL OnInitDialog();
+    afx_msg void OnSysCommand(UINT nID, LPARAM lParam);
+    afx_msg void OnPaint();
+    afx_msg HCURSOR OnQueryDragIcon();
+    DECLARE_MESSAGE_MAP()
 
 public:
-	afx_msg void OnCbnSelchangeComboDest();
-	afx_msg void OnBnClickedButtonSelDir();
-	afx_msg void OnBnClickedButtonSelFile();
-	afx_msg void OnBnClickedRadioDir();
-	afx_msg void OnBnClickedRadioFile();
-	afx_msg void OnBnClickedButtonCheck();
-	afx_msg void OnBnClickedButtonConvert();
+    afx_msg void OnCbnSelchangeComboDest();
+    afx_msg void OnBnClickedButtonSelDir();
+    afx_msg void OnBnClickedButtonSelFile();
+    afx_msg void OnBnClickedRadioDir();
+    afx_msg void OnBnClickedRadioFile();
+    afx_msg void OnBnClickedButtonCheck();
+    afx_msg void OnBnClickedButtonConvert();
 
 private:
 
-	std::vector<TProgressData> m_progressData;
+    std::vector<TProgressData> m_progressData;
 
-	//Êı¾İÍ¬²½Ëø
-	std::mutex m_mutex;
+    //æ•°æ®åŒæ­¥é”
+    std::mutex m_mutex;
 
-	//×ª»»ÊµÏÖ¶ÔÏó
-	CharsetTools m_convertTools;
+    //è½¬æ¢å®ç°å¯¹è±¡
+    CharsetTools m_convertTools;
 };

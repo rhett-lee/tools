@@ -1,7 +1,7 @@
 #ifndef __RL_WindowsDefs_h_
 #define __RL_WindowsDefs_h_ 1
 
-//Ö§³Ö×îµÍ°æ±¾£ºWindows XP
+//æ”¯æŒæœ€ä½ç‰ˆæœ¬ï¼šWindows XP
 #ifndef WINVER
     #define WINVER 0x0501
 #endif
@@ -10,12 +10,12 @@
     #define _WIN32_WINNT 0x0501
 #endif                                                
 
-//¸ÃºêÖ»ÓĞWin9xÏµÁĞ²ÅÊ¹ÓÃ
+//è¯¥å®åªæœ‰Win9xç³»åˆ—æ‰ä½¿ç”¨
 #ifndef _WIN32_WINDOWS
     #define _WIN32_WINDOWS 0x0501
 #endif
 
-//Ö§³ÖIE×îµÍ°æ±¾£º6.0 SP2
+//æ”¯æŒIEæœ€ä½ç‰ˆæœ¬ï¼š6.0 SP2
 #ifndef _WIN32_IE
     #define _WIN32_IE 0x0603
 #endif

@@ -4,18 +4,18 @@
 namespace RL
 {
 
-/** ½ûÖ¹¶ÔÏó¸´ÖÆ£¬×÷Îª»ùÀàÊ¹ÓÃ
+/** ç¦æ­¢å¯¹è±¡å¤åˆ¶ï¼Œä½œä¸ºåŸºç±»ä½¿ç”¨
 */
 class NonCopyable
 {    
 protected:    
-    /** Ä¬ÈÏ¹¹Ôìº¯ÊıÓëÎö¹¹º¯Êı
+    /** é»˜è®¤æ„é€ å‡½æ•°ä¸ææ„å‡½æ•°
     */
     NonCopyable() = default;
     ~NonCopyable() = default;
 
 private:
-    /** ¿½±´¹¹Ôìº¯ÊıºÍ¸³Öµ²Ù×÷·û
+    /** æ‹·è´æ„é€ å‡½æ•°å’Œèµ‹å€¼æ“ä½œç¬¦
     */
     NonCopyable(const NonCopyable&);
     const NonCopyable& operator= (const NonCopyable&);

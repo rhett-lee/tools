@@ -16,19 +16,19 @@
 #define new DEBUG_NEW
 #endif
 
-#define CHARSET_AUTO		L"×Ô¶¯¼ì²â"
-#define CHARSET_ANSI		L"ANSI"
-#define CHARSET_UTF8		L"UTF-8"
-#define CHARSET_UNICODE		L"Unicode"
+#define CHARSET_AUTO        L"è‡ªåŠ¨æ£€æµ‹"
+#define CHARSET_ANSI        L"ANSI"
+#define CHARSET_UTF8        L"UTF-8"
+#define CHARSET_UNICODE        L"Unicode"
 
-//×Ô¶¨ÒåÏûÏ¢£¬ÓÃÓÚ¸üĞÂ½çÃæ
-#define WM_CONVERT_MSG		(WM_USER + 10)
+//è‡ªå®šä¹‰æ¶ˆæ¯ï¼Œç”¨äºæ›´æ–°ç•Œé¢
+#define WM_CONVERT_MSG        (WM_USER + 10)
 
 typedef enum
 {
-	MSG_CONVERT_Begin = 1,
-	MSG_CONVERT_Progress,
-	MSG_CONVERT_End,
+    MSG_CONVERT_Begin = 1,
+    MSG_CONVERT_Progress,
+    MSG_CONVERT_End,
 }TConvertMessageWParam;
 
 // CAboutDlg dialog used for App About
@@ -36,19 +36,19 @@ typedef enum
 class CAboutDlg : public CDialogEx
 {
 public:
-	CAboutDlg();
+    CAboutDlg();
 
 // Dialog Data
 #ifdef AFX_DESIGN_TIME
-	enum { IDD = IDD_ABOUTBOX };
+    enum { IDD = IDD_ABOUTBOX };
 #endif
 
-	protected:
-	virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
+    protected:
+    virtual void DoDataExchange(CDataExchange* pDX);    // DDX/DDV support
 
 // Implementation
 protected:
-	DECLARE_MESSAGE_MAP()
+    DECLARE_MESSAGE_MAP()
 };
 
 CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
@@ -57,7 +57,7 @@ CAboutDlg::CAboutDlg() : CDialogEx(IDD_ABOUTBOX)
 
 void CAboutDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);
+    CDialogEx::DoDataExchange(pDX);
 }
 
 BEGIN_MESSAGE_MAP(CAboutDlg, CDialogEx)
@@ -69,30 +69,30 @@ END_MESSAGE_MAP()
 
 
 CcharsetconvertDlg::CcharsetconvertDlg(CWnd* pParent /*=nullptr*/)
-	: CDialogEx(IDD_CHARSETCONVERT_DIALOG, pParent)
+    : CDialogEx(IDD_CHARSETCONVERT_DIALOG, pParent)
 {
-	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
+    m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
 
 void CcharsetconvertDlg::DoDataExchange(CDataExchange* pDX)
 {
-	CDialogEx::DoDataExchange(pDX);	
+    CDialogEx::DoDataExchange(pDX);    
 }
 
 BEGIN_MESSAGE_MAP(CcharsetconvertDlg, CDialogEx)
-	ON_WM_SYSCOMMAND()
-	ON_WM_PAINT()
-	ON_WM_QUERYDRAGICON()
-	ON_CBN_SELCHANGE(IDC_COMBO_DEST, &CcharsetconvertDlg::OnCbnSelchangeComboDest)
-	ON_BN_CLICKED(IDC_BUTTON_SEL_DIR, &CcharsetconvertDlg::OnBnClickedButtonSelDir)
-	ON_BN_CLICKED(IDC_BUTTON_SEL_FILE, &CcharsetconvertDlg::OnBnClickedButtonSelFile)
-	ON_BN_CLICKED(IDC_RADIO_DIR, &CcharsetconvertDlg::OnBnClickedRadioDir)
-	ON_BN_CLICKED(IDC_RADIO_FILE, &CcharsetconvertDlg::OnBnClickedRadioFile)
-	ON_BN_CLICKED(IDC_BUTTON_CHECK, &CcharsetconvertDlg::OnBnClickedButtonCheck)
-	ON_BN_CLICKED(IDC_BUTTON_CONVERT, &CcharsetconvertDlg::OnBnClickedButtonConvert)
+    ON_WM_SYSCOMMAND()
+    ON_WM_PAINT()
+    ON_WM_QUERYDRAGICON()
+    ON_CBN_SELCHANGE(IDC_COMBO_DEST, &CcharsetconvertDlg::OnCbnSelchangeComboDest)
+    ON_BN_CLICKED(IDC_BUTTON_SEL_DIR, &CcharsetconvertDlg::OnBnClickedButtonSelDir)
+    ON_BN_CLICKED(IDC_BUTTON_SEL_FILE, &CcharsetconvertDlg::OnBnClickedButtonSelFile)
+    ON_BN_CLICKED(IDC_RADIO_DIR, &CcharsetconvertDlg::OnBnClickedRadioDir)
+    ON_BN_CLICKED(IDC_RADIO_FILE, &CcharsetconvertDlg::OnBnClickedRadioFile)
+    ON_BN_CLICKED(IDC_BUTTON_CHECK, &CcharsetconvertDlg::OnBnClickedButtonCheck)
+    ON_BN_CLICKED(IDC_BUTTON_CONVERT, &CcharsetconvertDlg::OnBnClickedButtonConvert)
 
-	ON_MESSAGE(WM_CONVERT_MSG, OnConvertMessage)
-	
+    ON_MESSAGE(WM_CONVERT_MSG, OnConvertMessage)
+    
 END_MESSAGE_MAP()
 
 
@@ -100,74 +100,74 @@ END_MESSAGE_MAP()
 
 BOOL CcharsetconvertDlg::OnInitDialog()
 {
-	CDialogEx::OnInitDialog();
+    CDialogEx::OnInitDialog();
 
-	// Add "About..." menu item to system menu.
+    // Add "About..." menu item to system menu.
 
-	// IDM_ABOUTBOX must be in the system command range.
-	ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
-	ASSERT(IDM_ABOUTBOX < 0xF000);
+    // IDM_ABOUTBOX must be in the system command range.
+    ASSERT((IDM_ABOUTBOX & 0xFFF0) == IDM_ABOUTBOX);
+    ASSERT(IDM_ABOUTBOX < 0xF000);
 
-	CMenu* pSysMenu = GetSystemMenu(FALSE);
-	if (pSysMenu != nullptr)
-	{
-		BOOL bNameValid;
-		CString strAboutMenu;
-		bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
-		ASSERT(bNameValid);
-		if (!strAboutMenu.IsEmpty())
-		{
-			pSysMenu->AppendMenu(MF_SEPARATOR);
-			pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
-		}
-	}
+    CMenu* pSysMenu = GetSystemMenu(FALSE);
+    if (pSysMenu != nullptr)
+    {
+        BOOL bNameValid;
+        CString strAboutMenu;
+        bNameValid = strAboutMenu.LoadString(IDS_ABOUTBOX);
+        ASSERT(bNameValid);
+        if (!strAboutMenu.IsEmpty())
+        {
+            pSysMenu->AppendMenu(MF_SEPARATOR);
+            pSysMenu->AppendMenu(MF_STRING, IDM_ABOUTBOX, strAboutMenu);
+        }
+    }
 
-	// Set the icon for this dialog.  The framework does this automatically
-	//  when the application's main window is not a dialog
-	SetIcon(m_hIcon, TRUE);			// Set big icon
-	SetIcon(m_hIcon, FALSE);		// Set small icon
+    // Set the icon for this dialog.  The framework does this automatically
+    //  when the application's main window is not a dialog
+    SetIcon(m_hIcon, TRUE);            // Set big icon
+    SetIcon(m_hIcon, FALSE);        // Set small icon
 
-	// TODO: Add extra initialization here
+    // TODO: Add extra initialization here
 
-	CComboBox srcCharset;
-	srcCharset.Attach(GetDlgItem(IDC_COMBO_SRC)->m_hWnd);
-	srcCharset.AddString(CHARSET_AUTO);
-	srcCharset.AddString(CHARSET_ANSI);
-	srcCharset.AddString(CHARSET_UTF8);	
-	srcCharset.AddString(CHARSET_UNICODE);
-	srcCharset.SetCurSel(0);
-	srcCharset.Detach();
+    CComboBox srcCharset;
+    srcCharset.Attach(GetDlgItem(IDC_COMBO_SRC)->m_hWnd);
+    srcCharset.AddString(CHARSET_AUTO);
+    srcCharset.AddString(CHARSET_ANSI);
+    srcCharset.AddString(CHARSET_UTF8);    
+    srcCharset.AddString(CHARSET_UNICODE);
+    srcCharset.SetCurSel(0);
+    srcCharset.Detach();
 
-	CComboBox destCharset;
-	destCharset.Attach(GetDlgItem(IDC_COMBO_DEST)->m_hWnd);
-	destCharset.AddString(CHARSET_ANSI);
-	destCharset.AddString(CHARSET_UTF8);
-	destCharset.AddString(CHARSET_UNICODE);
-	destCharset.SetCurSel(0);
-	destCharset.Detach();
+    CComboBox destCharset;
+    destCharset.Attach(GetDlgItem(IDC_COMBO_DEST)->m_hWnd);
+    destCharset.AddString(CHARSET_ANSI);
+    destCharset.AddString(CHARSET_UTF8);
+    destCharset.AddString(CHARSET_UNICODE);
+    destCharset.SetCurSel(0);
+    destCharset.Detach();
 
-	((CButton*)GetDlgItem(IDC_RADIO_FILE))->SetCheck(FALSE); //²»Ñ¡
-	((CButton*)GetDlgItem(IDC_RADIO_DIR))->SetCheck(TRUE); //Ñ¡ÉÏ
-	((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->SetWindowText(L"*.c;*.c++;*.cc;*.cpp;*.cppm;*.cxx;*.h;*.h++;*.hh;*.hpp;*.hxx;*.inl;*.ipp;*.ixx;*.tlh;*.tli");
-	UpdateEditConstrolStatus();
+    ((CButton*)GetDlgItem(IDC_RADIO_FILE))->SetCheck(FALSE); //ä¸é€‰
+    ((CButton*)GetDlgItem(IDC_RADIO_DIR))->SetCheck(TRUE); //é€‰ä¸Š
+    ((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->SetWindowText(L"*.c;*.c++;*.cc;*.cpp;*.cppm;*.cxx;*.h;*.h++;*.hh;*.hpp;*.hxx;*.inl;*.ipp;*.ixx;*.tlh;*.tli");
+    UpdateEditConstrolStatus();
 
-	((CStatic*)GetDlgItem(IDC_STATIC_RESULT))->SetWindowText(L"");
-	((CButton*)GetDlgItem(IDC_CHECK_BOM))->EnableWindow(FALSE);
+    ((CStatic*)GetDlgItem(IDC_STATIC_RESULT))->SetWindowText(L"");
+    ((CButton*)GetDlgItem(IDC_CHECK_BOM))->EnableWindow(FALSE);
 
-	return TRUE;  // return TRUE  unless you set the focus to a control
+    return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
 void CcharsetconvertDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
-	if ((nID & 0xFFF0) == IDM_ABOUTBOX)
-	{
-		CAboutDlg dlgAbout;
-		dlgAbout.DoModal();
-	}
-	else
-	{
-		CDialogEx::OnSysCommand(nID, lParam);
-	}
+    if ((nID & 0xFFF0) == IDM_ABOUTBOX)
+    {
+        CAboutDlg dlgAbout;
+        dlgAbout.DoModal();
+    }
+    else
+    {
+        CDialogEx::OnSysCommand(nID, lParam);
+    }
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -176,409 +176,409 @@ void CcharsetconvertDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CcharsetconvertDlg::OnPaint()
 {
-	if (IsIconic())
-	{
-		CPaintDC dc(this); // device context for painting
+    if (IsIconic())
+    {
+        CPaintDC dc(this); // device context for painting
 
-		SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
+        SendMessage(WM_ICONERASEBKGND, reinterpret_cast<WPARAM>(dc.GetSafeHdc()), 0);
 
-		// Center icon in client rectangle
-		int cxIcon = GetSystemMetrics(SM_CXICON);
-		int cyIcon = GetSystemMetrics(SM_CYICON);
-		CRect rect;
-		GetClientRect(&rect);
-		int x = (rect.Width() - cxIcon + 1) / 2;
-		int y = (rect.Height() - cyIcon + 1) / 2;
+        // Center icon in client rectangle
+        int cxIcon = GetSystemMetrics(SM_CXICON);
+        int cyIcon = GetSystemMetrics(SM_CYICON);
+        CRect rect;
+        GetClientRect(&rect);
+        int x = (rect.Width() - cxIcon + 1) / 2;
+        int y = (rect.Height() - cyIcon + 1) / 2;
 
-		// Draw the icon
-		dc.DrawIcon(x, y, m_hIcon);
-	}
-	else
-	{
-		CDialogEx::OnPaint();
-	}
+        // Draw the icon
+        dc.DrawIcon(x, y, m_hIcon);
+    }
+    else
+    {
+        CDialogEx::OnPaint();
+    }
 }
 
 // The system calls this function to obtain the cursor to display while the user drags
 //  the minimized window.
 HCURSOR CcharsetconvertDlg::OnQueryDragIcon()
 {
-	return static_cast<HCURSOR>(m_hIcon);
+    return static_cast<HCURSOR>(m_hIcon);
 }
 
 void CcharsetconvertDlg::UpdateEditConstrolStatus()
 {
-	BOOL isDirChecked = ((CButton*)GetDlgItem(IDC_RADIO_DIR))->GetCheck();
-	
-	((CEdit*)GetDlgItem(IDC_EDIT_FILE))->EnableWindow(!isDirChecked);
-	((CEdit*)GetDlgItem(IDC_EDIT_DIR))->EnableWindow(isDirChecked);
-	((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->EnableWindow(isDirChecked);
+    BOOL isDirChecked = ((CButton*)GetDlgItem(IDC_RADIO_DIR))->GetCheck();
+    
+    ((CEdit*)GetDlgItem(IDC_EDIT_FILE))->EnableWindow(!isDirChecked);
+    ((CEdit*)GetDlgItem(IDC_EDIT_DIR))->EnableWindow(isDirChecked);
+    ((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->EnableWindow(isDirChecked);
 
-	((CButton*)GetDlgItem(IDC_BUTTON_SEL_FILE))->EnableWindow(!isDirChecked);
-	((CButton*)GetDlgItem(IDC_BUTTON_SEL_DIR))->EnableWindow(isDirChecked);
+    ((CButton*)GetDlgItem(IDC_BUTTON_SEL_FILE))->EnableWindow(!isDirChecked);
+    ((CButton*)GetDlgItem(IDC_BUTTON_SEL_DIR))->EnableWindow(isDirChecked);
 }
 
 void CcharsetconvertDlg::OnCbnSelchangeComboDest()
 {
-	CComboBox* destBox = ((CComboBox*)GetDlgItem(IDC_COMBO_DEST));
-	int nSel = destBox->GetCurSel();
-	bool isEnable = true;
-	if (nSel ==0)
-	{
-		isEnable = 0;
-	}
-	((CButton*)GetDlgItem(IDC_CHECK_BOM))->EnableWindow(isEnable ? TRUE : FALSE);
+    CComboBox* destBox = ((CComboBox*)GetDlgItem(IDC_COMBO_DEST));
+    int nSel = destBox->GetCurSel();
+    bool isEnable = true;
+    if (nSel ==0)
+    {
+        isEnable = 0;
+    }
+    ((CButton*)GetDlgItem(IDC_CHECK_BOM))->EnableWindow(isEnable ? TRUE : FALSE);
 }
 
 void CcharsetconvertDlg::OnBnClickedButtonSelDir()
 {
-	TCHAR szFolderPath[MAX_PATH] = { 0 };
-	BROWSEINFO sInfo;
-	::ZeroMemory(&sInfo, sizeof(BROWSEINFO));
-	sInfo.pidlRoot = 0;
-	sInfo.lpszTitle = L"ÇëÑ¡ÔñÒ»¸öÎÄ¼ş¼Ğ£º";
-	sInfo.ulFlags = BIF_DONTGOBELOWDOMAIN | BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE | BIF_EDITBOX;
-	sInfo.lpfn = NULL;
-	// ÏÔÊ¾ÎÄ¼ş¼ĞÑ¡Ôñ¶Ô»°¿ò
-	LPITEMIDLIST lpidlBrowse = ::SHBrowseForFolder(&sInfo);
-	if (lpidlBrowse != NULL)
-	{
-		// È¡µÃÎÄ¼ş¼ĞÃû
-		if (::SHGetPathFromIDList(lpidlBrowse, szFolderPath))
-		{
-			((CEdit*)GetDlgItem(IDC_EDIT_DIR))->SetWindowText(szFolderPath);
-		}
-	}
-	if (lpidlBrowse != NULL)
-	{
-		::CoTaskMemFree(lpidlBrowse);
-	}
+    TCHAR szFolderPath[MAX_PATH] = { 0 };
+    BROWSEINFO sInfo;
+    ::ZeroMemory(&sInfo, sizeof(BROWSEINFO));
+    sInfo.pidlRoot = 0;
+    sInfo.lpszTitle = L"è¯·é€‰æ‹©ä¸€ä¸ªæ–‡ä»¶å¤¹ï¼š";
+    sInfo.ulFlags = BIF_DONTGOBELOWDOMAIN | BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE | BIF_EDITBOX;
+    sInfo.lpfn = NULL;
+    // æ˜¾ç¤ºæ–‡ä»¶å¤¹é€‰æ‹©å¯¹è¯æ¡†
+    LPITEMIDLIST lpidlBrowse = ::SHBrowseForFolder(&sInfo);
+    if (lpidlBrowse != NULL)
+    {
+        // å–å¾—æ–‡ä»¶å¤¹å
+        if (::SHGetPathFromIDList(lpidlBrowse, szFolderPath))
+        {
+            ((CEdit*)GetDlgItem(IDC_EDIT_DIR))->SetWindowText(szFolderPath);
+        }
+    }
+    if (lpidlBrowse != NULL)
+    {
+        ::CoTaskMemFree(lpidlBrowse);
+    }
 }
 
 void CcharsetconvertDlg::OnBnClickedButtonSelFile()
 {
-	OPENFILENAME l = { sizeof(l), };
-	TCHAR buf[MAX_PATH] = { 0 };
-	l.hwndOwner = m_hWnd;
-	l.lpstrFilter = _T("ËùÓĞÎÄ¼ş\0*.*\0\0");
-	l.lpstrFile = buf;
-	l.nMaxFile = MAX_PATH - 1;
-	l.lpstrTitle = _T("Ñ¡ÔñÎÄ¼ş");
-	l.lpstrDefExt = NULL;
-	l.lpstrInitialDir = NULL;
-	l.Flags = OFN_HIDEREADONLY | OFN_EXPLORER | OFN_PATHMUSTEXIST;
-	buf[0] = 0;
-	if (GetOpenFileName(&l))
-	{
-		((CEdit*)GetDlgItem(IDC_EDIT_FILE))->SetWindowText(buf);
-	}
+    OPENFILENAME l = { sizeof(l), };
+    TCHAR buf[MAX_PATH] = { 0 };
+    l.hwndOwner = m_hWnd;
+    l.lpstrFilter = _T("æ‰€æœ‰æ–‡ä»¶\0*.*\0\0");
+    l.lpstrFile = buf;
+    l.nMaxFile = MAX_PATH - 1;
+    l.lpstrTitle = _T("é€‰æ‹©æ–‡ä»¶");
+    l.lpstrDefExt = NULL;
+    l.lpstrInitialDir = NULL;
+    l.Flags = OFN_HIDEREADONLY | OFN_EXPLORER | OFN_PATHMUSTEXIST;
+    buf[0] = 0;
+    if (GetOpenFileName(&l))
+    {
+        ((CEdit*)GetDlgItem(IDC_EDIT_FILE))->SetWindowText(buf);
+    }
 }
 
 
 void CcharsetconvertDlg::OnBnClickedRadioDir()
 {
-	UpdateEditConstrolStatus();
+    UpdateEditConstrolStatus();
 }
 
 
 void CcharsetconvertDlg::OnBnClickedRadioFile()
 {
-	UpdateEditConstrolStatus();
+    UpdateEditConstrolStatus();
 }
 
 
 void CcharsetconvertDlg::OnBnClickedButtonCheck()
-{	
-	OnBnClickedButton(true);
+{    
+    OnBnClickedButton(true);
 }
 
 void CcharsetconvertDlg::OnBnClickedButtonConvert()
 {
-	OnBnClickedButton(false);
+    OnBnClickedButton(false);
 }
 
 void CcharsetconvertDlg::OnBnClickedButton(bool isCheckMode)
 {
-	bool isDirChecked = true;
-	std::wstring fileName;
-	std::wstring filePath;
-	std::wstring fileExt;
-	if (!CheckInput(isDirChecked, fileName, filePath, fileExt))
-	{
-		return;
-	}
-	if (isDirChecked)
-	{
-		fileName.clear();
-	}
-	std::wstring srcFileCharset;
-	std::wstring destFileCharset;
-	bool destFileWriteBOM = false;
+    bool isDirChecked = true;
+    std::wstring fileName;
+    std::wstring filePath;
+    std::wstring fileExt;
+    if (!CheckInput(isDirChecked, fileName, filePath, fileExt))
+    {
+        return;
+    }
+    if (isDirChecked)
+    {
+        fileName.clear();
+    }
+    std::wstring srcFileCharset;
+    std::wstring destFileCharset;
+    bool destFileWriteBOM = false;
 
-	CComboBox* srcBox = ((CComboBox*)GetDlgItem(IDC_COMBO_SRC));
-	int nSel = srcBox->GetCurSel();
-	if (nSel != -1)
-	{
-		TCHAR szText[MAX_PATH] = { 0 };
-		srcBox->GetLBText(nSel, szText);
-		srcFileCharset = szText;
-	}
+    CComboBox* srcBox = ((CComboBox*)GetDlgItem(IDC_COMBO_SRC));
+    int nSel = srcBox->GetCurSel();
+    if (nSel != -1)
+    {
+        TCHAR szText[MAX_PATH] = { 0 };
+        srcBox->GetLBText(nSel, szText);
+        srcFileCharset = szText;
+    }
 
-	CComboBox* destBox = ((CComboBox*)GetDlgItem(IDC_COMBO_DEST));
-	nSel = destBox->GetCurSel();
-	if (nSel != -1)
-	{
-		TCHAR szText[MAX_PATH] = { 0 };
-		destBox->GetLBText(nSel, szText);
-		destFileCharset = szText;
-	}
+    CComboBox* destBox = ((CComboBox*)GetDlgItem(IDC_COMBO_DEST));
+    nSel = destBox->GetCurSel();
+    if (nSel != -1)
+    {
+        TCHAR szText[MAX_PATH] = { 0 };
+        destBox->GetLBText(nSel, szText);
+        destFileCharset = szText;
+    }
 
-	destFileWriteBOM = ((CButton*)GetDlgItem(IDC_CHECK_BOM))->GetCheck() != FALSE;
+    destFileWriteBOM = ((CButton*)GetDlgItem(IDC_CHECK_BOM))->GetCheck() != FALSE;
 
-	RL::CharsetType srcCharset = RL::CharsetType::UNKNOWN;
-	RL::CharsetType destCharset = RL::CharsetType::UNKNOWN;
-	if (srcFileCharset == CHARSET_ANSI)
-	{
-		srcCharset = RL::CharsetType::ANSI;
-	}
-	else if(srcFileCharset == CHARSET_UTF8)
-	{
-		srcCharset = RL::CharsetType::UTF8;
-	}
-	else if (srcFileCharset == CHARSET_UNICODE)
-	{
-		srcCharset = RL::CharsetType::UTF16_LE;
-	}
+    RL::CharsetType srcCharset = RL::CharsetType::UNKNOWN;
+    RL::CharsetType destCharset = RL::CharsetType::UNKNOWN;
+    if (srcFileCharset == CHARSET_ANSI)
+    {
+        srcCharset = RL::CharsetType::ANSI;
+    }
+    else if(srcFileCharset == CHARSET_UTF8)
+    {
+        srcCharset = RL::CharsetType::UTF8;
+    }
+    else if (srcFileCharset == CHARSET_UNICODE)
+    {
+        srcCharset = RL::CharsetType::UTF16_LE;
+    }
 
-	if (destFileCharset == CHARSET_ANSI)
-	{
-		destCharset = RL::CharsetType::ANSI;
-	}
-	else if (destFileCharset == CHARSET_UTF8)
-	{
-		destCharset = RL::CharsetType::UTF8;
-	}
-	else if (destFileCharset == CHARSET_UNICODE)
-	{
-		destCharset = RL::CharsetType::UTF16_LE;
-	}
+    if (destFileCharset == CHARSET_ANSI)
+    {
+        destCharset = RL::CharsetType::ANSI;
+    }
+    else if (destFileCharset == CHARSET_UTF8)
+    {
+        destCharset = RL::CharsetType::UTF8;
+    }
+    else if (destFileCharset == CHARSET_UNICODE)
+    {
+        destCharset = RL::CharsetType::UTF16_LE;
+    }
 
-	//¿ªÊ¼×ª»»
-	TCharsetToolsParam convertParam;
-	convertParam.isCheckMode = isCheckMode;
-	convertParam.isDirChecked = isDirChecked;
-	convertParam.fileName = fileName;
-	convertParam.filePath = filePath;
-	convertParam.fileExt = fileExt;
+    //å¼€å§‹è½¬æ¢
+    TCharsetToolsParam convertParam;
+    convertParam.isCheckMode = isCheckMode;
+    convertParam.isDirChecked = isDirChecked;
+    convertParam.fileName = fileName;
+    convertParam.filePath = filePath;
+    convertParam.fileExt = fileExt;
 
-	convertParam.srcFileCharset = srcCharset;
-	convertParam.destFileCharset = destCharset;
-	convertParam.destFileWriteBOM = destFileWriteBOM;
+    convertParam.srcFileCharset = srcCharset;
+    convertParam.destFileCharset = destCharset;
+    convertParam.destFileWriteBOM = destFileWriteBOM;
 
-	if (m_convertTools.StartConvert(convertParam, this))
-	{
-		((CButton*)GetDlgItem(IDC_BUTTON_CHECK))->EnableWindow(FALSE);
-		((CButton*)GetDlgItem(IDC_BUTTON_CONVERT))->EnableWindow(FALSE);
-	}
+    if (m_convertTools.StartConvert(convertParam, this))
+    {
+        ((CButton*)GetDlgItem(IDC_BUTTON_CHECK))->EnableWindow(FALSE);
+        ((CButton*)GetDlgItem(IDC_BUTTON_CONVERT))->EnableWindow(FALSE);
+    }
 }
 
 bool CcharsetconvertDlg::CheckInput(bool& isDirChecked, std::wstring& fileName, std::wstring& filePath, std::wstring& fileExt)
 {
-	isDirChecked = ((CButton*)GetDlgItem(IDC_RADIO_DIR))->GetCheck() != FALSE;
+    isDirChecked = ((CButton*)GetDlgItem(IDC_RADIO_DIR))->GetCheck() != FALSE;
 
-	TCHAR buffer[MAX_PATH] = {0};
-	((CEdit*)GetDlgItem(IDC_EDIT_FILE))->GetWindowText(buffer, MAX_PATH - 1);
-	fileName = buffer;
+    TCHAR buffer[MAX_PATH] = {0};
+    ((CEdit*)GetDlgItem(IDC_EDIT_FILE))->GetWindowText(buffer, MAX_PATH - 1);
+    fileName = buffer;
 
-	((CEdit*)GetDlgItem(IDC_EDIT_DIR))->GetWindowText(buffer, MAX_PATH - 1);
-	filePath = buffer;
+    ((CEdit*)GetDlgItem(IDC_EDIT_DIR))->GetWindowText(buffer, MAX_PATH - 1);
+    filePath = buffer;
 
-	((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->GetWindowText(buffer, MAX_PATH - 1);
-	fileExt = buffer;
+    ((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->GetWindowText(buffer, MAX_PATH - 1);
+    fileExt = buffer;
 
-	RL::StringUtils::Trim(fileName);
-	RL::StringUtils::Trim(filePath);
-	RL::StringUtils::Trim(fileExt);
+    RL::StringUtils::Trim(fileName);
+    RL::StringUtils::Trim(filePath);
+    RL::StringUtils::Trim(fileExt);
 
-	if (isDirChecked)
-	{
-		if (filePath.empty())
-		{
-			MessageBox(L"ËùÔÚÎÄ¼ş¼ĞÎª¿Õ£¬ÇëÊäÈëÎÄ¼şËùÔÚµÄÎÄ¼ş¼Ğ£¡");
-			return false;
-		}
-		if (fileExt.empty())
-		{
-			MessageBox(L"ÎÄ¼şÀàĞÍÎª¿Õ£¬ÇëÊäÈëÎÄ¼şÀàĞÍ£¡");
-			return false;
-		}
-	}
-	else
-	{
-		if (fileName.empty())
-		{
-			MessageBox(L"µ¥ÎÄ¼şµÄÂ·¾¶Îª¿Õ£¬ÇëÊäÈëµ¥ÎÄ¼şµÄÂ·¾¶£¡");
-			return false;
-		}
-	}
-	return true;
+    if (isDirChecked)
+    {
+        if (filePath.empty())
+        {
+            MessageBox(L"æ‰€åœ¨æ–‡ä»¶å¤¹ä¸ºç©ºï¼Œè¯·è¾“å…¥æ–‡ä»¶æ‰€åœ¨çš„æ–‡ä»¶å¤¹ï¼");
+            return false;
+        }
+        if (fileExt.empty())
+        {
+            MessageBox(L"æ–‡ä»¶ç±»å‹ä¸ºç©ºï¼Œè¯·è¾“å…¥æ–‡ä»¶ç±»å‹ï¼");
+            return false;
+        }
+    }
+    else
+    {
+        if (fileName.empty())
+        {
+            MessageBox(L"å•æ–‡ä»¶çš„è·¯å¾„ä¸ºç©ºï¼Œè¯·è¾“å…¥å•æ–‡ä»¶çš„è·¯å¾„ï¼");
+            return false;
+        }
+    }
+    return true;
 }
 
 bool CcharsetconvertDlg::OnConvertBegin()
 {
-	if (!::IsWindow(m_hWnd))
-	{
-		return false;
-	}
-	std::lock_guard<std::mutex> lock(m_mutex);
-	m_progressData.clear();
+    if (!::IsWindow(m_hWnd))
+    {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_progressData.clear();
 
-	PostMessage(WM_CONVERT_MSG, MSG_CONVERT_Begin, 0);
-	return true;
+    PostMessage(WM_CONVERT_MSG, MSG_CONVERT_Begin, 0);
+    return true;
 }
 
 bool CcharsetconvertDlg::OnConvertProgress(const TProgressData& progressData)
 {
-	if (!::IsWindow(m_hWnd))
-	{
-		return false;
-	}
-	std::lock_guard<std::mutex> lock(m_mutex);
-	m_progressData.push_back(progressData);
+    if (!::IsWindow(m_hWnd))
+    {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(m_mutex);
+    m_progressData.push_back(progressData);
 
-	PostMessage(WM_CONVERT_MSG, MSG_CONVERT_Progress, 0);
-	return true;
+    PostMessage(WM_CONVERT_MSG, MSG_CONVERT_Progress, 0);
+    return true;
 }
 
 bool CcharsetconvertDlg::OnConvertEnd()
 {
-	if (!::IsWindow(m_hWnd))
-	{
-		return false;
-	}
-	std::lock_guard<std::mutex> lock(m_mutex);
+    if (!::IsWindow(m_hWnd))
+    {
+        return false;
+    }
+    std::lock_guard<std::mutex> lock(m_mutex);
 
-	PostMessage(WM_CONVERT_MSG, MSG_CONVERT_End, 0);
-	return true;
+    PostMessage(WM_CONVERT_MSG, MSG_CONVERT_End, 0);
+    return true;
 }
 
 LRESULT CcharsetconvertDlg::OnConvertMessage(WPARAM wParam, LPARAM lParam)
 {
-	std::wstring msg = GetDisplayMsg(wParam);
-	((CStatic*)GetDlgItem(IDC_STATIC_RESULT))->SetWindowText(msg.c_str());
+    std::wstring msg = GetDisplayMsg(wParam);
+    ((CStatic*)GetDlgItem(IDC_STATIC_RESULT))->SetWindowText(msg.c_str());
 
-	if (wParam == MSG_CONVERT_End)
-	{
-		m_convertTools.Terminate();
-		((CButton*)GetDlgItem(IDC_BUTTON_CHECK))->EnableWindow(TRUE);
-		((CButton*)GetDlgItem(IDC_BUTTON_CONVERT))->EnableWindow(TRUE);
-	}
+    if (wParam == MSG_CONVERT_End)
+    {
+        m_convertTools.Terminate();
+        ((CButton*)GetDlgItem(IDC_BUTTON_CHECK))->EnableWindow(TRUE);
+        ((CButton*)GetDlgItem(IDC_BUTTON_CONVERT))->EnableWindow(TRUE);
+    }
     return 0;
 }
 
 std::wstring CcharsetconvertDlg::GetDisplayMsg(WPARAM wParam)
 {
-	std::wstring dispalyMsg;
-	switch (wParam)
-	{
-	case MSG_CONVERT_Begin:
-	{
-		dispalyMsg = L"²Ù×÷¿ªÊ¼ ...";
-	}
-	break;
-	case MSG_CONVERT_Progress:
-	{
-		std::lock_guard<std::mutex> lock(m_mutex);
-		if (!m_progressData.empty() && (m_progressData.back().totalFiles > 0))
-		{
-			const TProgressData& data = m_progressData.back();
-			if (data.isCheckMode)
-			{
-				dispalyMsg = L"ÕıÔÚ¼ì²â ... £¬";
-			}
-			else
-			{
-				dispalyMsg = L"ÕıÔÚ×ª»» ... £¬";
-			}
-			std::wstring msg;
-			RL::StringUtils::Format(msg, L"×ÜÌå½ø¶È£º%u%%£¨%u/%u£©", (data.currentFileIndex + 1)*100/data.totalFiles, data.currentFileIndex + 1, data.totalFiles);
-			dispalyMsg += msg;
+    std::wstring dispalyMsg;
+    switch (wParam)
+    {
+    case MSG_CONVERT_Begin:
+    {
+        dispalyMsg = L"æ“ä½œå¼€å§‹ ...";
+    }
+    break;
+    case MSG_CONVERT_Progress:
+    {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        if (!m_progressData.empty() && (m_progressData.back().totalFiles > 0))
+        {
+            const TProgressData& data = m_progressData.back();
+            if (data.isCheckMode)
+            {
+                dispalyMsg = L"æ­£åœ¨æ£€æµ‹ ... ï¼Œ";
+            }
+            else
+            {
+                dispalyMsg = L"æ­£åœ¨è½¬æ¢ ... ï¼Œ";
+            }
+            std::wstring msg;
+            RL::StringUtils::Format(msg, L"æ€»ä½“è¿›åº¦ï¼š%u%%ï¼ˆ%u/%uï¼‰", (data.currentFileIndex + 1)*100/data.totalFiles, data.currentFileIndex + 1, data.totalFiles);
+            dispalyMsg += msg;
 
-			RL::StringUtils::Format(msg, L"µ±Ç°ÎÄ¼ş£º%s", data.fileName.c_str());
-			dispalyMsg += L"\n";
-			dispalyMsg += msg;
+            RL::StringUtils::Format(msg, L"å½“å‰æ–‡ä»¶ï¼š%s", data.fileName.c_str());
+            dispalyMsg += L"\n";
+            dispalyMsg += msg;
 
-			RL::StringUtils::Format(msg, L"±àÂëĞÅÏ¢£º%s", CharsetTools::GetCharsetMsg(data).c_str());
-			dispalyMsg += L"\n";
-			dispalyMsg += msg;
+            RL::StringUtils::Format(msg, L"ç¼–ç ä¿¡æ¯ï¼š%s", CharsetTools::GetCharsetMsg(data).c_str());
+            dispalyMsg += L"\n";
+            dispalyMsg += msg;
 
-			std::wstring errMsg = CharsetTools::GetErrMsg(data);
-			if (!errMsg.empty())
-			{
-				RL::StringUtils::Format(msg, L"´íÎóĞÅÏ¢£º%s", errMsg.c_str());
-				dispalyMsg += L"\n";
-				dispalyMsg += msg;
-			}
-		}
-	}
-	break;
-	case MSG_CONVERT_End:
-	{
-		std::lock_guard<std::mutex> lock(m_mutex);
-		if (!m_progressData.empty() && (m_progressData.back().totalFiles > 0))
-		{
-			const TProgressData& data = m_progressData.back();
-			if (data.isCheckMode)
-			{
-				dispalyMsg = L"¼ì²â½á¹û£º";
-			}
-			else
-			{
-				dispalyMsg = L"×ª»»½á¹û£º";
-			}
+            std::wstring errMsg = CharsetTools::GetErrMsg(data);
+            if (!errMsg.empty())
+            {
+                RL::StringUtils::Format(msg, L"é”™è¯¯ä¿¡æ¯ï¼š%s", errMsg.c_str());
+                dispalyMsg += L"\n";
+                dispalyMsg += msg;
+            }
+        }
+    }
+    break;
+    case MSG_CONVERT_End:
+    {
+        std::lock_guard<std::mutex> lock(m_mutex);
+        if (!m_progressData.empty() && (m_progressData.back().totalFiles > 0))
+        {
+            const TProgressData& data = m_progressData.back();
+            if (data.isCheckMode)
+            {
+                dispalyMsg = L"æ£€æµ‹ç»“æœï¼š";
+            }
+            else
+            {
+                dispalyMsg = L"è½¬æ¢ç»“æœï¼š";
+            }
 
-			uint32_t successCount = 0;
-			for (const auto& progress : m_progressData)
-			{
-				if ((progress.result == 0) || (progress.result == 1))
-				{
-					++successCount;
-				}
-			}
+            uint32_t successCount = 0;
+            for (const auto& progress : m_progressData)
+            {
+                if ((progress.result == 0) || (progress.result == 1))
+                {
+                    ++successCount;
+                }
+            }
 
-			std::wstring msg;
-			RL::StringUtils::Format(msg, L"×ÜÎÄ¼şÊı£º%u£¬³É¹¦ÎÄ¼şÊı£º%u£¬³É¹¦ÂÊ£º%u%%", data.totalFiles, successCount, successCount*100 / data.totalFiles);
-			dispalyMsg += msg;
+            std::wstring msg;
+            RL::StringUtils::Format(msg, L"æ€»æ–‡ä»¶æ•°ï¼š%uï¼ŒæˆåŠŸæ–‡ä»¶æ•°ï¼š%uï¼ŒæˆåŠŸç‡ï¼š%u%%", data.totalFiles, successCount, successCount*100 / data.totalFiles);
+            dispalyMsg += msg;
 
-			std::map<std::wstring, int> charsetMap;
-			for (const auto& progress : m_progressData)
-			{
-				std::wstring charsetMsg = CharsetTools::GetCharsetTypeMsg(progress.srcFileCharset);
-				auto iter = charsetMap.find(charsetMsg);
-				if (iter == charsetMap.end())
-				{
-					charsetMap[charsetMsg] = 1;
-				}
-				else
-				{
-					++iter->second;
-				}
-			}
+            std::map<std::wstring, int> charsetMap;
+            for (const auto& progress : m_progressData)
+            {
+                std::wstring charsetMsg = CharsetTools::GetCharsetTypeMsg(progress.srcFileCharset);
+                auto iter = charsetMap.find(charsetMsg);
+                if (iter == charsetMap.end())
+                {
+                    charsetMap[charsetMsg] = 1;
+                }
+                else
+                {
+                    ++iter->second;
+                }
+            }
 
-			if (!charsetMap.empty())
-			{
-				dispalyMsg += L"\nÔ´ÎÄ¼ş±àÂëĞÅÏ¢£º";
-			}			
-			for (const auto& charsetIter : charsetMap)
-			{
-				RL::StringUtils::Format(msg, L"%s(%d) ", charsetIter.first.c_str(), charsetIter.second);
-				dispalyMsg += msg;				
-			}
-		}
-	}
-	break;
-	default:
-		break;
-	}
-	return dispalyMsg;
+            if (!charsetMap.empty())
+            {
+                dispalyMsg += L"\næºæ–‡ä»¶ç¼–ç ä¿¡æ¯ï¼š";
+            }            
+            for (const auto& charsetIter : charsetMap)
+            {
+                RL::StringUtils::Format(msg, L"%s(%d) ", charsetIter.first.c_str(), charsetIter.second);
+                dispalyMsg += msg;                
+            }
+        }
+    }
+    break;
+    default:
+        break;
+    }
+    return dispalyMsg;
 }

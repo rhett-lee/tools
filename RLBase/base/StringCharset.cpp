@@ -142,16 +142,16 @@ bool StringCharset::GetDataAsString(const char* data, uint32_t length, CharsetTy
         {            
             if (bomSize > 0)
             {
-                //Êı¾İ°üº¬BOMÍ·Ç©Ãû£¬²¢ÇÒÖ¸¶¨¸ñÊ½ÓëÊµ¼Ê¸ñÊ½²»Í¬£¬±¨´í
+                //æ•°æ®åŒ…å«BOMå¤´ç­¾åï¼Œå¹¶ä¸”æŒ‡å®šæ ¼å¼ä¸å®é™…æ ¼å¼ä¸åŒï¼ŒæŠ¥é”™
                 return false;
             }
             else
             {
-                //Èç¹ûÎŞBOMÍ·Ç©Ãû£¬ÔòÇ¿ÖÆÒÔinCharsetType´¦ÀíºóĞøÊı¾İ                
+                //å¦‚æœæ— BOMå¤´ç­¾åï¼Œåˆ™å¼ºåˆ¶ä»¥inCharsetTypeå¤„ç†åç»­æ•°æ®                
                 CharsetType checkCharsetType = GetDataCharset(data, length);
                 if (inCharsetType != checkCharsetType)
                 {
-                    //Ö¸¶¨µÄÊı¾İÁ÷±àÂëÓëÊµ¼ÊÎÄ¼şÊı¾İ¼ì²âµ½µÄ±àÂë²»Í¬
+                    //æŒ‡å®šçš„æ•°æ®æµç¼–ç ä¸å®é™…æ–‡ä»¶æ•°æ®æ£€æµ‹åˆ°çš„ç¼–ç ä¸åŒ
                     return false;
                 }
                 outCharsetType = inCharsetType;
@@ -162,7 +162,7 @@ bool StringCharset::GetDataAsString(const char* data, uint32_t length, CharsetTy
     assert(bomSize <= length);
     if (outCharsetType == CharsetType::UNKNOWN)
     {
-        //Èç¹û°´BOMÍ·¼ì²âÊ§°Ü£¬Ôò¼ì²âÊı¾İÁ÷
+        //å¦‚æœæŒ‰BOMå¤´æ£€æµ‹å¤±è´¥ï¼Œåˆ™æ£€æµ‹æ•°æ®æµ
         outCharsetType = GetDataCharset(data, length);
     }
     const char* realData = data + bomSize;
@@ -182,7 +182,7 @@ bool StringCharset::GetDataAsString(const char* data, uint32_t length, CharsetTy
     }
     else if (outCharsetType == CharsetType::UTF16_BE)
     {
-        // ½«µ±Ç°×Ö·ûµÄ×Ö½ÚĞò·´×ª£¬²¢½«Æä´æ´¢µ½Êä³öLE±àÂëµÄ×Ö·û´®ÖĞ
+        // å°†å½“å‰å­—ç¬¦çš„å­—èŠ‚åºåè½¬ï¼Œå¹¶å°†å…¶å­˜å‚¨åˆ°è¾“å‡ºLEç¼–ç çš„å­—ç¬¦ä¸²ä¸­
         uint32_t dataSize = realLen / sizeof(wchar_t);
         result.reserve(dataSize + 1);
         const wchar_t* dataBE = (const wchar_t*)realData;
@@ -205,23 +205,23 @@ bool StringCharset::IsValidateASCIIStream(const char* stream, uint32_t length)
         return false;
     }
 
-    // ±éÀúÁ÷
+    // éå†æµ
     for (uint32_t i = 0; i < length; i++) 
     {
-        // ¼ì²éµ±Ç°×Ö½ÚÊÇ·ñÎªASCII×Ö·û
+        // æ£€æŸ¥å½“å‰å­—èŠ‚æ˜¯å¦ä¸ºASCIIå­—ç¬¦
         if (stream[i] >= 0 && stream[i] <= 127) 
         {
-            // Èç¹ûÊÇ£¬¼ÌĞø±éÀú
+            // å¦‚æœæ˜¯ï¼Œç»§ç»­éå†
             continue;
         }
         else 
         {
-            // Èç¹û²»ÊÇ£¬·µ»Øfalse
+            // å¦‚æœä¸æ˜¯ï¼Œè¿”å›false
             return false;
         }
     }
 
-    // Èç¹ûÎÒÃÇÔÚÕû¸öÁ÷ÖĞÃ»ÓĞÕÒµ½·ÇASCII×Ö·û£¬Ôò·µ»Øtrue
+    // å¦‚æœæˆ‘ä»¬åœ¨æ•´ä¸ªæµä¸­æ²¡æœ‰æ‰¾åˆ°éASCIIå­—ç¬¦ï¼Œåˆ™è¿”å›true
     return true;
 }
 
@@ -262,19 +262,19 @@ bool StringCharset::IsValidateUTF8Stream(const char* stream, uint32_t length)
     {
         return false;
     }
-    // ±éÀúÁ÷ÖĞµÄÃ¿¸ö×Ö½Ú
+    // éå†æµä¸­çš„æ¯ä¸ªå­—èŠ‚
     for (uint32_t i = 0; i < length; i++)
     {
-        // Èç¹ûµ±Ç°×Ö½ÚÊÇ ASCII ×Ö·û£¬Ôò¼ÌĞø±éÀúÏÂÒ»¸ö×Ö½Ú
+        // å¦‚æœå½“å‰å­—èŠ‚æ˜¯ ASCII å­—ç¬¦ï¼Œåˆ™ç»§ç»­éå†ä¸‹ä¸€ä¸ªå­—èŠ‚
         if ((stream[i] & 0x80) == 0x00)
         {
             continue;
         }
-        // Èç¹ûµ±Ç°×Ö½ÚÊÇ UTF-8 ±àÂëµÄ¶à×Ö½Ú×Ö·ûµÄµÚÒ»¸ö×Ö½Ú£¬Ôò¼ÆËã¸Ã×Ö·ûµÄ×Ö½ÚÊı
+        // å¦‚æœå½“å‰å­—èŠ‚æ˜¯ UTF-8 ç¼–ç çš„å¤šå­—èŠ‚å­—ç¬¦çš„ç¬¬ä¸€ä¸ªå­—èŠ‚ï¼Œåˆ™è®¡ç®—è¯¥å­—ç¬¦çš„å­—èŠ‚æ•°
         else if ((stream[i] & 0xE0) == 0xC0)
         {
             uint32_t numBytes = 2;
-            // ¼ì²éºóĞø×Ö½ÚÊÇ·ñ¶¼ÊÇ¸Ã×Ö·ûµÄÓĞĞ§×Ö½Ú
+            // æ£€æŸ¥åç»­å­—èŠ‚æ˜¯å¦éƒ½æ˜¯è¯¥å­—ç¬¦çš„æœ‰æ•ˆå­—èŠ‚
             for (uint32_t j = 1; j < numBytes; j++)
             {
                 if ((i + j >= length) || ((stream[i + j] & 0xC0) != 0x80))
@@ -282,14 +282,14 @@ bool StringCharset::IsValidateUTF8Stream(const char* stream, uint32_t length)
                     return false;
                 }
             }
-            // Èç¹ûËùÓĞ×Ö½Ú¶¼ÊÇ¸Ã×Ö·ûµÄÓĞĞ§×Ö½Ú£¬Ôò¼ÌĞø±éÀúÏÂÒ»¸ö×Ö·û
+            // å¦‚æœæ‰€æœ‰å­—èŠ‚éƒ½æ˜¯è¯¥å­—ç¬¦çš„æœ‰æ•ˆå­—èŠ‚ï¼Œåˆ™ç»§ç»­éå†ä¸‹ä¸€ä¸ªå­—ç¬¦
             i += numBytes - 1;
             continue;
         }
         else if ((stream[i] & 0xF0) == 0xE0)
         {
             uint32_t numBytes = 3;
-            // ¼ì²éºóĞø×Ö½ÚÊÇ·ñ¶¼ÊÇ¸Ã×Ö·ûµÄÓĞĞ§×Ö½Ú
+            // æ£€æŸ¥åç»­å­—èŠ‚æ˜¯å¦éƒ½æ˜¯è¯¥å­—ç¬¦çš„æœ‰æ•ˆå­—èŠ‚
             for (uint32_t j = 1; j < numBytes; ++j)
             {
                 if ((i + j >= length) || ((stream[i + j] & 0xC0) != 0x80))
@@ -297,14 +297,14 @@ bool StringCharset::IsValidateUTF8Stream(const char* stream, uint32_t length)
                     return false;
                 }
             }
-            // Èç¹ûËùÓĞ×Ö½Ú¶¼ÊÇ¸Ã×Ö·ûµÄÓĞĞ§×Ö½Ú£¬Ôò¼ÌĞø±éÀúÏÂÒ»¸ö×Ö·û
+            // å¦‚æœæ‰€æœ‰å­—èŠ‚éƒ½æ˜¯è¯¥å­—ç¬¦çš„æœ‰æ•ˆå­—èŠ‚ï¼Œåˆ™ç»§ç»­éå†ä¸‹ä¸€ä¸ªå­—ç¬¦
             i += numBytes - 1;
             continue;
         }
         else if ((stream[i] & 0xF8) == 0xF0)
         {
             uint32_t numBytes = 4;
-            // ¼ì²éºóĞø×Ö½ÚÊÇ·ñ¶¼ÊÇ¸Ã×Ö·ûµÄÓĞĞ§×Ö½Ú
+            // æ£€æŸ¥åç»­å­—èŠ‚æ˜¯å¦éƒ½æ˜¯è¯¥å­—ç¬¦çš„æœ‰æ•ˆå­—èŠ‚
             for (uint32_t j = 1; j < numBytes; ++j)
             {
                 if ((i + j >= length) || ((stream[i + j] & 0xC0) != 0x80))
@@ -312,17 +312,17 @@ bool StringCharset::IsValidateUTF8Stream(const char* stream, uint32_t length)
                     return false;
                 }
             }
-            // Èç¹ûËùÓĞ×Ö½Ú¶¼ÊÇ¸Ã×Ö·ûµÄÓĞĞ§×Ö½Ú£¬Ôò¼ÌĞø±éÀúÏÂÒ»¸ö×Ö·û
+            // å¦‚æœæ‰€æœ‰å­—èŠ‚éƒ½æ˜¯è¯¥å­—ç¬¦çš„æœ‰æ•ˆå­—èŠ‚ï¼Œåˆ™ç»§ç»­éå†ä¸‹ä¸€ä¸ªå­—ç¬¦
             i += numBytes - 1;
             continue;
         }
-        // Èç¹ûµ±Ç°×Ö½ÚÊÇ UTF-8 ±àÂëµÄ¶à×Ö½Ú×Ö·ûµÄµÚÒ»¸ö×Ö½Ú£¬Ôò¼ÆËã¸Ã×Ö·ûµÄ×Ö½ÚÊı
+        // å¦‚æœå½“å‰å­—èŠ‚æ˜¯ UTF-8 ç¼–ç çš„å¤šå­—èŠ‚å­—ç¬¦çš„ç¬¬ä¸€ä¸ªå­—èŠ‚ï¼Œåˆ™è®¡ç®—è¯¥å­—ç¬¦çš„å­—èŠ‚æ•°
         else
         {
             return false;
         }
     }
-    // Èç¹ûËùÓĞ×Ö½Ú¶¼ÊÇÓĞĞ§µÄ UTF-8 ±àÂë£¬Ôò·µ»Ø true
+    // å¦‚æœæ‰€æœ‰å­—èŠ‚éƒ½æ˜¯æœ‰æ•ˆçš„ UTF-8 ç¼–ç ï¼Œåˆ™è¿”å› true
     return true;
 }
 
@@ -332,38 +332,38 @@ bool StringCharset::IsValidateUTF16LEStream(const char* stream, uint32_t length)
     {
         return false;
     }
-    // ÔÚ UTF-16LE ±àÂëÖĞ£¬Ã¿¸ö×Ö·ûÕ¼ÓÃ 2 ¸ö×Ö½Ú
-    // Òò´Ë£¬Á÷µÄ³¤¶È±ØĞëÊÇ 2 µÄ±¶Êı
+    // åœ¨ UTF-16LE ç¼–ç ä¸­ï¼Œæ¯ä¸ªå­—ç¬¦å ç”¨ 2 ä¸ªå­—èŠ‚
+    // å› æ­¤ï¼Œæµçš„é•¿åº¦å¿…é¡»æ˜¯ 2 çš„å€æ•°
     if (length % 2 != 0) 
     {
         return false;
     }
 
-    // ±éÀúÁ÷ÖĞµÄÃ¿¸ö×Ö·û
+    // éå†æµä¸­çš„æ¯ä¸ªå­—ç¬¦
     for (uint32_t i = 0; i < length; i += 2)
     {
-        // Èç¹ûµ±Ç°×Ö·ûÊÇ´úÀí¶ÔµÄµÚÒ»¸ö×Ö·û£¬Ôò¼ì²éÏÂÒ»¸ö×Ö·ûÊÇ·ñÎª´úÀí¶ÔµÄµÚ¶ş¸ö×Ö·û
+        // å¦‚æœå½“å‰å­—ç¬¦æ˜¯ä»£ç†å¯¹çš„ç¬¬ä¸€ä¸ªå­—ç¬¦ï¼Œåˆ™æ£€æŸ¥ä¸‹ä¸€ä¸ªå­—ç¬¦æ˜¯å¦ä¸ºä»£ç†å¯¹çš„ç¬¬äºŒä¸ªå­—ç¬¦
         if ((stream[i + 1] & 0xFC) == 0xD8)
         {
             if (((i + 3) < length) && ((stream[i + 3] & 0xFC) == 0xDC)) 
             {
-                // Èç¹ûÊÇ´úÀí¶Ô£¬Ôò¼ÌĞø±éÀúÏÂÒ»¸ö×Ö·û
+                // å¦‚æœæ˜¯ä»£ç†å¯¹ï¼Œåˆ™ç»§ç»­éå†ä¸‹ä¸€ä¸ªå­—ç¬¦
                 i += 2;
                 continue;
             }
             else 
             {
-                // Èç¹û²»ÊÇ´úÀí¶Ô£¬Ôò·µ»Ø false
+                // å¦‚æœä¸æ˜¯ä»£ç†å¯¹ï¼Œåˆ™è¿”å› false
                 return false;
             }
         }
-        // Èç¹ûµ±Ç°×Ö·ûÊÇ´úÀí¶ÔµÄµÚ¶ş¸ö×Ö·û£¬Ôò·µ»Ø false
+        // å¦‚æœå½“å‰å­—ç¬¦æ˜¯ä»£ç†å¯¹çš„ç¬¬äºŒä¸ªå­—ç¬¦ï¼Œåˆ™è¿”å› false
         else if ((stream[i + 1] & 0xFC) == 0xDC) 
         {
             return false;
         }
     }
-    // Èç¹ûËùÓĞ×Ö·û¶¼ÊÇÓĞĞ§µÄ UTF-16LE ±àÂë£¬Ôò·µ»Ø true
+    // å¦‚æœæ‰€æœ‰å­—ç¬¦éƒ½æ˜¯æœ‰æ•ˆçš„ UTF-16LE ç¼–ç ï¼Œåˆ™è¿”å› true
     return true;
 }
 
@@ -373,36 +373,36 @@ bool StringCharset::IsValidateUTF16BEStream(const char* stream, uint32_t length)
     {
         return false;
     }
-    // ÔÚ UTF-16BE ±àÂëÖĞ£¬Ã¿¸ö×Ö·ûÕ¼ÓÃ 2 ¸ö×Ö½Ú
-    // Òò´Ë£¬Á÷µÄ³¤¶È±ØĞëÊÇ 2 µÄ±¶Êı
+    // åœ¨ UTF-16BE ç¼–ç ä¸­ï¼Œæ¯ä¸ªå­—ç¬¦å ç”¨ 2 ä¸ªå­—èŠ‚
+    // å› æ­¤ï¼Œæµçš„é•¿åº¦å¿…é¡»æ˜¯ 2 çš„å€æ•°
     if (length % 2 != 0) 
     {
         return false;
     }
-    // ±éÀúÁ÷ÖĞµÄÃ¿¸ö×Ö·û
+    // éå†æµä¸­çš„æ¯ä¸ªå­—ç¬¦
     for (uint32_t i = 0; i < length; i += 2)
     {
         if ((stream[i] & 0xFC) == 0xD8) 
         {
             if (((i + 2) < length) && ((stream[i + 2] & 0xFC) == 0xDC)) 
             {
-                // Èç¹ûÊÇ´úÀí¶Ô£¬Ôò¼ÌĞø±éÀúÏÂÒ»¸ö×Ö·û
+                // å¦‚æœæ˜¯ä»£ç†å¯¹ï¼Œåˆ™ç»§ç»­éå†ä¸‹ä¸€ä¸ªå­—ç¬¦
                 i += 2;
                 continue;
             }
             else 
             {
-                // Èç¹û²»ÊÇ´úÀí¶Ô£¬Ôò·µ»Ø false
+                // å¦‚æœä¸æ˜¯ä»£ç†å¯¹ï¼Œåˆ™è¿”å› false
                 return false;
             }
         }
-        // Èç¹ûµ±Ç°×Ö·ûÊÇ´úÀí¶ÔµÄµÚ¶ş¸ö×Ö·û£¬Ôò·µ»Ø false
+        // å¦‚æœå½“å‰å­—ç¬¦æ˜¯ä»£ç†å¯¹çš„ç¬¬äºŒä¸ªå­—ç¬¦ï¼Œåˆ™è¿”å› false
         else if ((stream[i] & 0xFC) == 0xDC) 
         {
             return false;
         }
     }
-    // Èç¹ûËùÓĞ×Ö·û¶¼ÊÇÓĞĞ§µÄ UTF-16BE ±àÂë£¬Ôò·µ»Ø true
+    // å¦‚æœæ‰€æœ‰å­—ç¬¦éƒ½æ˜¯æœ‰æ•ˆçš„ UTF-16BE ç¼–ç ï¼Œåˆ™è¿”å› true
     return true;
 }
 

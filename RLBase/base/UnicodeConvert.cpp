@@ -69,7 +69,7 @@ std::wstring UnicodeConvert::DoMultiByteToUnicode(const char* src, int32_t len,u
     {
         return std::wstring();
     }
-    //对小字符串进行特殊处理，以提高性能
+    //瀵瑰皬瀛楃涓茶繘琛岀壒娈婂鐞嗭紝浠ユ彁楂樻�ц兘
     const uint32_t shortStrLen = 128;
     if (len < (shortStrLen - 8))
     {
@@ -155,7 +155,7 @@ std::string UnicodeConvert::DoUnicodeToMultiByte(const std::wstring::value_type*
         defaultChar = 0;
     }
 
-    //对小字符串进行特殊处理，以提高性能
+    //瀵瑰皬瀛楃涓茶繘琛岀壒娈婂鐞嗭紝浠ユ彁楂樻�ц兘
     const int32_t shortStrLen = 128;
     if (srcLen < (shortStrLen - 8))
     {

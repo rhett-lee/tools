@@ -54,7 +54,7 @@ void StringUtils::Trim(std::wstring& str, const wchar_t* value)
     {
         return;
     }
-    // ȥ��ǰ���ո��Ʊ��������з����س�������ҳ���ʹ�ֱ�Ʊ���
+    // 去除前导空格、制表符、换行符、回车符、换页符和垂直制表符
     size_t start = str.find_first_not_of(value);
     if (start != std::wstring::npos)
     {
@@ -66,7 +66,7 @@ void StringUtils::Trim(std::wstring& str, const wchar_t* value)
         return;
     }
 
-    // ȥ��β���ո��Ʊ��������з����س�������ҳ���ʹ�ֱ�Ʊ�����
+    // 去除尾部空格、制表符、换行符、回车符、换页符和垂直制表符等
     size_t end = str.find_last_not_of(value);
     if (end != std::wstring::npos)
     {
