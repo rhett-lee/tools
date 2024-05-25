@@ -148,7 +148,7 @@ BOOL CcharsetconvertDlg::OnInitDialog()
 
 	((CButton*)GetDlgItem(IDC_RADIO_FILE))->SetCheck(FALSE); //不选
 	((CButton*)GetDlgItem(IDC_RADIO_DIR))->SetCheck(TRUE); //选上
-	((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->SetWindowText(L"*.h;*.cpp");
+	((CEdit*)GetDlgItem(IDC_EDIT_FILE_EXT))->SetWindowText(L"*.c,*.c++,*.cc,*.cpp,*.cppm,*.cxx,*.h,*.h++,*.hh,*.hpp,*.hxx,*.inl,*.ipp,*.ixx,*.tlh,*.tli");
 	UpdateEditConstrolStatus();
 
 	((CStatic*)GetDlgItem(IDC_STATIC_RESULT))->SetWindowText(L"");
