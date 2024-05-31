@@ -124,8 +124,19 @@ void CharsetTools::RunConvertThread()
             data.result = 20;
             if (destFileCharset != RL::CharsetType::UNKNOWN)
             {
+#if 0
+                //执行替换
+                bool isOk = true;
+                bool bRet = false;
+                //bRet = ConvertTextData2(fileText);
+                //按目标编码，写入文件
+                if (bRet) {
+                    isOk = RL::TextFile::WriteData(data.fileName, fileText, destFileCharset, destFileWriteBOM);
+                }
+#else                
                 //按目标编码，写入文件
                 bool isOk = RL::TextFile::WriteData(data.fileName, fileText, destFileCharset, destFileWriteBOM);
+#endif
                 if (isOk)
                 {
                     data.result = 0;
@@ -143,6 +154,64 @@ void CharsetTools::RunConvertThread()
     {
         return;
     }
+}
+
+bool CharsetTools::ConvertTextData1(std::wstring& fileText)
+{
+    //函数功能：将 L"AA" 替换成 _T("AA"), 替换完成后发现一些错误，需要手工修正，比如 L"\""替换后变成_T("\")"了
+    bool bRet = false;
+    const std::wstring from = L"L\"";
+    const std::wstring to = L"_T(\"";
+    const std::wstring from2 = L"\"";
+    const std::wstring to2 = L"\")";
+
+    std::wstring::size_type beginPos = 0;
+    std::wstring::size_type pos = fileText.find(from, beginPos);
+    while (std::wstring::npos != pos)
+    {
+        //替换左侧
+        fileText.replace(pos, from.size(), to);
+        beginPos = pos + to.size();
+        //替换右侧
+        std::wstring::size_type pos2 = fileText.find(from2, beginPos);
+        if (pos2 != std::wstring::npos) {
+            fileText.replace(pos2, from2.size(), to2);
+        }
+
+        //查找下一个
+        pos = fileText.find(from, beginPos);
+        bRet = true;
+    }
+    return bRet;
+}
+
+bool CharsetTools::ConvertTextData2(std::wstring& fileText)
+{
+    //函数功能：将 L'A' 替换成 _T('A'), 替换完成后发现一些错误，需要手工修正，比如 L'\''替换后变成_T('\')'了
+    bool bRet = false;
+    const std::wstring from = L"L\'";
+    const std::wstring to = L"_T(\'";
+    const std::wstring from2 = L"\'";
+    const std::wstring to2 = L"\')";
+
+    std::wstring::size_type beginPos = 0;
+    std::wstring::size_type pos = fileText.find(from, beginPos);
+    while (std::wstring::npos != pos)
+    {
+        //替换左侧
+        fileText.replace(pos, from.size(), to);
+        beginPos = pos + to.size();
+        //替换右侧
+        std::wstring::size_type pos2 = fileText.find(from2, beginPos);
+        if (pos2 != std::wstring::npos) {
+            fileText.replace(pos2, from2.size(), to2);
+        }
+
+        //查找下一个
+        pos = fileText.find(from, beginPos);
+        bRet = true;
+    }
+    return bRet;
 }
 
 void CharsetTools::Terminate()

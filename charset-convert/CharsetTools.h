@@ -73,6 +73,10 @@ public:
 private:
     void RunConvertThread();
 
+    //执行文本内容替换
+    bool ConvertTextData1(std::wstring& fileText);
+    bool ConvertTextData2(std::wstring& fileText);
+
 private:
     TCharsetToolsParam m_convertParam;
     CharsetToolsCallback* m_callback;
